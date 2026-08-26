@@ -1,0 +1,2754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CleanCity - Solid Waste Management System</title>
+
+<style>
+
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f5f7fa;
+    color:#263238;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.container{
+    width:88%;
+    max-width:1200px;
+    margin:auto;
+}
+
+section{
+    min-height:500px;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+    background:#14532d;
+    color:white;
+    padding:17px 6%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 3px 15px rgba(0,0,0,.2);
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#86efac;
+}
+
+.nav-links{
+    list-style:none;
+    display:flex;
+    gap:20px;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.nav-links a:hover{
+    color:#86efac;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:560px;
+    display:flex;
+    align-items:center;
+
+    background:
+    linear-gradient(
+        120deg,
+        #14532d,
+        #166534,
+        #15803d
+    );
+
+    color:white;
+}
+
+.hero-content{
+    width:88%;
+    max-width:1200px;
+    margin:auto;
+}
+
+.hero h1{
+    font-size:52px;
+    max-width:700px;
+    margin-bottom:20px;
+}
+
+.hero h1 span{
+    color:#86efac;
+}
+
+.hero p{
+    max-width:650px;
+    line-height:1.8;
+    color:#dcfce7;
+    font-size:18px;
+}
+
+.hero-buttons{
+    margin-top:25px;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn{
+    border:none;
+    padding:12px 21px;
+    border-radius:7px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.btn-green{
+    background:#22c55e;
+    color:white;
+}
+
+.btn-green:hover{
+    background:#16a34a;
+}
+
+.btn-dark{
+    background:#14532d;
+    color:white;
+}
+
+.btn-blue{
+    background:#2563eb;
+    color:white;
+}
+
+.btn-red{
+    background:#dc2626;
+    color:white;
+}
+
+.btn-orange{
+    background:#f59e0b;
+    color:white;
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+    padding:60px 0;
+}
+
+.title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.title h2{
+    color:#14532d;
+    font-size:32px;
+}
+
+.title p{
+    margin-top:8px;
+    color:#6b7280;
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+
+.stat{
+    background:white;
+    padding:28px;
+    text-align:center;
+    border-radius:12px;
+    box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+.stat-icon{
+    font-size:35px;
+    margin-bottom:10px;
+}
+
+.stat h2{
+    color:#14532d;
+    font-size:30px;
+}
+
+.stat p{
+    color:#6b7280;
+    margin-top:5px;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.card-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(230px,1fr));
+    gap:22px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+.card:hover{
+    transform:translateY(-3px);
+    transition:.2s;
+}
+
+.card h3{
+    color:#14532d;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#6b7280;
+    line-height:1.6;
+}
+
+.card-icon{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+
+/* =========================
+   FORMS
+========================= */
+
+.form-container{
+    max-width:550px;
+    margin:50px auto;
+    background:white;
+    padding:35px;
+    border-radius:13px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.form-container h2{
+    text-align:center;
+    margin-bottom:25px;
+    color:#14532d;
+}
+
+.form-group{
+    margin-bottom:17px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    padding:13px;
+    border:1px solid #d1d5db;
+    border-radius:7px;
+    outline:none;
+}
+
+.form-group textarea{
+    resize:vertical;
+    min-height:100px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+    border-color:#22c55e;
+}
+
+.form-container .btn{
+    width:100%;
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard-header{
+    background:#14532d;
+    color:white;
+    padding:38px 0;
+}
+
+.dashboard-header h1{
+    margin-bottom:7px;
+}
+
+.dashboard-header p{
+    color:#dcfce7;
+}
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin:35px 0;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table-box{
+    background:white;
+    border-radius:10px;
+    overflow-x:auto;
+    box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:14px;
+    text-align:left;
+    border-bottom:1px solid #e5e7eb;
+}
+
+th{
+    background:#14532d;
+    color:white;
+}
+
+tr:hover{
+    background:#f0fdf4;
+}
+
+
+/* =========================
+   BADGES
+========================= */
+
+.badge{
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.active{
+    background:#dcfce7;
+    color:#15803d;
+}
+
+.pending{
+    background:#fef3c7;
+    color:#b45309;
+}
+
+.completed{
+    background:#dbeafe;
+    color:#1d4ed8;
+}
+
+.rejected{
+    background:#fee2e2;
+    color:#b91c1c;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box{
+    display:flex;
+    gap:10px;
+    margin-bottom:30px;
+}
+
+.search-box input{
+    flex:1;
+    padding:14px;
+    border:1px solid #d1d5db;
+    border-radius:7px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    background:#14532d;
+    color:white;
+    text-align:center;
+    padding:30px;
+    margin-top:40px;
+}
+
+footer p{
+    color:#bbf7d0;
+    margin-top:8px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:800px){
+
+    .navbar{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .nav-links{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .hero h1{
+        font-size:37px;
+    }
+
+    .search-box{
+        flex-direction:column;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        ♻️ Clean<span>City</span>
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+            <a onclick="showPage('home')">
+                Home
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('bins')">
+                Garbage Bins
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('complaint')">
+                Complaint
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('public')">
+                My Account
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('admin')">
+                Admin
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('driver')">
+                Driver
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('login')">
+                Login
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section id="home" class="page active">
+
+    <div class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+                Build a Cleaner
+                <span>CleanCity</span>
+            </h1>
+
+            <p>
+                Smart solid waste management system for
+                efficient garbage collection, route planning,
+                complaint management and waste monitoring.
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="btn btn-green"
+                        onclick="showPage('complaint')">
+
+                    📝 Register Complaint
+
+                </button>
+
+                <button class="btn btn-dark"
+                        onclick="showPage('bins')">
+
+                    🗑️ View Garbage Bins
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="container">
+
+            <div class="title">
+
+                <h2>
+                    CleanCity at a Glance
+                </h2>
+
+                <p>
+                    Smart waste collection and management
+                </p>
+
+            </div>
+
+
+            <div class="stats">
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">
+                        🗑️
+                    </div>
+
+                    <h2>
+                        250
+                    </h2>
+
+                    <p>
+                        Garbage Bins
+                    </p>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">
+                        🚛
+                    </div>
+
+                    <h2>
+                        45
+                    </h2>
+
+                    <p>
+                        Garbage Trucks
+                    </p>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">
+                        👨‍✈️
+                    </div>
+
+                    <h2>
+                        38
+                    </h2>
+
+                    <p>
+                        Drivers
+                    </p>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">
+                        ♻️
+                    </div>
+
+                    <h2>
+                        92%
+                    </h2>
+
+                    <p>
+                        Collection Efficiency
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="container">
+
+            <div class="title">
+
+                <h2>
+                    Our Services
+                </h2>
+
+                <p>
+                    Efficient solid waste management solutions
+                </p>
+
+            </div>
+
+
+            <div class="card-grid">
+
+
+                <div class="card">
+
+                    <div class="card-icon">
+                        🗑️
+                    </div>
+
+                    <h3>
+                        Garbage Bin Management
+                    </h3>
+
+                    <p>
+                        Monitor garbage bins and maintain
+                        their locations and status.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon">
+                        🚛
+                    </div>
+
+                    <h3>
+                        Smart Route Planning
+                    </h3>
+
+                    <p>
+                        Assign efficient routes to garbage
+                        collection drivers.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon">
+                        📊
+                    </div>
+
+                    <h3>
+                        Waste Reports
+                    </h3>
+
+                    <p>
+                        Generate reports and analyze garbage
+                        collection data.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon">
+                        📢
+                    </div>
+
+                    <h3>
+                        Public Complaints
+                    </h3>
+
+                    <p>
+                        Citizens can register complaints and
+                        monitor their complaint status.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     LOGIN
+===================================================== -->
+
+<section id="login" class="page section">
+
+    <div class="form-container">
+
+        <h2>
+            🔐 CleanCity Login
+        </h2>
+
+        <form onsubmit="loginUser(event)">
+
+            <div class="form-group">
+
+                <label>
+                    Username / Email
+                </label>
+
+                <input type="text"
+                       placeholder="Enter username"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input type="password"
+                       placeholder="Enter password"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Login As
+                </label>
+
+                <select id="loginType">
+
+                    <option>
+                        General Public
+                    </option>
+
+                    <option>
+                        Administrator
+                    </option>
+
+                    <option>
+                        Driver
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button class="btn btn-green">
+
+                Login
+
+            </button>
+
+        </form>
+
+
+        <p style="text-align:center;margin-top:20px;">
+
+            New user?
+
+            <a href="#"
+               onclick="showPage('register')">
+
+                Create Account
+
+            </a>
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     REGISTER
+===================================================== -->
+
+<section id="register" class="page section">
+
+    <div class="form-container">
+
+        <h2>
+            👤 Public Registration
+        </h2>
+
+        <form onsubmit="registerUser(event)">
+
+            <div class="form-group">
+
+                <label>
+                    Full Name
+                </label>
+
+                <input type="text"
+                       placeholder="Enter full name"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Email
+                </label>
+
+                <input type="email"
+                       placeholder="Enter email"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Mobile Number
+                </label>
+
+                <input type="tel"
+                       placeholder="Enter mobile number"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Address
+                </label>
+
+                <textarea
+                    placeholder="Enter address"
+                    required>
+                </textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input type="password"
+                       placeholder="Create password"
+                       required>
+
+            </div>
+
+
+            <button class="btn btn-green">
+
+                Register
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     GARBAGE BINS
+===================================================== -->
+
+<section id="bins" class="page section">
+
+    <div class="container">
+
+        <div class="title">
+
+            <h2>
+                🗑️ Garbage Bin Directory
+            </h2>
+
+            <p>
+                Search and view available garbage bins
+            </p>
+
+        </div>
+
+
+        <div class="search-box">
+
+            <input type="text"
+                   id="binSearch"
+                   placeholder="Search bin or location..."
+                   onkeyup="searchBins()">
+
+            <button class="btn btn-dark"
+                    onclick="searchBins()">
+
+                Search
+
+            </button>
+
+        </div>
+
+
+        <div class="card-grid"
+             id="binList">
+
+
+            <div class="card bin-card">
+
+                <div class="card-icon">
+                    🗑️
+                </div>
+
+                <h3>
+                    BIN001
+                </h3>
+
+                <p>
+                    Location: Anna Nagar
+                </p>
+
+                <p>
+                    Capacity: 80%
+                </p>
+
+                <span class="badge active">
+                    Available
+                </span>
+
+            </div>
+
+
+            <div class="card bin-card">
+
+                <div class="card-icon">
+                    🗑️
+                </div>
+
+                <h3>
+                    BIN002
+                </h3>
+
+                <p>
+                    Location: Tambaram
+                </p>
+
+                <p>
+                    Capacity: 95%
+                </p>
+
+                <span class="badge pending">
+                    Needs Collection
+                </span>
+
+            </div>
+
+
+            <div class="card bin-card">
+
+                <div class="card-icon">
+                    🗑️
+                </div>
+
+                <h3>
+                    BIN003
+                </h3>
+
+                <p>
+                    Location: Velachery
+                </p>
+
+                <p>
+                    Capacity: 60%
+                </p>
+
+                <span class="badge active">
+                    Available
+                </span>
+
+            </div>
+
+
+            <div class="card bin-card">
+
+                <div class="card-icon">
+                    🗑️
+                </div>
+
+                <h3>
+                    BIN004
+                </h3>
+
+                <p>
+                    Location: Porur
+                </p>
+
+                <p>
+                    Capacity: 90%
+                </p>
+
+                <span class="badge pending">
+                    Needs Collection
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PUBLIC COMPLAINT
+===================================================== -->
+
+<section id="complaint" class="page section">
+
+    <div class="form-container">
+
+        <h2>
+            📢 Register Waste Complaint
+        </h2>
+
+        <form onsubmit="registerComplaint(event)">
+
+            <div class="form-group">
+
+                <label>
+                    Complaint Type
+                </label>
+
+                <select id="complaintType">
+
+                    <option>
+                        Garbage Not Collected
+                    </option>
+
+                    <option>
+                        Overflowing Garbage Bin
+                    </option>
+
+                    <option>
+                        Illegal Dumping
+                    </option>
+
+                    <option>
+                        Damaged Garbage Bin
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Location
+                </label>
+
+                <input type="text"
+                       placeholder="Enter complaint location"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Complaint Description
+                </label>
+
+                <textarea
+                    placeholder="Describe your complaint"
+                    required>
+                </textarea>
+
+            </div>
+
+
+            <button class="btn btn-green">
+
+                Submit Complaint
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PUBLIC DASHBOARD
+===================================================== -->
+
+<section id="public" class="page">
+
+    <div class="dashboard-header">
+
+        <div class="container">
+
+            <h1>
+                👤 Public Dashboard
+            </h1>
+
+            <p>
+                Manage your complaints and waste services
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="container section">
+
+
+        <div class="dashboard-grid">
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    📢
+                </div>
+
+                <h2>
+                    3
+                </h2>
+
+                <p>
+                    Total Complaints
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    ⏳
+                </div>
+
+                <h2>
+                    1
+                </h2>
+
+                <p>
+                    Pending Complaints
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    ✅
+                </div>
+
+                <h2>
+                    2
+                </h2>
+
+                <p>
+                    Resolved Complaints
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <h2 style="margin:35px 0 20px;">
+            My Complaints
+        </h2>
+
+
+        <div class="table-box">
+
+            <table>
+
+                <tr>
+
+                    <th>
+                        Complaint ID
+                    </th>
+
+                    <th>
+                        Type
+                    </th>
+
+                    <th>
+                        Location
+                    </th>
+
+                    <th>
+                        Date
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        CMP1001
+                    </td>
+
+                    <td>
+                        Garbage Not Collected
+                    </td>
+
+                    <td>
+                        Anna Nagar
+                    </td>
+
+                    <td>
+                        24-Aug-2026
+                    </td>
+
+                    <td>
+
+                        <span class="badge completed">
+                            Resolved
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        CMP1002
+                    </td>
+
+                    <td>
+                        Overflowing Bin
+                    </td>
+
+                    <td>
+                        Tambaram
+                    </td>
+
+                    <td>
+                        25-Aug-2026
+                    </td>
+
+                    <td>
+
+                        <span class="badge pending">
+                            Pending
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ADMIN DASHBOARD
+===================================================== -->
+
+<section id="admin" class="page">
+
+    <div class="dashboard-header">
+
+        <div class="container">
+
+            <h1>
+                ⚙ Administrator Dashboard
+            </h1>
+
+            <p>
+                Manage bins, drivers, routes, complaints and reports
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="container section">
+
+
+        <div class="dashboard-grid">
+
+
+            <div class="stat">
+
+                <h2>
+                    250
+                </h2>
+
+                <p>
+                    Garbage Bins
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <h2>
+                    38
+                </h2>
+
+                <p>
+                    Drivers
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <h2>
+                    15
+                </h2>
+
+                <p>
+                    Pending Complaints
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <h2>
+                    92%
+                </h2>
+
+                <p>
+                    Collection Efficiency
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- CREATE BIN -->
+
+        <div class="form-container">
+
+            <h2>
+                ➕ Create Garbage Bin
+            </h2>
+
+            <form onsubmit="createBin(event)">
+
+                <div class="form-group">
+
+                    <label>
+                        Bin ID
+                    </label>
+
+                    <input type="text"
+                           placeholder="Enter bin ID"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Location
+                    </label>
+
+                    <input type="text"
+                           placeholder="Enter bin location"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Capacity
+                    </label>
+
+                    <input type="number"
+                           placeholder="Enter capacity"
+                           required>
+
+                </div>
+
+
+                <button class="btn btn-green">
+
+                    Create Bin
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- GARBAGE BINS -->
+
+        <h2 style="margin:40px 0 20px;">
+            Garbage Bin Management
+        </h2>
+
+
+        <div class="table-box">
+
+            <table>
+
+                <tr>
+
+                    <th>
+                        Bin ID
+                    </th>
+
+                    <th>
+                        Location
+                    </th>
+
+                    <th>
+                        Capacity
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        BIN001
+                    </td>
+
+                    <td>
+                        Anna Nagar
+                    </td>
+
+                    <td>
+                        80%
+                    </td>
+
+                    <td>
+
+                        <span class="badge active">
+                            Active
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-blue"
+                                onclick="updateBin(this)">
+
+                            Update
+
+                        </button>
+
+                        <button class="btn btn-red"
+                                onclick="deleteBin(this)">
+
+                            Delete
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        BIN002
+                    </td>
+
+                    <td>
+                        Tambaram
+                    </td>
+
+                    <td>
+                        95%
+                    </td>
+
+                    <td>
+
+                        <span class="badge pending">
+                            Full
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-blue"
+                                onclick="updateBin(this)">
+
+                            Update
+
+                        </button>
+
+                        <button class="btn btn-red"
+                                onclick="deleteBin(this)">
+
+                            Delete
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <!-- DRIVER MANAGEMENT -->
+
+        <h2 style="margin:40px 0 20px;">
+            Driver Management
+        </h2>
+
+
+        <div class="table-box">
+
+            <table>
+
+                <tr>
+
+                    <th>
+                        Driver ID
+                    </th>
+
+                    <th>
+                        Driver Name
+                    </th>
+
+                    <th>
+                        Vehicle
+                    </th>
+
+                    <th>
+                        Route
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        DR001
+                    </td>
+
+                    <td>
+                        Arun Kumar
+                    </td>
+
+                    <td>
+                        TN 38 AB 4589
+                    </td>
+
+                    <td>
+                        Route A
+                    </td>
+
+                    <td>
+
+                        <span class="badge active">
+                            Active
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-green"
+                                onclick="assignRoute(this)">
+
+                            Assign Route
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        DR002
+                    </td>
+
+                    <td>
+                        Suresh Kumar
+                    </td>
+
+                    <td>
+                        TN 39 XY 1254
+                    </td>
+
+                    <td>
+                        Route B
+                    </td>
+
+                    <td>
+
+                        <span class="badge active">
+                            Active
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-green"
+                                onclick="assignRoute(this)">
+
+                            Assign Route
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <!-- COMPLAINTS -->
+
+        <h2 style="margin:40px 0 20px;">
+            Public Complaints
+        </h2>
+
+
+        <div class="table-box">
+
+            <table>
+
+                <tr>
+
+                    <th>
+                        Complaint ID
+                    </th>
+
+                    <th>
+                        Complaint
+                    </th>
+
+                    <th>
+                        Location
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        CMP1002
+                    </td>
+
+                    <td>
+                        Overflowing Garbage Bin
+                    </td>
+
+                    <td>
+                        Tambaram
+                    </td>
+
+                    <td>
+
+                        <span class="badge pending">
+                            Pending
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-green"
+                                onclick="resolveComplaint(this)">
+
+                            Resolve
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        CMP1003
+                    </td>
+
+                    <td>
+                        Garbage Not Collected
+                    </td>
+
+                    <td>
+                        Velachery
+                    </td>
+
+                    <td>
+
+                        <span class="badge pending">
+                            Pending
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-green"
+                                onclick="resolveComplaint(this)">
+
+                            Resolve
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <!-- REPORT -->
+
+        <h2 style="margin:40px 0 20px;">
+            Garbage Collection Report
+        </h2>
+
+
+        <div class="card-grid">
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Daily Collection
+                </h3>
+
+                <p>
+                    Total garbage collected today:
+                    <b>8,450 kg</b>
+                </p>
+
+                <button class="btn btn-blue"
+                        onclick="viewReport()">
+
+                    View Report
+
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    ♻️
+                </div>
+
+                <h3>
+                    Recycling Report
+                </h3>
+
+                <p>
+                    Recyclable waste collected:
+                    <b>2,350 kg</b>
+                </p>
+
+                <button class="btn btn-blue"
+                        onclick="viewReport()">
+
+                    View Report
+
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🚛
+                </div>
+
+                <h3>
+                    Truck Performance
+                </h3>
+
+                <p>
+                    Average truck collection:
+                    <b>188 kg</b>
+                </p>
+
+                <button class="btn btn-blue"
+                        onclick="viewReport()">
+
+                    View Report
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     DRIVER DASHBOARD
+===================================================== -->
+
+<section id="driver" class="page">
+
+    <div class="dashboard-header">
+
+        <div class="container">
+
+            <h1>
+                🚛 Driver Dashboard
+            </h1>
+
+            <p>
+                View daily work updates and manage garbage collection
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="container section">
+
+
+        <div class="dashboard-grid">
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    🛣️
+                </div>
+
+                <h2>
+                    Route A
+                </h2>
+
+                <p>
+                    Today's Route
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    🗑️
+                </div>
+
+                <h2>
+                    12
+                </h2>
+
+                <p>
+                    Bins Assigned
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    ⚖️
+                </div>
+
+                <h2>
+                    450 kg
+                </h2>
+
+                <p>
+                    Garbage Collected
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <h2 style="margin:35px 0 20px;">
+            Daily Work Updates
+        </h2>
+
+
+        <div class="table-box">
+
+            <table>
+
+                <tr>
+
+                    <th>
+                        Bin ID
+                    </th>
+
+                    <th>
+                        Location
+                    </th>
+
+                    <th>
+                        Capacity
+                    </th>
+
+                    <th>
+                        Collection Status
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        BIN001
+                    </td>
+
+                    <td>
+                        Anna Nagar
+                    </td>
+
+                    <td>
+                        80%
+                    </td>
+
+                    <td>
+
+                        <span class="badge pending">
+                            Pending
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-green"
+                                onclick="collectBin(this)">
+
+                            Collected
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        BIN002
+                    </td>
+
+                    <td>
+                        Tambaram
+                    </td>
+
+                    <td>
+                        95%
+                    </td>
+
+                    <td>
+
+                        <span class="badge pending">
+                            Pending
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-green"
+                                onclick="collectBin(this)">
+
+                            Collected
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        BIN003
+                    </td>
+
+                    <td>
+                        Velachery
+                    </td>
+
+                    <td>
+                        60%
+                    </td>
+
+                    <td>
+
+                        <span class="badge completed">
+                            Completed
+                        </span>
+
+                    </td>
+
+                    <td>
+                        Done
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <h2 style="margin:40px 0 20px;">
+            Choose Best Route
+        </h2>
+
+
+        <div class="card-grid">
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🛣️
+                </div>
+
+                <h3>
+                    Route A
+                </h3>
+
+                <p>
+                    Anna Nagar → Kilpauk →
+                    Villivakkam → Dumping Site
+                </p>
+
+                <p>
+                    Distance: 18 km
+                </p>
+
+                <button class="btn btn-blue"
+                        onclick="chooseRoute('Route A')">
+
+                    Choose Route
+
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🛣️
+                </div>
+
+                <h3>
+                    Route B
+                </h3>
+
+                <p>
+                    Tambaram → Chromepet →
+                    Pallavaram → Dumping Site
+                </p>
+
+                <p>
+                    Distance: 21 km
+                </p>
+
+                <button class="btn btn-blue"
+                        onclick="chooseRoute('Route B')">
+
+                    Choose Route
+
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🛣️
+                </div>
+
+                <h3>
+                    Route C
+                </h3>
+
+                <p>
+                    Velachery → Guindy →
+                    Saidapet → Dumping Site
+                </p>
+
+                <p>
+                    Distance: 16 km
+                </p>
+
+                <button class="btn btn-blue"
+                        onclick="chooseRoute('Route C')">
+
+                    Choose Route
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-container">
+
+            <h2>
+                ⚖️ Update Garbage Load
+            </h2>
+
+            <form onsubmit="updateLoad(event)">
+
+                <div class="form-group">
+
+                    <label>
+                        Garbage Load (kg)
+                    </label>
+
+                    <input type="number"
+                           id="garbageLoad"
+                           placeholder="Enter collected load"
+                           required>
+
+                </div>
+
+
+                <button class="btn btn-green">
+
+                    Update Load
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <h3>
+        ♻️ CleanCity
+    </h3>
+
+    <p>
+        Smart Solid Waste Management System
+    </p>
+
+    <p>
+        © 2026 CleanCity. All Rights Reserved.
+    </p>
+
+</footer>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
+function showPage(pageId){
+
+    const pages =
+        document.querySelectorAll(".page");
+
+    pages.forEach(function(page){
+
+        page.classList.remove("active");
+
+    });
+
+
+    const selected =
+        document.getElementById(pageId);
+
+
+    if(selected){
+
+        selected.classList.add("active");
+
+    }
+
+
+    window.scrollTo({
+
+        top:0,
+        behavior:"smooth"
+
+    });
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function loginUser(event){
+
+    event.preventDefault();
+
+
+    const type =
+        document.getElementById("loginType").value;
+
+
+    alert(
+        "Login successful!\n\n" +
+        "Logged in as: " + type
+    );
+
+
+    if(type === "Administrator"){
+
+        showPage("admin");
+
+    }
+
+    else if(type === "Driver"){
+
+        showPage("driver");
+
+    }
+
+    else{
+
+        showPage("public");
+
+    }
+
+}
+
+
+/* =========================
+   REGISTER
+========================= */
+
+function registerUser(event){
+
+    event.preventDefault();
+
+
+    alert(
+        "Registration successful!\n\n" +
+        "Your CleanCity account has been created."
+    );
+
+
+    event.target.reset();
+
+
+    showPage("login");
+
+}
+
+
+/* =========================
+   SEARCH BINS
+========================= */
+
+function searchBins(){
+
+    const search =
+        document.getElementById("binSearch")
+        .value
+        .toLowerCase();
+
+
+    const bins =
+        document.querySelectorAll(".bin-card");
+
+
+    bins.forEach(function(bin){
+
+        const text =
+            bin.innerText.toLowerCase();
+
+
+        if(text.includes(search)){
+
+            bin.style.display="block";
+
+        }
+
+        else{
+
+            bin.style.display="none";
+
+        }
+
+    });
+
+}
+
+
+/* =========================
+   REGISTER COMPLAINT
+========================= */
+
+function registerComplaint(event){
+
+    event.preventDefault();
+
+
+    const complaintId =
+        "CMP" +
+        Math.floor(
+            1000 + Math.random()*9000
+        );
+
+
+    alert(
+        "Complaint registered successfully!\n\n" +
+        "Complaint ID: " + complaintId +
+        "\nStatus: Pending"
+    );
+
+
+    event.target.reset();
+
+
+    showPage("public");
+
+}
+
+
+/* =========================
+   CREATE GARBAGE BIN
+========================= */
+
+function createBin(event){
+
+    event.preventDefault();
+
+
+    alert(
+        "Garbage bin created successfully."
+    );
+
+
+    event.target.reset();
+
+}
+
+
+/* =========================
+   UPDATE BIN
+========================= */
+
+function updateBin(button){
+
+    const row =
+        button.closest("tr");
+
+
+    const location =
+        prompt(
+            "Enter updated location:",
+            row.cells[1].innerText
+        );
+
+
+    if(location){
+
+        row.cells[1].innerText =
+            location;
+
+
+        alert(
+            "Garbage bin details updated successfully."
+        );
+
+    }
+
+}
+
+
+/* =========================
+   DELETE BIN
+========================= */
+
+function deleteBin(button){
+
+    const row =
+        button.closest("tr");
+
+
+    if(confirm(
+        "Are you sure you want to delete this garbage bin?"
+    )){
+
+        row.remove();
+
+
+        alert(
+            "Garbage bin deleted successfully."
+        );
+
+    }
+
+}
+
+
+/* =========================
+   ASSIGN ROUTE
+========================= */
+
+function assignRoute(button){
+
+    const route =
+        prompt(
+            "Enter route to assign:",
+            "Route A"
+        );
+
+
+    if(route){
+
+        const row =
+            button.closest("tr");
+
+
+        row.cells[3].innerText =
+            route;
+
+
+        alert(
+            "Route assigned successfully.\n\n" +
+            "Route: " + route
+        );
+
+    }
+
+}
+
+
+/* =========================
+   RESOLVE COMPLAINT
+========================= */
+
+function resolveComplaint(button){
+
+    const row =
+        button.closest("tr");
+
+
+    row.cells[3].innerHTML =
+        '<span class="badge completed">Resolved</span>';
+
+
+    alert(
+        "Complaint resolved successfully."
+    );
+
+}
+
+
+/* =========================
+   VIEW REPORT
+========================= */
+
+function viewReport(){
+
+    alert(
+        "Garbage Collection Report\n\n" +
+        "Total Garbage Collected: 8,450 kg\n" +
+        "Recyclable Waste: 2,350 kg\n" +
+        "Active Trucks: 45\n" +
+        "Collection Efficiency: 92%"
+    );
+
+}
+
+
+/* =========================
+   COLLECT BIN
+========================= */
+
+function collectBin(button){
+
+    const row =
+        button.closest("tr");
+
+
+    row.cells[3].innerHTML =
+        '<span class="badge completed">Collected</span>';
+
+
+    button.remove();
+
+
+    alert(
+        "Garbage collection updated successfully."
+    );
+
+}
+
+
+/* =========================
+   CHOOSE ROUTE
+========================= */
+
+function chooseRoute(route){
+
+    alert(
+        "Route selected successfully!\n\n" +
+        "Selected Route: " + route
+    );
+
+}
+
+
+/* =========================
+   UPDATE GARBAGE LOAD
+========================= */
+
+function updateLoad(event){
+
+    event.preventDefault();
+
+
+    const load =
+        document.getElementById("garbageLoad").value;
+
+
+    alert(
+        "Garbage load updated successfully!\n\n" +
+        "Collected Load: " +
+        load + " kg"
+    );
+
+
+    event.target.reset();
+
+}
+
+</script>
+
+</body>
+</html>
