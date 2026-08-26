@@ -1,0 +1,2438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RailConnect - Railway Reservation System</title>
+
+<style>
+
+/* ================= GENERAL ================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    background: #f5f7fb;
+    color: #263238;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.container {
+    width: 88%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.section {
+    padding: 55px 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.section-title h2 {
+    color: #8b1e3f;
+    font-size: 30px;
+}
+
+.section-title p {
+    color: #6b7280;
+    margin-top: 8px;
+}
+
+
+/* ================= NAVBAR ================= */
+
+.navbar {
+    background: #8b1e3f;
+    color: white;
+    padding: 15px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #ffd166;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.nav-links a:hover {
+    color: #ffd166;
+}
+
+
+/* ================= HERO ================= */
+
+.hero {
+    min-height: 510px;
+    background:
+        linear-gradient(135deg, #8b1e3f, #c0395b);
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.hero-content {
+    width: 88%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.hero h1 {
+    font-size: 48px;
+    max-width: 700px;
+    margin-bottom: 18px;
+}
+
+.hero p {
+    max-width: 680px;
+    font-size: 18px;
+    line-height: 1.7;
+    color: #fce9ee;
+}
+
+.train-animation {
+    font-size: 65px;
+    margin-bottom: 15px;
+}
+
+
+/* ================= BUTTONS ================= */
+
+.btn {
+    border: none;
+    padding: 11px 20px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 12px;
+}
+
+.btn-primary {
+    background: #ffd166;
+    color: #5d142b;
+}
+
+.btn-primary:hover {
+    background: #f5b942;
+}
+
+.btn-dark {
+    background: #8b1e3f;
+    color: white;
+}
+
+.btn-success {
+    background: #198754;
+    color: white;
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-secondary {
+    background: #64748b;
+    color: white;
+}
+
+
+/* ================= SEARCH BOX ================= */
+
+.search-panel {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    margin-top: -45px;
+    position: relative;
+}
+
+.search-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+}
+
+.search-grid label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 7px;
+    color: #374151;
+}
+
+.search-grid input,
+.search-grid select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+}
+
+
+/* ================= CARDS ================= */
+
+.card-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(230px, 1fr));
+    gap: 22px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.07);
+}
+
+.card h3 {
+    color: #8b1e3f;
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #6b7280;
+    line-height: 1.6;
+}
+
+
+/* ================= TRAIN CARD ================= */
+
+.train-card {
+    border-left: 5px solid #8b1e3f;
+}
+
+.train-icon {
+    font-size: 45px;
+    margin-bottom: 12px;
+}
+
+.train-route {
+    font-size: 18px;
+    font-weight: bold;
+    color: #8b1e3f;
+    margin-bottom: 10px;
+}
+
+.price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #198754;
+}
+
+
+/* ================= FORMS ================= */
+
+.form-container {
+    max-width: 560px;
+    margin: 45px auto;
+    background: white;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.form-container h2 {
+    text-align: center;
+    color: #8b1e3f;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 17px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+}
+
+.form-container .btn {
+    width: 100%;
+}
+
+
+/* ================= TABLE ================= */
+
+.table-container {
+    overflow-x: auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.07);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 14px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+th {
+    background: #8b1e3f;
+    color: white;
+}
+
+tr:hover {
+    background: #fff7f9;
+}
+
+
+/* ================= BADGES ================= */
+
+.badge {
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.confirmed {
+    background: #d1fae5;
+    color: #047857;
+}
+
+.waiting {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.cancelled {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+
+/* ================= STATS ================= */
+
+.stats {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.stat {
+    background: white;
+    padding: 25px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.07);
+}
+
+.stat h2 {
+    color: #8b1e3f;
+    font-size: 30px;
+}
+
+.stat p {
+    color: #6b7280;
+}
+
+
+/* ================= DASHBOARD ================= */
+
+.dashboard-header {
+    background: #8b1e3f;
+    color: white;
+    padding: 35px 0;
+}
+
+.dashboard-header h1 {
+    margin-bottom: 8px;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(210px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+}
+
+
+/* ================= PNR BOX ================= */
+
+.pnr-box {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+.pnr-number {
+    font-size: 30px;
+    font-weight: bold;
+    color: #8b1e3f;
+    margin: 15px 0;
+}
+
+
+/* ================= FOOTER ================= */
+
+footer {
+    background: #48101f;
+    color: white;
+    text-align: center;
+    padding: 30px;
+    margin-top: 50px;
+}
+
+footer p {
+    color: #e5cbd2;
+    margin-top: 7px;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width: 800px) {
+
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .nav-links {
+        justify-content: center;
+    }
+
+    .hero h1 {
+        font-size: 35px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+                         NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        🚆 Rail<span>Connect</span>
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+            <a onclick="showPage('home')">Home</a>
+        </li>
+
+        <li>
+            <a onclick="showPage('search')">Search Trains</a>
+        </li>
+
+        <li>
+            <a onclick="showPage('pnr')">PNR Status</a>
+        </li>
+
+        <li>
+            <a onclick="showPage('dashboard')">My Dashboard</a>
+        </li>
+
+        <li>
+            <a onclick="showPage('login')">Login</a>
+        </li>
+
+        <li>
+            <a onclick="showPage('admin')">Admin</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- =====================================================
+                         HOME
+===================================================== -->
+
+<section id="home" class="page active">
+
+    <div class="hero">
+
+        <div class="hero-content">
+
+            <div class="train-animation">
+                🚆
+            </div>
+
+            <h1>
+                Online Railway Reservation System
+            </h1>
+
+            <p>
+                Search trains, check seat availability,
+                reserve tickets, manage passengers and
+                check PNR status through one simple
+                railway reservation platform.
+            </p>
+
+            <button
+                class="btn btn-primary"
+                onclick="showPage('search')">
+
+                Search & Book Train
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="search-panel">
+
+            <div class="search-grid">
+
+                <div>
+                    <label>From</label>
+
+                    <input
+                        type="text"
+                        id="homeFrom"
+                        placeholder="Origin station">
+                </div>
+
+                <div>
+                    <label>To</label>
+
+                    <input
+                        type="text"
+                        id="homeTo"
+                        placeholder="Destination station">
+                </div>
+
+                <div>
+                    <label>Journey Date</label>
+
+                    <input
+                        type="date"
+                        id="homeDate">
+                </div>
+
+                <div>
+                    <label>Class</label>
+
+                    <select id="homeClass">
+
+                        <option>All Classes</option>
+                        <option>Sleeper</option>
+                        <option>AC 3 Tier</option>
+                        <option>AC 2 Tier</option>
+                        <option>First AC</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <button
+                class="btn btn-dark"
+                onclick="searchFromHome()">
+
+                🔎 Search Trains
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <h2>
+                    Railway Services
+                </h2>
+
+                <p>
+                    Simple and convenient reservation services
+                </p>
+
+            </div>
+
+
+            <div class="card-grid">
+
+                <div class="card">
+
+                    <h3>🔎 Train Search</h3>
+
+                    <p>
+                        Search trains using source,
+                        destination and journey date.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>💺 Seat Availability</h3>
+
+                    <p>
+                        Check available seats and
+                        different travel classes.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>🎫 Online Reservation</h3>
+
+                    <p>
+                        Select a train, enter passenger
+                        details and reserve your ticket.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>🔢 PNR Status</h3>
+
+                    <p>
+                        Enter your PNR number to
+                        check reservation status.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+                     SEARCH TRAINS
+===================================================== -->
+
+<section id="search" class="page section">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>
+                🔎 Search Available Trains
+            </h2>
+
+            <p>
+                Find trains according to your journey
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="search-grid">
+
+                <div>
+
+                    <label>From Station</label>
+
+                    <input
+                        type="text"
+                        id="fromStation"
+                        placeholder="Chennai">
+
+                </div>
+
+
+                <div>
+
+                    <label>To Station</label>
+
+                    <input
+                        type="text"
+                        id="toStation"
+                        placeholder="Bangalore">
+
+                </div>
+
+
+                <div>
+
+                    <label>Journey Date</label>
+
+                    <input
+                        type="date"
+                        id="journeyDate">
+
+                </div>
+
+
+                <div>
+
+                    <label>Class</label>
+
+                    <select id="travelClass">
+
+                        <option>All Classes</option>
+                        <option>Sleeper</option>
+                        <option>AC 3 Tier</option>
+                        <option>AC 2 Tier</option>
+                        <option>First AC</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="btn btn-dark"
+                onclick="searchTrains()">
+
+                Search Trains
+
+            </button>
+
+        </div>
+
+
+        <div
+            id="trainResults"
+            class="card-grid"
+            style="margin-top:30px;">
+
+            <div class="card train-card">
+
+                <div class="train-icon">
+                    🚆
+                </div>
+
+                <div class="train-route">
+                    Chennai → Bangalore
+                </div>
+
+                <p>
+                    <strong>Train:</strong>
+                    Southern Express
+                </p>
+
+                <p>
+                    <strong>Train No:</strong>
+                    12657
+                </p>
+
+                <p>
+                    <strong>Departure:</strong>
+                    06:00 AM
+                </p>
+
+                <p>
+                    <strong>Arrival:</strong>
+                    12:30 PM
+                </p>
+
+                <p>
+                    <strong>Seats:</strong>
+                    42 Available
+                </p>
+
+                <p class="price">
+                    ₹650
+                </p>
+
+                <button
+                    class="btn btn-primary"
+                    onclick="openBooking('Southern Express',650,42)">
+
+                    Book Now
+
+                </button>
+
+            </div>
+
+
+            <div class="card train-card">
+
+                <div class="train-icon">
+                    🚄
+                </div>
+
+                <div class="train-route">
+                    Chennai → Hyderabad
+                </div>
+
+                <p>
+                    <strong>Train:</strong>
+                    Chennai Express
+                </p>
+
+                <p>
+                    <strong>Train No:</strong>
+                    12603
+                </p>
+
+                <p>
+                    <strong>Departure:</strong>
+                    08:15 AM
+                </p>
+
+                <p>
+                    <strong>Arrival:</strong>
+                    09:00 PM
+                </p>
+
+                <p>
+                    <strong>Seats:</strong>
+                    28 Available
+                </p>
+
+                <p class="price">
+                    ₹950
+                </p>
+
+                <button
+                    class="btn btn-primary"
+                    onclick="openBooking('Chennai Express',950,28)">
+
+                    Book Now
+
+                </button>
+
+            </div>
+
+
+            <div class="card train-card">
+
+                <div class="train-icon">
+                    🚆
+                </div>
+
+                <div class="train-route">
+                    Chennai → Coimbatore
+                </div>
+
+                <p>
+                    <strong>Train:</strong>
+                    Kovai Express
+                </p>
+
+                <p>
+                    <strong>Train No:</strong>
+                    12675
+                </p>
+
+                <p>
+                    <strong>Departure:</strong>
+                    07:15 AM
+                </p>
+
+                <p>
+                    <strong>Arrival:</strong>
+                    01:30 PM
+                </p>
+
+                <p>
+                    <strong>Seats:</strong>
+                    65 Available
+                </p>
+
+                <p class="price">
+                    ₹550
+                </p>
+
+                <button
+                    class="btn btn-primary"
+                    onclick="openBooking('Kovai Express',550,65)">
+
+                    Book Now
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+                       BOOKING
+===================================================== -->
+
+<section id="booking" class="page section">
+
+    <div class="form-container">
+
+        <h2>
+            🎫 Passenger Reservation
+        </h2>
+
+
+        <div id="selectedTrain"
+             class="card"
+             style="margin-bottom:20px;">
+        </div>
+
+
+        <form onsubmit="confirmBooking(event)">
+
+            <div class="form-group">
+
+                <label>
+                    Passenger Name
+                </label>
+
+                <input
+                    type="text"
+                    id="passengerName"
+                    placeholder="Enter passenger name"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Age
+                </label>
+
+                <input
+                    type="number"
+                    id="passengerAge"
+                    min="1"
+                    max="100"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Gender
+                </label>
+
+                <select id="gender">
+
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Journey Date
+                </label>
+
+                <input
+                    type="date"
+                    id="bookingDate"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Travel Class
+                </label>
+
+                <select id="bookingClass">
+
+                    <option>Sleeper</option>
+                    <option>AC 3 Tier</option>
+                    <option>AC 2 Tier</option>
+                    <option>First AC</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Number of Tickets
+                </label>
+
+                <input
+                    type="number"
+                    id="ticketCount"
+                    value="1"
+                    min="1"
+                    max="6"
+                    onchange="calculateFare()">
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>
+                    Payment
+                </h3>
+
+                <p>
+                    Total Fare:
+                    <strong id="totalFare">
+                        ₹650
+                    </strong>
+                </p>
+
+                <select
+                    id="paymentMode"
+                    style="width:100%;padding:10px;margin-top:10px;">
+
+                    <option>Online Payment</option>
+                    <option>Cash / Offline</option>
+
+                </select>
+
+            </div>
+
+
+            <button
+                class="btn btn-success">
+
+                Confirm & Pay
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+                    BOOKING SUCCESS
+===================================================== -->
+
+<section id="ticket" class="page section">
+
+    <div class="pnr-box">
+
+        <h2>
+            🎉 Ticket Confirmed
+        </h2>
+
+        <p>
+            Your railway reservation has been
+            successfully completed.
+        </p>
+
+        <div class="pnr-number"
+             id="generatedPNR">
+        </div>
+
+
+        <div
+            id="ticketDetails"
+            style="text-align:left;line-height:2;">
+        </div>
+
+
+        <button
+            class="btn btn-primary"
+            onclick="printTicket()">
+
+            🖨 Print Ticket
+
+        </button>
+
+
+        <button
+            class="btn btn-dark"
+            onclick="showPage('dashboard')">
+
+            My Dashboard
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+                      PNR STATUS
+===================================================== -->
+
+<section id="pnr" class="page section">
+
+    <div class="form-container">
+
+        <h2>
+            🔢 Check PNR Status
+        </h2>
+
+        <div class="form-group">
+
+            <label>
+                Enter PNR Number
+            </label>
+
+            <input
+                type="text"
+                id="pnrInput"
+                placeholder="Example: RC123456">
+
+        </div>
+
+
+        <button
+            class="btn btn-dark"
+            onclick="checkPNR()">
+
+            Check Status
+
+        </button>
+
+
+        <div
+            id="pnrResult"
+            style="margin-top:25px;">
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+                       LOGIN
+===================================================== -->
+
+<section id="login" class="page section">
+
+    <div class="form-container">
+
+        <h2>
+            🔐 Passenger Login
+        </h2>
+
+        <form onsubmit="loginUser(event)">
+
+            <div class="form-group">
+
+                <label>
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="Enter email"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    placeholder="Enter password"
+                    required>
+
+            </div>
+
+
+            <button
+                class="btn btn-dark">
+
+                Login
+
+            </button>
+
+        </form>
+
+
+        <p style="text-align:center;margin-top:20px;">
+
+            New passenger?
+
+            <a
+                href="#"
+                onclick="showPage('register')">
+
+                Register
+
+            </a>
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+                     REGISTRATION
+===================================================== -->
+
+<section id="register" class="page section">
+
+    <div class="form-container">
+
+        <h2>
+            👤 Passenger Registration
+        </h2>
+
+
+        <form onsubmit="registerUser(event)">
+
+            <div class="form-group">
+
+                <label>
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    placeholder="Enter full name"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Mobile Number
+                </label>
+
+                <input
+                    type="tel"
+                    placeholder="Enter mobile number"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    placeholder="Enter email"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    placeholder="Create password"
+                    required>
+
+            </div>
+
+
+            <button
+                class="btn btn-dark">
+
+                Create Account
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+                    USER DASHBOARD
+===================================================== -->
+
+<section id="dashboard" class="page">
+
+    <div class="dashboard-header">
+
+        <div class="container">
+
+            <h1>
+                Passenger Dashboard
+            </h1>
+
+            <p>
+                Manage your railway reservations
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="container section">
+
+
+        <div class="dashboard-grid">
+
+            <div class="stat">
+
+                <h2 id="dashboardBookings">
+                    2
+                </h2>
+
+                <p>
+                    Total Bookings
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <h2>
+                    1
+                </h2>
+
+                <p>
+                    Active Ticket
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <h2>
+                    1
+                </h2>
+
+                <p>
+                    Cancelled
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <h2 style="color:#8b1e3f;margin-bottom:20px;">
+
+            My Booking History
+
+        </h2>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <tr>
+
+                    <th>PNR</th>
+                    <th>Train</th>
+                    <th>Journey Date</th>
+                    <th>Class</th>
+                    <th>Status</th>
+                    <th>Action</th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        RC582341
+                    </td>
+
+                    <td>
+                        Southern Express
+                    </td>
+
+                    <td>
+                        30-Aug-2026
+                    </td>
+
+                    <td>
+                        Sleeper
+                    </td>
+
+                    <td>
+
+                        <span class="badge confirmed">
+                            Confirmed
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="btn btn-danger"
+                            onclick="cancelTicket('RC582341')">
+
+                            Cancel
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        RC471289
+                    </td>
+
+                    <td>
+                        Kovai Express
+                    </td>
+
+                    <td>
+                        15-Aug-2026
+                    </td>
+
+                    <td>
+                        AC 3 Tier
+                    </td>
+
+                    <td>
+
+                        <span class="badge cancelled">
+                            Cancelled
+                        </span>
+
+                    </td>
+
+                    <td>
+                        Refund: ₹420
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <div class="card" style="margin-top:30px;">
+
+            <h3>
+                👤 My Profile
+            </h3>
+
+            <p>
+                <strong>Name:</strong>
+                Passenger User
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+                passenger@example.com
+            </p>
+
+            <p>
+                <strong>Mobile:</strong>
+                9876543210
+            </p>
+
+            <button
+                class="btn btn-dark"
+                onclick="alert('Profile editing feature selected.')">
+
+                Edit Profile
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+                     ADMIN DASHBOARD
+===================================================== -->
+
+<section id="admin" class="page">
+
+    <div class="dashboard-header">
+
+        <div class="container">
+
+            <h1>
+                ⚙ Railway Admin Panel
+            </h1>
+
+            <p>
+                Manage trains, fares, passengers,
+                seats and reservations
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="container section">
+
+
+        <div class="stats">
+
+            <div class="stat">
+
+                <h2>
+                    125
+                </h2>
+
+                <p>
+                    Total Trains
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <h2>
+                    3,250
+                </h2>
+
+                <p>
+                    Total Seats
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <h2>
+                    850
+                </h2>
+
+                <p>
+                    Passengers
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <h2>
+                    ₹4.5L
+                </h2>
+
+                <p>
+                    Revenue
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ADD TRAIN -->
+
+        <div class="form-container">
+
+            <h2>
+                ➕ Add / Update Train
+            </h2>
+
+
+            <form onsubmit="addTrain(event)">
+
+                <div class="form-group">
+
+                    <label>
+                        Train Name
+                    </label>
+
+                    <input
+                        type="text"
+                        placeholder="Train name"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Train Number
+                    </label>
+
+                    <input
+                        type="number"
+                        placeholder="Train number"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Source
+                    </label>
+
+                    <input
+                        type="text"
+                        placeholder="Source station"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Destination
+                    </label>
+
+                    <input
+                        type="text"
+                        placeholder="Destination station"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Total Seats
+                    </label>
+
+                    <input
+                        type="number"
+                        placeholder="Total seats"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Base Fare
+                    </label>
+
+                    <input
+                        type="number"
+                        placeholder="Fare"
+                        required>
+
+                </div>
+
+
+                <button
+                    class="btn btn-success">
+
+                    Save Train
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- TRAIN MANAGEMENT -->
+
+        <h2
+            style="color:#8b1e3f;margin:40px 0 20px;">
+
+            Train Management
+
+        </h2>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <tr>
+
+                    <th>Train No</th>
+                    <th>Train Name</th>
+                    <th>Route</th>
+                    <th>Seats</th>
+                    <th>Fare</th>
+                    <th>Action</th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        12657
+                    </td>
+
+                    <td>
+                        Southern Express
+                    </td>
+
+                    <td>
+                        Chennai - Bangalore
+                    </td>
+
+                    <td>
+                        42
+                    </td>
+
+                    <td>
+                        ₹650
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="btn btn-dark"
+                            onclick="alert('Train details updated.')">
+
+                            Edit
+
+                        </button>
+
+
+                        <button
+                            class="btn btn-danger"
+                            onclick="deleteTrain(this)">
+
+                            Delete
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        12603
+                    </td>
+
+                    <td>
+                        Chennai Express
+                    </td>
+
+                    <td>
+                        Chennai - Hyderabad
+                    </td>
+
+                    <td>
+                        28
+                    </td>
+
+                    <td>
+                        ₹950
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="btn btn-dark"
+                            onclick="alert('Train details updated.')">
+
+                            Edit
+
+                        </button>
+
+
+                        <button
+                            class="btn btn-danger"
+                            onclick="deleteTrain(this)">
+
+                            Delete
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <!-- ADMIN RESERVATIONS -->
+
+        <h2
+            style="color:#8b1e3f;margin:40px 0 20px;">
+
+            Reservation Management
+
+        </h2>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <tr>
+
+                    <th>PNR</th>
+                    <th>Passenger</th>
+                    <th>Train</th>
+                    <th>Fare</th>
+                    <th>Status</th>
+                    <th>Action</th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        RC582341
+                    </td>
+
+                    <td>
+                        Rahul Kumar
+                    </td>
+
+                    <td>
+                        Southern Express
+                    </td>
+
+                    <td>
+                        ₹650
+                    </td>
+
+                    <td>
+
+                        <span class="badge confirmed">
+                            Confirmed
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button
+                            class="btn btn-danger"
+                            onclick="cancelTicket('RC582341')">
+
+                            Cancel
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <!-- REFUND RULES -->
+
+        <div class="card" style="margin-top:35px;">
+
+            <h3>
+                💰 Refund Rules
+            </h3>
+
+            <p>
+                Cancellation more than 48 hours before
+                departure: 80% refund.
+            </p>
+
+            <p>
+                Cancellation between 24 and 48 hours:
+                50% refund.
+            </p>
+
+            <p>
+                Cancellation less than 24 hours:
+                refund depends on railway rules.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+                         FOOTER
+===================================================== -->
+
+<footer>
+
+    <h3>
+        🚆 RailConnect
+    </h3>
+
+    <p>
+        Online Railway Reservation System
+    </p>
+
+    <p>
+        © 2026 Railway Reservation System
+    </p>
+
+</footer>
+
+
+<!-- =====================================================
+                       JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* ================= PAGE NAVIGATION ================= */
+
+function showPage(pageId) {
+
+    const pages =
+        document.querySelectorAll(".page");
+
+    pages.forEach(function(page) {
+
+        page.classList.remove("active");
+
+    });
+
+    const selected =
+        document.getElementById(pageId);
+
+    if(selected) {
+
+        selected.classList.add("active");
+
+    }
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* ================= HOME SEARCH ================= */
+
+function searchFromHome() {
+
+    const from =
+        document.getElementById("homeFrom").value;
+
+    const to =
+        document.getElementById("homeTo").value;
+
+    const date =
+        document.getElementById("homeDate").value;
+
+    if(from === "" || to === "" || date === "") {
+
+        alert(
+            "Please enter From, To and Journey Date."
+        );
+
+        return;
+    }
+
+    document.getElementById("fromStation").value =
+        from;
+
+    document.getElementById("toStation").value =
+        to;
+
+    document.getElementById("journeyDate").value =
+        date;
+
+    showPage("search");
+
+}
+
+
+/* ================= TRAIN SEARCH ================= */
+
+function searchTrains() {
+
+    const from =
+        document.getElementById("fromStation").value;
+
+    const to =
+        document.getElementById("toStation").value;
+
+    const date =
+        document.getElementById("journeyDate").value;
+
+
+    if(from === "" || to === "" || date === "") {
+
+        alert(
+            "Please enter source, destination and journey date."
+        );
+
+        return;
+    }
+
+
+    alert(
+        "Trains found for " +
+        from +
+        " to " +
+        to +
+        " on " +
+        date
+    );
+
+}
+
+
+/* ================= BOOKING ================= */
+
+let selectedTrainFare = 650;
+
+let selectedTrainName =
+    "Southern Express";
+
+let selectedSeats = 42;
+
+
+function openBooking(name, fare, seats) {
+
+    selectedTrainName = name;
+
+    selectedTrainFare = fare;
+
+    selectedSeats = seats;
+
+
+    document.getElementById("selectedTrain").innerHTML =
+
+        "<h3>Selected Train</h3>" +
+
+        "<p><strong>Train:</strong> " +
+        name +
+        "</p>" +
+
+        "<p><strong>Available Seats:</strong> " +
+        seats +
+        "</p>" +
+
+        "<p><strong>Base Fare:</strong> ₹" +
+        fare +
+        "</p>";
+
+
+    document.getElementById("totalFare").innerText =
+        "₹" + fare;
+
+
+    showPage("booking");
+
+}
+
+
+/* ================= FARE CALCULATION ================= */
+
+function calculateFare() {
+
+    const count =
+        parseInt(
+            document.getElementById("ticketCount").value
+        );
+
+
+    const total =
+        selectedTrainFare * count;
+
+
+    document.getElementById("totalFare").innerText =
+        "₹" + total;
+
+}
+
+
+/* ================= CONFIRM BOOKING ================= */
+
+function confirmBooking(event) {
+
+    event.preventDefault();
+
+
+    const name =
+        document.getElementById("passengerName").value;
+
+    const age =
+        document.getElementById("passengerAge").value;
+
+    const date =
+        document.getElementById("bookingDate").value;
+
+    const travelClass =
+        document.getElementById("bookingClass").value;
+
+    const count =
+        document.getElementById("ticketCount").value;
+
+    const payment =
+        document.getElementById("paymentMode").value;
+
+
+    if(count > selectedSeats) {
+
+        alert(
+            "Not enough seats available."
+        );
+
+        return;
+    }
+
+
+    const pnr =
+        "RC" +
+        Math.floor(
+            100000 +
+            Math.random() * 900000
+        );
+
+
+    const total =
+        selectedTrainFare *
+        parseInt(count);
+
+
+    document.getElementById("generatedPNR")
+        .innerText = pnr;
+
+
+    document.getElementById("ticketDetails")
+        .innerHTML =
+
+        "<p><strong>Passenger:</strong> " +
+        name +
+        "</p>" +
+
+        "<p><strong>Age:</strong> " +
+        age +
+        "</p>" +
+
+        "<p><strong>Train:</strong> " +
+        selectedTrainName +
+        "</p>" +
+
+        "<p><strong>Journey Date:</strong> " +
+        date +
+        "</p>" +
+
+        "<p><strong>Class:</strong> " +
+        travelClass +
+        "</p>" +
+
+        "<p><strong>Tickets:</strong> " +
+        count +
+        "</p>" +
+
+        "<p><strong>Payment:</strong> " +
+        payment +
+        "</p>" +
+
+        "<p><strong>Total Fare:</strong> ₹" +
+        total +
+        "</p>" +
+
+        "<p><strong>Status:</strong> " +
+        "<span class='badge confirmed'>Confirmed</span>" +
+        "</p>";
+
+
+    showPage("ticket");
+
+}
+
+
+/* ================= PNR STATUS ================= */
+
+function checkPNR() {
+
+    const pnr =
+        document.getElementById("pnrInput")
+        .value
+        .trim();
+
+
+    const result =
+        document.getElementById("pnrResult");
+
+
+    if(pnr === "") {
+
+        alert(
+            "Please enter a PNR number."
+        );
+
+        return;
+    }
+
+
+    result.innerHTML =
+
+        "<div class='card'>" +
+
+        "<h3>PNR: " +
+        pnr +
+        "</h3>" +
+
+        "<p><strong>Train:</strong> Southern Express</p>" +
+
+        "<p><strong>Route:</strong> Chennai → Bangalore</p>" +
+
+        "<p><strong>Journey Date:</strong> 30-Aug-2026</p>" +
+
+        "<p><strong>Passenger:</strong> Rahul Kumar</p>" +
+
+        "<p><strong>Status:</strong> " +
+
+        "<span class='badge confirmed'>" +
+        "CONFIRMED" +
+        "</span>" +
+
+        "</p>" +
+
+        "</div>";
+
+}
+
+
+/* ================= LOGIN ================= */
+
+function loginUser(event) {
+
+    event.preventDefault();
+
+    alert(
+        "Login successful!"
+    );
+
+    showPage("dashboard");
+
+}
+
+
+/* ================= REGISTRATION ================= */
+
+function registerUser(event) {
+
+    event.preventDefault();
+
+    alert(
+        "Registration successful!\n" +
+        "Your passenger account has been created."
+    );
+
+    showPage("login");
+
+}
+
+
+/* ================= CANCEL TICKET ================= */
+
+function cancelTicket(pnr) {
+
+    const confirmCancel =
+        confirm(
+            "Do you want to cancel ticket " +
+            pnr +
+            "?"
+        );
+
+
+    if(!confirmCancel) {
+
+        return;
+
+    }
+
+
+    const fare = 650;
+
+    const refund =
+        fare * 0.80;
+
+
+    alert(
+
+        "Ticket Cancelled Successfully!\n\n" +
+
+        "PNR: " +
+        pnr +
+
+        "\nRefund Amount: ₹" +
+        refund.toFixed(2)
+
+    );
+
+}
+
+
+/* ================= PRINT TICKET ================= */
+
+function printTicket() {
+
+    window.print();
+
+}
+
+
+/* ================= ADMIN ADD TRAIN ================= */
+
+function addTrain(event) {
+
+    event.preventDefault();
+
+
+    alert(
+        "Train information saved successfully."
+    );
+
+
+    event.target.reset();
+
+}
+
+
+/* ================= DELETE TRAIN ================= */
+
+function deleteTrain(button) {
+
+    const row =
+        button.closest("tr");
+
+
+    const confirmDelete =
+        confirm(
+            "Delete this train?"
+        );
+
+
+    if(confirmDelete) {
+
+        row.remove();
+
+        alert(
+            "Train deleted successfully."
+        );
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
