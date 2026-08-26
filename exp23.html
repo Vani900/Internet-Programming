@@ -1,0 +1,2709 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BloodCare - Blood Management Information System</title>
+
+<style>
+
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f5f7fa;
+    color:#263238;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.container{
+    width:88%;
+    max-width:1200px;
+    margin:auto;
+}
+
+section{
+    min-height:500px;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+    background:#7f1d1d;
+    color:white;
+    padding:17px 6%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 3px 15px rgba(0,0,0,.2);
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#fca5a5;
+}
+
+.nav-links{
+    list-style:none;
+    display:flex;
+    gap:20px;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.nav-links a:hover{
+    color:#fca5a5;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:560px;
+    display:flex;
+    align-items:center;
+
+    background:
+    linear-gradient(
+        120deg,
+        #7f1d1d,
+        #991b1b,
+        #b91c1c
+    );
+
+    color:white;
+}
+
+.hero-content{
+    width:88%;
+    max-width:1200px;
+    margin:auto;
+}
+
+.hero h1{
+    font-size:52px;
+    max-width:750px;
+    margin-bottom:20px;
+}
+
+.hero h1 span{
+    color:#fecaca;
+}
+
+.hero p{
+    max-width:680px;
+    line-height:1.8;
+    color:#fee2e2;
+    font-size:18px;
+}
+
+.hero-buttons{
+    margin-top:25px;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn{
+    border:none;
+    padding:12px 21px;
+    border-radius:7px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.btn-red{
+    background:#dc2626;
+    color:white;
+}
+
+.btn-red:hover{
+    background:#b91c1c;
+}
+
+.btn-dark{
+    background:#450a0a;
+    color:white;
+}
+
+.btn-green{
+    background:#16a34a;
+    color:white;
+}
+
+.btn-blue{
+    background:#2563eb;
+    color:white;
+}
+
+.btn-orange{
+    background:#f59e0b;
+    color:#111827;
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+    padding:60px 0;
+}
+
+.title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.title h2{
+    color:#7f1d1d;
+    font-size:32px;
+}
+
+.title p{
+    margin-top:8px;
+    color:#6b7280;
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+
+.stat{
+    background:white;
+    padding:28px;
+    text-align:center;
+    border-radius:12px;
+    box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+.stat-icon{
+    font-size:35px;
+    margin-bottom:10px;
+}
+
+.stat h2{
+    color:#7f1d1d;
+    font-size:30px;
+}
+
+.stat p{
+    color:#6b7280;
+    margin-top:5px;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.card-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(230px,1fr));
+    gap:22px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+.card:hover{
+    transform:translateY(-3px);
+    transition:.2s;
+}
+
+.card h3{
+    color:#7f1d1d;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#6b7280;
+    line-height:1.6;
+}
+
+.card-icon{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+
+/* =========================
+   BLOOD GROUP
+========================= */
+
+.blood-group{
+    width:70px;
+    height:70px;
+
+    margin-bottom:15px;
+
+    border-radius:50%;
+
+    background:#fee2e2;
+    color:#991b1b;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:22px;
+    font-weight:bold;
+}
+
+
+/* =========================
+   FORMS
+========================= */
+
+.form-container{
+    max-width:600px;
+    margin:50px auto;
+    background:white;
+    padding:35px;
+    border-radius:13px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.form-container h2{
+    text-align:center;
+    margin-bottom:25px;
+    color:#7f1d1d;
+}
+
+.form-group{
+    margin-bottom:17px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    padding:13px;
+    border:1px solid #d1d5db;
+    border-radius:7px;
+    outline:none;
+}
+
+.form-group textarea{
+    min-height:110px;
+    resize:vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+    border-color:#dc2626;
+}
+
+.form-container .btn{
+    width:100%;
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard-header{
+    background:#7f1d1d;
+    color:white;
+    padding:38px 0;
+}
+
+.dashboard-header h1{
+    margin-bottom:7px;
+}
+
+.dashboard-header p{
+    color:#fee2e2;
+}
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin:35px 0;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box{
+    display:flex;
+    gap:10px;
+    margin-bottom:30px;
+}
+
+.search-box input,
+.search-box select{
+    flex:1;
+    padding:14px;
+    border:1px solid #d1d5db;
+    border-radius:7px;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table-box{
+    background:white;
+    border-radius:10px;
+    overflow-x:auto;
+    box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,
+td{
+    padding:14px;
+    text-align:left;
+    border-bottom:1px solid #e5e7eb;
+}
+
+th{
+    background:#7f1d1d;
+    color:white;
+}
+
+tr:hover{
+    background:#fff7f7;
+}
+
+
+/* =========================
+   BADGES
+========================= */
+
+.badge{
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.available{
+    background:#dcfce7;
+    color:#15803d;
+}
+
+.low{
+    background:#fef3c7;
+    color:#b45309;
+}
+
+.empty{
+    background:#fee2e2;
+    color:#b91c1c;
+}
+
+.active{
+    background:#dbeafe;
+    color:#1d4ed8;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    background:#7f1d1d;
+    color:white;
+    text-align:center;
+    padding:30px;
+    margin-top:40px;
+}
+
+footer p{
+    color:#fecaca;
+    margin-top:8px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:800px){
+
+    .navbar{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .nav-links{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .hero h1{
+        font-size:37px;
+    }
+
+    .search-box{
+        flex-direction:column;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        🩸 Blood<span>Care</span>
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+            <a onclick="showPage('home')">
+                Home
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('donors')">
+                Donors
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('bloodbanks')">
+                Blood Banks
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('user')">
+                My Account
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('hospital')">
+                Hospital
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('login')">
+                Login
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section id="home" class="page active">
+
+    <div class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+
+                Every Drop Can
+                <span>Save a Life</span>
+
+            </h1>
+
+            <p>
+
+                BloodCare is a blood management information
+                system that helps connect donors, hospitals and
+                blood banks while providing quick access to
+                blood donor and blood availability information.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <button class="btn btn-red"
+                        onclick="showPage('register')">
+
+                    🩸 Become a Donor
+
+                </button>
+
+
+                <button class="btn btn-dark"
+                        onclick="showPage('bloodbanks')">
+
+                    🏥 Find Blood Bank
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="container">
+
+
+            <div class="title">
+
+                <h2>
+                    BloodCare at a Glance
+                </h2>
+
+                <p>
+                    Efficient donor and blood bank management
+                </p>
+
+            </div>
+
+
+            <div class="stats">
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">
+                        🩸
+                    </div>
+
+                    <h2>
+                        25,400
+                    </h2>
+
+                    <p>
+                        Registered Donors
+                    </p>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">
+                        🏥
+                    </div>
+
+                    <h2>
+                        320
+                    </h2>
+
+                    <p>
+                        Blood Banks
+                    </p>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">
+                        🩸
+                    </div>
+
+                    <h2>
+                        8,750
+                    </h2>
+
+                    <p>
+                        Available Units
+                    </p>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">
+                        ❤️
+                    </div>
+
+                    <h2>
+                        18,920
+                    </h2>
+
+                    <p>
+                        Successful Donations
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="container">
+
+
+            <div class="title">
+
+                <h2>
+                    BloodCare Services
+                </h2>
+
+                <p>
+                    Quick access to donor and blood bank information
+                </p>
+
+            </div>
+
+
+            <div class="card-grid">
+
+
+                <div class="card">
+
+                    <div class="card-icon">
+                        🩸
+                    </div>
+
+                    <h3>
+                        Donor Registration
+                    </h3>
+
+                    <p>
+                        Register donor information and maintain
+                        donor records.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon">
+                        🔎
+                    </div>
+
+                    <h3>
+                        Search Donors
+                    </h3>
+
+                    <p>
+                        Search available donors based on blood group
+                        and location.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon">
+                        🏥
+                    </div>
+
+                    <h3>
+                        Blood Bank Search
+                    </h3>
+
+                    <p>
+                        Find blood banks and check their
+                        available blood groups.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon">
+                        📊
+                    </div>
+
+                    <h3>
+                        Blood Monitoring
+                    </h3>
+
+                    <p>
+                        Monitor blood group availability and
+                        donation activities.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     LOGIN
+===================================================== -->
+
+<section id="login" class="page section">
+
+    <div class="form-container">
+
+        <h2>
+            🔐 BloodCare Login
+        </h2>
+
+
+        <form onsubmit="loginUser(event)">
+
+
+            <div class="form-group">
+
+                <label>
+                    Email / Username
+                </label>
+
+                <input type="text"
+                       placeholder="Enter username"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input type="password"
+                       placeholder="Enter password"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Login As
+                </label>
+
+                <select id="loginType">
+
+                    <option>
+                        Donor / User
+                    </option>
+
+                    <option>
+                        Hospital
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button class="btn btn-red">
+
+                Login
+
+            </button>
+
+        </form>
+
+
+        <p style="text-align:center;margin-top:20px;">
+
+            New donor?
+
+            <a href="#"
+               onclick="showPage('register')">
+
+                Create Account
+
+            </a>
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     REGISTER
+===================================================== -->
+
+<section id="register" class="page section">
+
+    <div class="form-container">
+
+        <h2>
+            🩸 Donor Registration
+        </h2>
+
+
+        <form onsubmit="registerDonor(event)">
+
+
+            <div class="form-group">
+
+                <label>
+                    Full Name
+                </label>
+
+                <input type="text"
+                       placeholder="Enter full name"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Date of Birth
+                </label>
+
+                <input type="date"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Blood Group
+                </label>
+
+                <select required>
+
+                    <option value="">
+                        Select Blood Group
+                    </option>
+
+                    <option>
+                        A+
+                    </option>
+
+                    <option>
+                        A-
+                    </option>
+
+                    <option>
+                        B+
+                    </option>
+
+                    <option>
+                        B-
+                    </option>
+
+                    <option>
+                        AB+
+                    </option>
+
+                    <option>
+                        AB-
+                    </option>
+
+                    <option>
+                        O+
+                    </option>
+
+                    <option>
+                        O-
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Mobile Number
+                </label>
+
+                <input type="tel"
+                       placeholder="Enter mobile number"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Email
+                </label>
+
+                <input type="email"
+                       placeholder="Enter email"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Location
+                </label>
+
+                <input type="text"
+                       placeholder="Enter location"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input type="password"
+                       placeholder="Create password"
+                       required>
+
+            </div>
+
+
+            <button class="btn btn-red">
+
+                Register Donor
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     DONOR INFORMATION
+===================================================== -->
+
+<section id="donors" class="page section">
+
+    <div class="container">
+
+
+        <div class="title">
+
+            <h2>
+                🩸 Donor Information
+            </h2>
+
+            <p>
+                Search registered donors
+            </p>
+
+        </div>
+
+
+        <div class="search-box">
+
+
+            <input type="text"
+                   id="donorSearch"
+                   placeholder="Search donor name or location..."
+                   onkeyup="searchDonors()">
+
+
+            <select id="bloodFilter"
+                    onchange="searchDonors()">
+
+                <option value="">
+                    All Blood Groups
+                </option>
+
+                <option>
+                    A+
+                </option>
+
+                <option>
+                    A-
+                </option>
+
+                <option>
+                    B+
+                </option>
+
+                <option>
+                    B-
+                </option>
+
+                <option>
+                    AB+
+                </option>
+
+                <option>
+                    AB-
+                </option>
+
+                <option>
+                    O+
+                </option>
+
+                <option>
+                    O-
+                </option>
+
+            </select>
+
+
+            <button class="btn btn-dark"
+                    onclick="searchDonors()">
+
+                Search
+
+            </button>
+
+        </div>
+
+
+        <div class="card-grid"
+             id="donorList">
+
+
+            <div class="card donor-card"
+                 data-blood="O+">
+
+                <div class="blood-group">
+                    O+
+                </div>
+
+                <h3>
+                    Rahul Kumar
+                </h3>
+
+                <p>
+                    Blood Group: O+
+                </p>
+
+                <p>
+                    Location: Chennai
+                </p>
+
+                <p>
+                    Last Donation: 20-Jul-2026
+                </p>
+
+                <span class="badge available">
+                    Available
+                </span>
+
+            </div>
+
+
+            <div class="card donor-card"
+                 data-blood="A+">
+
+                <div class="blood-group">
+                    A+
+                </div>
+
+                <h3>
+                    Ananya Sharma
+                </h3>
+
+                <p>
+                    Blood Group: A+
+                </p>
+
+                <p>
+                    Location: Bangalore
+                </p>
+
+                <p>
+                    Last Donation: 15-Jun-2026
+                </p>
+
+                <span class="badge available">
+                    Available
+                </span>
+
+            </div>
+
+
+            <div class="card donor-card"
+                 data-blood="B+">
+
+                <div class="blood-group">
+                    B+
+                </div>
+
+                <h3>
+                    Arun Kumar
+                </h3>
+
+                <p>
+                    Blood Group: B+
+                </p>
+
+                <p>
+                    Location: Madurai
+                </p>
+
+                <p>
+                    Last Donation: 10-Jul-2026
+                </p>
+
+                <span class="badge available">
+                    Available
+                </span>
+
+            </div>
+
+
+            <div class="card donor-card"
+                 data-blood="AB+">
+
+                <div class="blood-group">
+                    AB+
+                </div>
+
+                <h3>
+                    Priya Sharma
+                </h3>
+
+                <p>
+                    Blood Group: AB+
+                </p>
+
+                <p>
+                    Location: Coimbatore
+                </p>
+
+                <p>
+                    Last Donation: 05-May-2026
+                </p>
+
+                <span class="badge low">
+                    Limited
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     BLOOD BANKS
+===================================================== -->
+
+<section id="bloodbanks" class="page section">
+
+    <div class="container">
+
+
+        <div class="title">
+
+            <h2>
+                🏥 Blood Bank Directory
+            </h2>
+
+            <p>
+                Search blood banks and available blood groups
+            </p>
+
+        </div>
+
+
+        <div class="search-box">
+
+            <input type="text"
+                   id="bankSearch"
+                   placeholder="Search blood bank or location..."
+                   onkeyup="searchBanks()">
+
+            <button class="btn btn-dark"
+                    onclick="searchBanks()">
+
+                Search
+
+            </button>
+
+        </div>
+
+
+        <div class="card-grid"
+             id="bankList">
+
+
+            <div class="card bank-card">
+
+                <div class="card-icon">
+                    🏥
+                </div>
+
+                <h3>
+                    Chennai Central Blood Bank
+                </h3>
+
+                <p>
+                    Location: Chennai
+                </p>
+
+                <p>
+                    Phone: 1800-123-4567
+                </p>
+
+                <p>
+                    Available Groups:
+                    A+, B+, O+, AB+
+                </p>
+
+                <span class="badge available">
+                    Blood Available
+                </span>
+
+            </div>
+
+
+            <div class="card bank-card">
+
+                <div class="card-icon">
+                    🏥
+                </div>
+
+                <h3>
+                    Madurai Blood Centre
+                </h3>
+
+                <p>
+                    Location: Madurai
+                </p>
+
+                <p>
+                    Phone: 1800-222-4567
+                </p>
+
+                <p>
+                    Available Groups:
+                    O+, O-, B+
+                </p>
+
+                <span class="badge available">
+                    Blood Available
+                </span>
+
+            </div>
+
+
+            <div class="card bank-card">
+
+                <div class="card-icon">
+                    🏥
+                </div>
+
+                <h3>
+                    Coimbatore Blood Bank
+                </h3>
+
+                <p>
+                    Location: Coimbatore
+                </p>
+
+                <p>
+                    Phone: 1800-333-4567
+                </p>
+
+                <p>
+                    Available Groups:
+                    A+, AB+, B-
+                </p>
+
+                <span class="badge low">
+                    Limited Stock
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     USER DASHBOARD
+===================================================== -->
+
+<section id="user" class="page">
+
+    <div class="dashboard-header">
+
+        <div class="container">
+
+            <h1>
+                🩸 Donor Dashboard
+            </h1>
+
+            <p>
+                Manage your donor information
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="container section">
+
+
+        <div class="dashboard-grid">
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    🩸
+                </div>
+
+                <h2>
+                    O+
+                </h2>
+
+                <p>
+                    Blood Group
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    ❤️
+                </div>
+
+                <h2>
+                    5
+                </h2>
+
+                <p>
+                    Total Donations
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    📅
+                </div>
+
+                <h2>
+                    20-Jul-2026
+                </h2>
+
+                <p>
+                    Last Donation
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    ✅
+                </div>
+
+                <h2>
+                    Available
+                </h2>
+
+                <p>
+                    Donor Status
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <h2 style="margin:35px 0 20px;">
+            My Donor Information
+        </h2>
+
+
+        <div class="card">
+
+
+            <h3>
+                👤 Donor Profile
+            </h3>
+
+
+            <p>
+                Name: Rahul Kumar
+            </p>
+
+            <p>
+                Blood Group: O+
+            </p>
+
+            <p>
+                Mobile: 9876543210
+            </p>
+
+            <p>
+                Email: rahul@email.com
+            </p>
+
+            <p>
+                Location: Chennai
+            </p>
+
+            <p>
+                Total Donations: 5
+            </p>
+
+
+            <button class="btn btn-blue"
+                    onclick="editDonor()">
+
+                Edit Information
+
+            </button>
+
+
+            <button class="btn btn-dark"
+                    onclick="logout()">
+
+                Logout
+
+            </button>
+
+        </div>
+
+
+        <h2 style="margin:40px 0 20px;">
+            Donation History
+        </h2>
+
+
+        <div class="table-box">
+
+            <table>
+
+                <tr>
+
+                    <th>
+                        Donation ID
+                    </th>
+
+                    <th>
+                        Blood Group
+                    </th>
+
+                    <th>
+                        Blood Bank
+                    </th>
+
+                    <th>
+                        Date
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        DON1001
+                    </td>
+
+                    <td>
+                        O+
+                    </td>
+
+                    <td>
+                        Chennai Central Blood Bank
+                    </td>
+
+                    <td>
+                        20-Jul-2026
+                    </td>
+
+                    <td>
+
+                        <span class="badge available">
+                            Completed
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        DON0992
+                    </td>
+
+                    <td>
+                        O+
+                    </td>
+
+                    <td>
+                        Chennai Central Blood Bank
+                    </td>
+
+                    <td>
+                        10-Mar-2026
+                    </td>
+
+                    <td>
+
+                        <span class="badge available">
+                            Completed
+                        </span>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     HOSPITAL REGISTRATION
+===================================================== -->
+
+<section id="hospitalRegister" class="page section">
+
+    <div class="form-container">
+
+        <h2>
+            🏥 Hospital Registration
+        </h2>
+
+
+        <form onsubmit="registerHospital(event)">
+
+
+            <div class="form-group">
+
+                <label>
+                    Hospital Name
+                </label>
+
+                <input type="text"
+                       placeholder="Enter hospital name"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Hospital Email
+                </label>
+
+                <input type="email"
+                       placeholder="Enter hospital email"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Contact Number
+                </label>
+
+                <input type="tel"
+                       placeholder="Enter contact number"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Location
+                </label>
+
+                <input type="text"
+                       placeholder="Enter hospital location"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input type="password"
+                       placeholder="Create password"
+                       required>
+
+            </div>
+
+
+            <button class="btn btn-red">
+
+                Register Hospital
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     HOSPITAL DASHBOARD
+===================================================== -->
+
+<section id="hospital" class="page">
+
+    <div class="dashboard-header">
+
+        <div class="container">
+
+            <h1>
+                🏥 Hospital Dashboard
+            </h1>
+
+            <p>
+                Manage blood bank information and blood group status
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="container section">
+
+
+        <div class="dashboard-grid">
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    🩸
+                </div>
+
+                <h2>
+                    245
+                </h2>
+
+                <p>
+                    Total Blood Units
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    A+
+                </div>
+
+                <h2>
+                    45
+                </h2>
+
+                <p>
+                    A+ Units
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    O+
+                </div>
+
+                <h2>
+                    72
+                </h2>
+
+                <p>
+                    O+ Units
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    B+
+                </div>
+
+                <h2>
+                    58
+                </h2>
+
+                <p>
+                    B+ Units
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- BLOOD BANK INFORMATION -->
+
+        <div class="form-container">
+
+            <h2>
+                ➕ Post Blood Bank Information
+            </h2>
+
+
+            <form onsubmit="postBloodBank(event)">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Blood Bank Name
+                    </label>
+
+                    <input type="text"
+                           placeholder="Enter blood bank name"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Location
+                    </label>
+
+                    <input type="text"
+                           placeholder="Enter location"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Contact Number
+                    </label>
+
+                    <input type="tel"
+                           placeholder="Enter phone number"
+                           required>
+
+                </div>
+
+
+                <button class="btn btn-red">
+
+                    Post Blood Bank Info
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- BLOOD STATUS -->
+
+        <h2 style="margin:40px 0 20px;">
+            🩸 Update Blood Group Status
+        </h2>
+
+
+        <div class="table-box">
+
+
+            <table id="bloodTable">
+
+
+                <tr>
+
+                    <th>
+                        Blood Group
+                    </th>
+
+                    <th>
+                        Available Units
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        A+
+                    </td>
+
+                    <td>
+                        45
+                    </td>
+
+                    <td>
+
+                        <span class="badge available">
+                            Available
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-blue"
+                                onclick="updateBloodStatus(this)">
+
+                            Update
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        A-
+                    </td>
+
+                    <td>
+                        12
+                    </td>
+
+                    <td>
+
+                        <span class="badge low">
+                            Low Stock
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-blue"
+                                onclick="updateBloodStatus(this)">
+
+                            Update
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        B+
+                    </td>
+
+                    <td>
+                        58
+                    </td>
+
+                    <td>
+
+                        <span class="badge available">
+                            Available
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-blue"
+                                onclick="updateBloodStatus(this)">
+
+                            Update
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        B-
+                    </td>
+
+                    <td>
+                        5
+                    </td>
+
+                    <td>
+
+                        <span class="badge empty">
+                            Critical
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-blue"
+                                onclick="updateBloodStatus(this)">
+
+                            Update
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        O+
+                    </td>
+
+                    <td>
+                        72
+                    </td>
+
+                    <td>
+
+                        <span class="badge available">
+                            Available
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-blue"
+                                onclick="updateBloodStatus(this)">
+
+                            Update
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        O-
+                    </td>
+
+                    <td>
+                        8
+                    </td>
+
+                    <td>
+
+                        <span class="badge low">
+                            Low Stock
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-blue"
+                                onclick="updateBloodStatus(this)">
+
+                            Update
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        AB+
+                    </td>
+
+                    <td>
+                        25
+                    </td>
+
+                    <td>
+
+                        <span class="badge available">
+                            Available
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-blue"
+                                onclick="updateBloodStatus(this)">
+
+                            Update
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        AB-
+                    </td>
+
+                    <td>
+                        4
+                    </td>
+
+                    <td>
+
+                        <span class="badge empty">
+                            Critical
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-blue"
+                                onclick="updateBloodStatus(this)">
+
+                            Update
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <!-- BLOOD BANK DETAILS -->
+
+        <h2 style="margin:40px 0 20px;">
+            Blood Bank Details
+        </h2>
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                🏥
+            </div>
+
+            <h3>
+                Chennai Central Blood Bank
+            </h3>
+
+            <p>
+                Hospital: Chennai Medical Centre
+            </p>
+
+            <p>
+                Location: Chennai
+            </p>
+
+            <p>
+                Contact: 1800-123-4567
+            </p>
+
+            <p>
+                Total Available Units: 245
+            </p>
+
+            <button class="btn btn-dark"
+                    onclick="viewBankDetails()">
+
+                View Details
+
+            </button>
+
+
+            <button class="btn btn-orange"
+                    onclick="logout()">
+
+                Logout
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <h3>
+        🩸 BloodCare
+    </h3>
+
+    <p>
+        Blood Management Information System
+    </p>
+
+    <p>
+        © 2026 BloodCare. All Rights Reserved.
+    </p>
+
+</footer>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
+function showPage(pageId){
+
+    const pages =
+        document.querySelectorAll(".page");
+
+
+    pages.forEach(function(page){
+
+        page.classList.remove("active");
+
+    });
+
+
+    const selected =
+        document.getElementById(pageId);
+
+
+    if(selected){
+
+        selected.classList.add("active");
+
+    }
+
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function loginUser(event){
+
+    event.preventDefault();
+
+
+    const type =
+        document.getElementById("loginType").value;
+
+
+    alert(
+
+        "Login successful!\n\n" +
+
+        "Logged in as: " + type
+
+    );
+
+
+    if(type === "Hospital"){
+
+        showPage("hospital");
+
+    }
+
+    else{
+
+        showPage("user");
+
+    }
+
+}
+
+
+/* =========================
+   DONOR REGISTER
+========================= */
+
+function registerDonor(event){
+
+    event.preventDefault();
+
+
+    const donorID =
+
+        "DON" +
+
+        Math.floor(
+            1000 + Math.random()*9000
+        );
+
+
+    alert(
+
+        "Donor registration successful!\n\n" +
+
+        "Donor ID: " +
+        donorID +
+
+        "\nYour donor information has been saved."
+
+    );
+
+
+    event.target.reset();
+
+
+    showPage("login");
+
+}
+
+
+/* =========================
+   HOSPITAL REGISTER
+========================= */
+
+function registerHospital(event){
+
+    event.preventDefault();
+
+
+    alert(
+
+        "Hospital registration successful!\n\n" +
+
+        "You can now login to manage your blood bank."
+
+    );
+
+
+    event.target.reset();
+
+
+    showPage("login");
+
+}
+
+
+/* =========================
+   SEARCH DONORS
+========================= */
+
+function searchDonors(){
+
+    const search =
+
+        document
+        .getElementById("donorSearch")
+        .value
+        .toLowerCase();
+
+
+    const blood =
+
+        document
+        .getElementById("bloodFilter")
+        .value;
+
+
+    const donors =
+
+        document
+        .querySelectorAll(".donor-card");
+
+
+    donors.forEach(function(donor){
+
+        const text =
+            donor.innerText.toLowerCase();
+
+
+        const donorBlood =
+            donor.dataset.blood;
+
+
+        const textMatch =
+            text.includes(search);
+
+
+        const bloodMatch =
+            blood === "" ||
+            donorBlood === blood;
+
+
+        if(textMatch && bloodMatch){
+
+            donor.style.display = "block";
+
+        }
+
+        else{
+
+            donor.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+/* =========================
+   SEARCH BLOOD BANK
+========================= */
+
+function searchBanks(){
+
+    const search =
+
+        document
+        .getElementById("bankSearch")
+        .value
+        .toLowerCase();
+
+
+    const banks =
+
+        document
+        .querySelectorAll(".bank-card");
+
+
+    banks.forEach(function(bank){
+
+        const text =
+            bank.innerText.toLowerCase();
+
+
+        if(text.includes(search)){
+
+            bank.style.display = "block";
+
+        }
+
+        else{
+
+            bank.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+/* =========================
+   EDIT DONOR
+========================= */
+
+function editDonor(){
+
+    alert(
+
+        "Donor information editing page opened.\n\n" +
+
+        "You can update your contact details " +
+        "and location."
+
+    );
+
+}
+
+
+/* =========================
+   POST BLOOD BANK
+========================= */
+
+function postBloodBank(event){
+
+    event.preventDefault();
+
+
+    alert(
+
+        "Blood bank information posted successfully."
+
+    );
+
+
+    event.target.reset();
+
+}
+
+
+/* =========================
+   UPDATE BLOOD STATUS
+========================= */
+
+function updateBloodStatus(button){
+
+    const row =
+        button.closest("tr");
+
+
+    const currentUnits =
+        row.cells[1].innerText;
+
+
+    const newUnits =
+        prompt(
+
+            "Enter updated number of blood units:",
+
+            currentUnits
+
+        );
+
+
+    if(
+        newUnits !== null &&
+        newUnits !== "" &&
+        !isNaN(newUnits)
+    ){
+
+        row.cells[1].innerText =
+            newUnits;
+
+
+        const units =
+            Number(newUnits);
+
+
+        if(units === 0){
+
+            row.cells[2].innerHTML =
+                '<span class="badge empty">Empty</span>';
+
+        }
+
+        else if(units < 10){
+
+            row.cells[2].innerHTML =
+                '<span class="badge low">Low Stock</span>';
+
+        }
+
+        else{
+
+            row.cells[2].innerHTML =
+                '<span class="badge available">Available</span>';
+
+        }
+
+
+        alert(
+
+            "Blood group status updated successfully."
+
+        );
+
+    }
+
+}
+
+
+/* =========================
+   VIEW BLOOD BANK DETAILS
+========================= */
+
+function viewBankDetails(){
+
+    alert(
+
+        "Blood Bank Details\n\n" +
+
+        "Name: Chennai Central Blood Bank\n" +
+
+        "Location: Chennai\n" +
+
+        "Contact: 1800-123-4567\n" +
+
+        "Available Units: 245"
+
+    );
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout(){
+
+    alert(
+
+        "You have been logged out successfully."
+
+    );
+
+
+    showPage("home");
+
+}
+
+</script>
+
+
+</body>
+
+</html>
