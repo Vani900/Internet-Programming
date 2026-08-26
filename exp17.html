@@ -1,0 +1,2487 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VoteOnline - Online Voting System</title>
+
+<style>
+
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f5f7fa;
+    color:#263238;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.container{
+    width:88%;
+    max-width:1200px;
+    margin:auto;
+}
+
+section{
+    min-height:500px;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+    background:#111827;
+    color:white;
+    padding:17px 6%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 3px 15px rgba(0,0,0,.2);
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#f59e0b;
+}
+
+.nav-links{
+    list-style:none;
+    display:flex;
+    gap:20px;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.nav-links a:hover{
+    color:#f59e0b;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:560px;
+    display:flex;
+    align-items:center;
+    background:
+    linear-gradient(
+        120deg,
+        #111827,
+        #1f2937,
+        #374151
+    );
+    color:white;
+}
+
+.hero-content{
+    width:88%;
+    max-width:1200px;
+    margin:auto;
+}
+
+.hero h1{
+    font-size:52px;
+    max-width:750px;
+    margin-bottom:20px;
+}
+
+.hero h1 span{
+    color:#f59e0b;
+}
+
+.hero p{
+    max-width:680px;
+    line-height:1.8;
+    color:#d1d5db;
+    font-size:18px;
+}
+
+.hero-buttons{
+    margin-top:25px;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn{
+    border:none;
+    padding:12px 21px;
+    border-radius:7px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.btn-orange{
+    background:#f59e0b;
+    color:#111827;
+}
+
+.btn-orange:hover{
+    background:#d97706;
+    color:white;
+}
+
+.btn-dark{
+    background:#111827;
+    color:white;
+}
+
+.btn-green{
+    background:#16a34a;
+    color:white;
+}
+
+.btn-red{
+    background:#dc2626;
+    color:white;
+}
+
+.btn-blue{
+    background:#2563eb;
+    color:white;
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+    padding:60px 0;
+}
+
+.title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.title h2{
+    color:#111827;
+    font-size:32px;
+}
+
+.title p{
+    margin-top:8px;
+    color:#6b7280;
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+
+.stat{
+    background:white;
+    padding:28px;
+    text-align:center;
+    border-radius:12px;
+    box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+.stat-icon{
+    font-size:35px;
+    margin-bottom:10px;
+}
+
+.stat h2{
+    color:#111827;
+    font-size:30px;
+}
+
+.stat p{
+    color:#6b7280;
+    margin-top:5px;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.card-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(230px,1fr));
+    gap:22px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+.card:hover{
+    transform:translateY(-3px);
+    transition:.2s;
+}
+
+.card h3{
+    color:#111827;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#6b7280;
+    line-height:1.6;
+}
+
+.card-icon{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+
+/* =========================
+   FORMS
+========================= */
+
+.form-container{
+    max-width:550px;
+    margin:50px auto;
+    background:white;
+    padding:35px;
+    border-radius:13px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.form-container h2{
+    text-align:center;
+    margin-bottom:25px;
+    color:#111827;
+}
+
+.form-group{
+    margin-bottom:17px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.form-group input,
+.form-group select{
+    width:100%;
+    padding:13px;
+    border:1px solid #d1d5db;
+    border-radius:7px;
+    outline:none;
+}
+
+.form-group input:focus,
+.form-group select:focus{
+    border-color:#f59e0b;
+}
+
+.form-container .btn{
+    width:100%;
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard-header{
+    background:#111827;
+    color:white;
+    padding:38px 0;
+}
+
+.dashboard-header h1{
+    margin-bottom:7px;
+}
+
+.dashboard-header p{
+    color:#d1d5db;
+}
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin:35px 0;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table-box{
+    background:white;
+    border-radius:10px;
+    overflow-x:auto;
+    box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:14px;
+    text-align:left;
+    border-bottom:1px solid #e5e7eb;
+}
+
+th{
+    background:#111827;
+    color:white;
+}
+
+tr:hover{
+    background:#f9fafb;
+}
+
+
+/* =========================
+   BADGES
+========================= */
+
+.badge{
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.active{
+    background:#dcfce7;
+    color:#15803d;
+}
+
+.pending{
+    background:#fef3c7;
+    color:#b45309;
+}
+
+.completed{
+    background:#dcfce7;
+    color:#15803d;
+}
+
+.not-voted{
+    background:#dbeafe;
+    color:#1d4ed8;
+}
+
+
+/* =========================
+   VOTING CARD
+========================= */
+
+.candidate-card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+    text-align:center;
+}
+
+.candidate-symbol{
+    font-size:55px;
+    margin-bottom:15px;
+}
+
+.candidate-card h3{
+    margin-bottom:8px;
+}
+
+.candidate-card p{
+    color:#6b7280;
+    margin-bottom:15px;
+}
+
+.candidate-card input{
+    margin-right:8px;
+}
+
+
+/* =========================
+   OTP BOX
+========================= */
+
+.otp-box{
+    max-width:450px;
+    margin:30px auto;
+    background:#fff;
+    padding:30px;
+    border-radius:12px;
+    text-align:center;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.otp-box input{
+    width:100%;
+    padding:13px;
+    margin:15px 0;
+    border:1px solid #d1d5db;
+    border-radius:7px;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box{
+    display:flex;
+    gap:10px;
+    margin-bottom:30px;
+}
+
+.search-box input{
+    flex:1;
+    padding:14px;
+    border:1px solid #d1d5db;
+    border-radius:7px;
+}
+
+
+/* =========================
+   RESULT BOX
+========================= */
+
+.result-box{
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+    margin-top:25px;
+}
+
+.result-bar{
+    height:25px;
+    background:#e5e7eb;
+    border-radius:20px;
+    overflow:hidden;
+    margin:10px 0 20px;
+}
+
+.result-fill{
+    height:100%;
+    background:#f59e0b;
+    width:65%;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    background:#111827;
+    color:white;
+    text-align:center;
+    padding:30px;
+    margin-top:40px;
+}
+
+footer p{
+    color:#9ca3af;
+    margin-top:8px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:800px){
+
+    .navbar{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .nav-links{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .hero h1{
+        font-size:37px;
+    }
+
+    .search-box{
+        flex-direction:column;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        🗳️ Vote<span>Online</span>
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+            <a onclick="showPage('home')">Home</a>
+        </li>
+
+        <li>
+            <a onclick="showPage('vote')">Vote Now</a>
+        </li>
+
+        <li>
+            <a onclick="showPage('user')">My Account</a>
+        </li>
+
+        <li>
+            <a onclick="showPage('results')">Election Results</a>
+        </li>
+
+        <li>
+            <a onclick="showPage('admin')">Admin</a>
+        </li>
+
+        <li>
+            <a onclick="showPage('login')">Login</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section id="home" class="page active">
+
+    <div class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+                Your Vote,
+                <span>Your Voice</span>
+            </h1>
+
+            <p>
+                VoteOnline is a secure and user-friendly
+                electronic voting platform that allows registered
+                voters to authenticate themselves and cast their
+                votes through a simple online voting process.
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="btn btn-orange"
+                        onclick="showPage('login')">
+
+                    🗳️ Login to Vote
+
+                </button>
+
+                <button class="btn btn-dark"
+                        onclick="showPage('results')">
+
+                    📊 View Election Results
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="container">
+
+            <div class="title">
+
+                <h2>Election at a Glance</h2>
+
+                <p>
+                    Simple, secure and transparent electronic voting
+                </p>
+
+            </div>
+
+
+            <div class="stats">
+
+                <div class="stat">
+
+                    <div class="stat-icon">👥</div>
+
+                    <h2>5,250</h2>
+
+                    <p>Registered Voters</p>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">🗳️</div>
+
+                    <h2>3,875</h2>
+
+                    <p>Votes Cast</p>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">👤</div>
+
+                    <h2>6</h2>
+
+                    <p>Candidates</p>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">🏛️</div>
+
+                    <h2>12</h2>
+
+                    <p>Election Wards</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="container">
+
+            <div class="title">
+
+                <h2>VoteOnline Features</h2>
+
+                <p>
+                    Easy and convenient online election management
+                </p>
+
+            </div>
+
+
+            <div class="card-grid">
+
+                <div class="card">
+
+                    <div class="card-icon">🔐</div>
+
+                    <h3>Secure Login</h3>
+
+                    <p>
+                        Voters can login using their unique
+                        Voter ID and OTP verification.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon">🗳️</div>
+
+                    <h3>Online Voting</h3>
+
+                    <p>
+                        Select your preferred candidate and
+                        submit your vote securely.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon">📊</div>
+
+                    <h3>Election Results</h3>
+
+                    <p>
+                        View election progress and final
+                        results through the results dashboard.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon">📋</div>
+
+                    <h3>Voter Management</h3>
+
+                    <p>
+                        Administrators can create, update and
+                        import voter lists.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     LOGIN
+===================================================== -->
+
+<section id="login" class="page section">
+
+    <div class="form-container">
+
+        <h2>🔐 Voter Login</h2>
+
+        <form onsubmit="loginUser(event)">
+
+            <div class="form-group">
+
+                <label>Voter ID</label>
+
+                <input type="text"
+                       id="voterId"
+                       placeholder="Enter Voter ID"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Password</label>
+
+                <input type="password"
+                       placeholder="Enter password"
+                       required>
+
+            </div>
+
+
+            <button class="btn btn-orange">
+
+                Login
+
+            </button>
+
+        </form>
+
+
+        <p style="text-align:center;margin-top:20px;">
+
+            Don't have a voter account?
+
+            <a href="#"
+               onclick="showPage('register')">
+
+               Register
+
+            </a>
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     REGISTER
+===================================================== -->
+
+<section id="register" class="page section">
+
+    <div class="form-container">
+
+        <h2>👤 Voter Registration</h2>
+
+        <form onsubmit="registerUser(event)">
+
+            <div class="form-group">
+
+                <label>Voter ID</label>
+
+                <input type="text"
+                       placeholder="Enter Voter ID"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Full Name</label>
+
+                <input type="text"
+                       placeholder="Enter full name"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Email</label>
+
+                <input type="email"
+                       placeholder="Enter email"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Mobile Number</label>
+
+                <input type="tel"
+                       placeholder="Enter mobile number"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Create Password</label>
+
+                <input type="password"
+                       placeholder="Create password"
+                       required>
+
+            </div>
+
+
+            <button class="btn btn-orange">
+
+                Register Voter
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     OTP VERIFICATION
+===================================================== -->
+
+<section id="otp" class="page section">
+
+    <div class="otp-box">
+
+        <h2>📱 OTP Verification</h2>
+
+        <p style="margin-top:10px;color:#6b7280;">
+
+            An OTP has been sent to your registered
+            mobile number.
+
+        </p>
+
+
+        <input type="text"
+               id="otpInput"
+               placeholder="Enter 6-digit OTP"
+               maxlength="6">
+
+
+        <button class="btn btn-orange"
+                onclick="verifyOTP()">
+
+            Verify OTP
+
+        </button>
+
+
+        <button class="btn btn-dark"
+                onclick="sendOTP()">
+
+            Resend OTP
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     VOTE PAGE
+===================================================== -->
+
+<section id="vote" class="page section">
+
+    <div class="container">
+
+        <div class="title">
+
+            <h2>🗳️ Cast Your Vote</h2>
+
+            <p>
+                Select one candidate and submit your vote
+            </p>
+
+        </div>
+
+
+        <div class="card-grid">
+
+
+            <div class="candidate-card">
+
+                <div class="candidate-symbol">
+                    🌳
+                </div>
+
+                <h3>Arun Kumar</h3>
+
+                <p>
+                    People's Development Party
+                </p>
+
+                <label>
+
+                    <input type="radio"
+                           name="candidate"
+                           value="Arun Kumar">
+
+                    Select Candidate
+
+                </label>
+
+            </div>
+
+
+            <div class="candidate-card">
+
+                <div class="candidate-symbol">
+                    ⭐
+                </div>
+
+                <h3>Priya Sharma</h3>
+
+                <p>
+                    National Progress Party
+                </p>
+
+                <label>
+
+                    <input type="radio"
+                           name="candidate"
+                           value="Priya Sharma">
+
+                    Select Candidate
+
+                </label>
+
+            </div>
+
+
+            <div class="candidate-card">
+
+                <div class="candidate-symbol">
+                    🕊️
+                </div>
+
+                <h3>Rahul Kumar</h3>
+
+                <p>
+                    People's Welfare Party
+                </p>
+
+                <label>
+
+                    <input type="radio"
+                           name="candidate"
+                           value="Rahul Kumar">
+
+                    Select Candidate
+
+                </label>
+
+            </div>
+
+
+            <div class="candidate-card">
+
+                <div class="candidate-symbol">
+                    🌺
+                </div>
+
+                <h3>Ananya Rao</h3>
+
+                <p>
+                    Democratic Unity Party
+                </p>
+
+                <label>
+
+                    <input type="radio"
+                           name="candidate"
+                           value="Ananya Rao">
+
+                    Select Candidate
+
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <div style="max-width:500px;margin:35px auto;text-align:center;">
+
+            <button class="btn btn-orange"
+                    onclick="getVotingOTP()">
+
+                🔐 Get OTP for Voting
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     VOTING OTP
+===================================================== -->
+
+<section id="voteOTP" class="page section">
+
+    <div class="otp-box">
+
+        <h2>🔐 Voting OTP Verification</h2>
+
+        <p style="margin-top:10px;color:#6b7280;">
+
+            Enter the OTP sent to your registered
+            mobile number to confirm your vote.
+
+        </p>
+
+
+        <input type="text"
+               id="voteOtpInput"
+               placeholder="Enter Voting OTP"
+               maxlength="6">
+
+
+        <button class="btn btn-green"
+                onclick="submitVote()">
+
+            Submit Vote
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     USER DASHBOARD
+===================================================== -->
+
+<section id="user" class="page">
+
+    <div class="dashboard-header">
+
+        <div class="container">
+
+            <h1>👤 Voter Dashboard</h1>
+
+            <p>
+                Manage your voting information
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="container section">
+
+
+        <div class="dashboard-grid">
+
+            <div class="stat">
+
+                <div class="stat-icon">🪪</div>
+
+                <h2>VTR1025</h2>
+
+                <p>Voter ID</p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">🏛️</div>
+
+                <h2>Ward 05</h2>
+
+                <p>Election Ward</p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">🗳️</div>
+
+                <h2>1</h2>
+
+                <p>Votes Cast</p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">✅</div>
+
+                <h2>Verified</h2>
+
+                <p>Voter Status</p>
+
+            </div>
+
+        </div>
+
+
+        <h2 style="margin:35px 0 20px;">
+            Voting History
+        </h2>
+
+
+        <div class="table-box">
+
+            <table>
+
+                <tr>
+
+                    <th>Election ID</th>
+                    <th>Election Name</th>
+                    <th>Ward</th>
+                    <th>Date</th>
+                    <th>Status</th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>EL001</td>
+
+                    <td>
+                        Local Council Election
+                    </td>
+
+                    <td>
+                        Ward 05
+                    </td>
+
+                    <td>
+                        26-Aug-2026
+                    </td>
+
+                    <td>
+
+                        <span class="badge completed">
+                            Vote Submitted
+                        </span>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <div class="card-grid"
+             style="margin-top:40px;">
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🗳️
+                </div>
+
+                <h3>Vote Now</h3>
+
+                <p>
+                    Cast your vote for the current election.
+                </p>
+
+                <button class="btn btn-orange"
+                        onclick="showPage('vote')">
+
+                    Vote Now
+
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    📊
+                </div>
+
+                <h3>Election Progress</h3>
+
+                <p>
+                    View the current election results.
+                </p>
+
+                <button class="btn btn-blue"
+                        onclick="showPage('results')">
+
+                    View Results
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ADMIN DASHBOARD
+===================================================== -->
+
+<section id="admin" class="page">
+
+    <div class="dashboard-header">
+
+        <div class="container">
+
+            <h1>⚙ Administrator Dashboard</h1>
+
+            <p>
+                Manage elections, candidates and voter information
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="container section">
+
+
+        <div class="dashboard-grid">
+
+            <div class="stat">
+
+                <div class="stat-icon">👥</div>
+
+                <h2>5,250</h2>
+
+                <p>Total Voters</p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">👤</div>
+
+                <h2>6</h2>
+
+                <p>Candidates</p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">🏛️</div>
+
+                <h2>12</h2>
+
+                <p>Election Wards</p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">🗳️</div>
+
+                <h2>3,875</h2>
+
+                <p>Votes Cast</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- CREATE CANDIDATE -->
+
+        <div class="form-container">
+
+            <h2>➕ Create Election Candidate</h2>
+
+            <form onsubmit="createCandidate(event)">
+
+                <div class="form-group">
+
+                    <label>Candidate Name</label>
+
+                    <input type="text"
+                           placeholder="Enter candidate name"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Party Name</label>
+
+                    <input type="text"
+                           placeholder="Enter party name"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Election Ward</label>
+
+                    <select>
+
+                        <option>Ward 01</option>
+                        <option>Ward 02</option>
+                        <option>Ward 03</option>
+                        <option>Ward 04</option>
+                        <option>Ward 05</option>
+                        <option>Ward 06</option>
+
+                    </select>
+
+                </div>
+
+
+                <button class="btn btn-orange">
+
+                    Create Candidate
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- CANDIDATE LIST -->
+
+        <h2 style="margin:40px 0 20px;">
+            Election Candidates
+        </h2>
+
+
+        <div class="table-box">
+
+            <table id="candidateTable">
+
+                <tr>
+
+                    <th>Candidate ID</th>
+                    <th>Name</th>
+                    <th>Party</th>
+                    <th>Ward</th>
+                    <th>Status</th>
+                    <th>Action</th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>CAN001</td>
+
+                    <td>
+                        Arun Kumar
+                    </td>
+
+                    <td>
+                        People's Development Party
+                    </td>
+
+                    <td>
+                        Ward 05
+                    </td>
+
+                    <td>
+
+                        <span class="badge active">
+                            Active
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-red"
+                                onclick="deleteCandidate(this)">
+
+                            Delete
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>CAN002</td>
+
+                    <td>
+                        Priya Sharma
+                    </td>
+
+                    <td>
+                        National Progress Party
+                    </td>
+
+                    <td>
+                        Ward 05
+                    </td>
+
+                    <td>
+
+                        <span class="badge active">
+                            Active
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-red"
+                                onclick="deleteCandidate(this)">
+
+                            Delete
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <!-- ALLOCATE ELECTION DATA -->
+
+        <div class="form-container">
+
+            <h2>📋 Allocate Election Data</h2>
+
+            <form onsubmit="allocateElection(event)">
+
+                <div class="form-group">
+
+                    <label>Election Name</label>
+
+                    <input type="text"
+                           placeholder="Enter election name"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Election Ward</label>
+
+                    <select>
+
+                        <option>Ward 01</option>
+                        <option>Ward 02</option>
+                        <option>Ward 03</option>
+                        <option>Ward 04</option>
+                        <option>Ward 05</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Candidate</label>
+
+                    <select>
+
+                        <option>
+                            Arun Kumar
+                        </option>
+
+                        <option>
+                            Priya Sharma
+                        </option>
+
+                        <option>
+                            Rahul Kumar
+                        </option>
+
+                        <option>
+                            Ananya Rao
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button class="btn btn-blue">
+
+                    Allocate Data
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- ALLOCATE USER TO WARD -->
+
+        <div class="form-container">
+
+            <h2>🏛️ Allocate User to Election Ward</h2>
+
+            <form onsubmit="allocateWard(event)">
+
+                <div class="form-group">
+
+                    <label>Voter ID</label>
+
+                    <input type="text"
+                           placeholder="Enter Voter ID"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Election Ward</label>
+
+                    <select>
+
+                        <option>Ward 01</option>
+                        <option>Ward 02</option>
+                        <option>Ward 03</option>
+                        <option>Ward 04</option>
+                        <option>Ward 05</option>
+                        <option>Ward 06</option>
+
+                    </select>
+
+                </div>
+
+
+                <button class="btn btn-orange">
+
+                    Allocate Ward
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- VOTER LIST -->
+
+        <h2 style="margin:40px 0 20px;">
+            Voter List
+        </h2>
+
+
+        <div class="search-box">
+
+            <input type="text"
+                   id="voterSearch"
+                   placeholder="Search Voter ID or Name"
+                   onkeyup="searchVoters()">
+
+            <button class="btn btn-dark"
+                    onclick="searchVoters()">
+
+                Search
+
+            </button>
+
+        </div>
+
+
+        <div class="table-box">
+
+            <table id="voterTable">
+
+                <tr>
+
+                    <th>Voter ID</th>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Ward</th>
+                    <th>Status</th>
+                    <th>Action</th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>VTR1025</td>
+                    <td>Rahul Kumar</td>
+                    <td>9876543210</td>
+                    <td>Ward 05</td>
+
+                    <td>
+
+                        <span class="badge active">
+                            Active
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-blue"
+                                onclick="editVoter()">
+
+                            Update
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>VTR1026</td>
+                    <td>Ananya Sharma</td>
+                    <td>9123456780</td>
+                    <td>Ward 05</td>
+
+                    <td>
+
+                        <span class="badge active">
+                            Active
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-blue"
+                                onclick="editVoter()">
+
+                            Update
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>VTR1027</td>
+                    <td>Arun Kumar</td>
+                    <td>9988776655</td>
+                    <td>Ward 04</td>
+
+                    <td>
+
+                        <span class="badge active">
+                            Active
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-blue"
+                                onclick="editVoter()">
+
+                            Update
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <!-- IMPORT VOTER LIST -->
+
+        <div class="form-container">
+
+            <h2>📥 Import Voter List</h2>
+
+            <form onsubmit="importVoters(event)">
+
+                <div class="form-group">
+
+                    <label>Upload Voter List</label>
+
+                    <input type="file"
+                           accept=".csv,.xlsx"
+                           required>
+
+                </div>
+
+
+                <button class="btn btn-green">
+
+                    Import Voter List
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- RESULTS -->
+
+        <h2 style="margin:40px 0 20px;">
+            Election Results
+        </h2>
+
+
+        <div class="result-box">
+
+            <h3>
+                Arun Kumar
+            </h3>
+
+            <p>
+                People's Development Party
+            </p>
+
+            <div class="result-bar">
+
+                <div class="result-fill"
+                     style="width:65%;">
+
+                </div>
+
+            </div>
+
+            <strong>
+                2,515 Votes
+            </strong>
+
+        </div>
+
+
+        <div class="result-box">
+
+            <h3>
+                Priya Sharma
+            </h3>
+
+            <p>
+                National Progress Party
+            </p>
+
+            <div class="result-bar">
+
+                <div class="result-fill"
+                     style="width:45%;">
+
+                </div>
+
+            </div>
+
+            <strong>
+                1,360 Votes
+            </strong>
+
+        </div>
+
+
+        <div style="text-align:center;margin-top:30px;">
+
+            <button class="btn btn-orange"
+                    onclick="getResults()">
+
+                📊 Generate Election Results
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     RESULTS PAGE
+===================================================== -->
+
+<section id="results" class="page section">
+
+    <div class="container">
+
+        <div class="title">
+
+            <h2>📊 Election Results</h2>
+
+            <p>
+                Current election voting progress
+            </p>
+
+        </div>
+
+
+        <div class="result-box">
+
+            <h3>
+                🌳 Arun Kumar
+            </h3>
+
+            <p>
+                People's Development Party
+            </p>
+
+            <div class="result-bar">
+
+                <div class="result-fill"
+                     style="width:65%;">
+
+                </div>
+
+            </div>
+
+            <strong>
+                2,515 Votes
+            </strong>
+
+        </div>
+
+
+        <div class="result-box">
+
+            <h3>
+                ⭐ Priya Sharma
+            </h3>
+
+            <p>
+                National Progress Party
+            </p>
+
+            <div class="result-bar">
+
+                <div class="result-fill"
+                     style="width:45%;">
+
+                </div>
+
+            </div>
+
+            <strong>
+                1,360 Votes
+            </strong>
+
+        </div>
+
+
+        <div class="result-box">
+
+            <h3>
+                🕊️ Rahul Kumar
+            </h3>
+
+            <p>
+                People's Welfare Party
+            </p>
+
+            <div class="result-bar">
+
+                <div class="result-fill"
+                     style="width:25%;">
+
+                </div>
+
+            </div>
+
+            <strong>
+                850 Votes
+            </strong>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <h3>
+        🗳️ VoteOnline
+    </h3>
+
+    <p>
+        Secure Online Voting & Election Management System
+    </p>
+
+    <p>
+        © 2026 VoteOnline. All Rights Reserved.
+    </p>
+
+</footer>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
+function showPage(pageId){
+
+    const pages =
+        document.querySelectorAll(".page");
+
+    pages.forEach(function(page){
+
+        page.classList.remove("active");
+
+    });
+
+
+    const selected =
+        document.getElementById(pageId);
+
+    if(selected){
+
+        selected.classList.add("active");
+
+    }
+
+
+    window.scrollTo({
+
+        top:0,
+        behavior:"smooth"
+
+    });
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function loginUser(event){
+
+    event.preventDefault();
+
+    const voterId =
+        document.getElementById("voterId").value;
+
+    if(voterId === ""){
+
+        alert(
+            "Please enter Voter ID."
+        );
+
+        return;
+
+    }
+
+
+    alert(
+        "Voter ID verified successfully!\n\n" +
+        "Voter ID: " + voterId +
+        "\nOTP verification required."
+    );
+
+
+    showPage("otp");
+
+}
+
+
+/* =========================
+   REGISTER
+========================= */
+
+function registerUser(event){
+
+    event.preventDefault();
+
+    const voterId =
+        event.target
+        .querySelector("input")
+        .value;
+
+
+    alert(
+        "Voter registration successful!\n\n" +
+        "Voter ID: " + voterId +
+        "\nYou can now login to VoteOnline."
+    );
+
+
+    event.target.reset();
+
+    showPage("login");
+
+}
+
+
+/* =========================
+   SEND OTP
+========================= */
+
+function sendOTP(){
+
+    alert(
+        "OTP sent successfully!\n\n" +
+        "Please check your registered mobile number."
+    );
+
+}
+
+
+/* =========================
+   VERIFY LOGIN OTP
+========================= */
+
+function verifyOTP(){
+
+    const otp =
+        document.getElementById("otpInput").value;
+
+    if(otp.length !== 6){
+
+        alert(
+            "Please enter a valid 6-digit OTP."
+        );
+
+        return;
+
+    }
+
+
+    alert(
+        "OTP verified successfully!\n\n" +
+        "Login successful."
+    );
+
+
+    showPage("user");
+
+}
+
+
+/* =========================
+   GET VOTING OTP
+========================= */
+
+function getVotingOTP(){
+
+    const selected =
+        document.querySelector(
+            'input[name="candidate"]:checked'
+        );
+
+
+    if(!selected){
+
+        alert(
+            "Please select a candidate first."
+        );
+
+        return;
+
+    }
+
+
+    alert(
+        "Voting OTP sent successfully.\n\n" +
+        "Please enter the OTP to confirm your vote."
+    );
+
+
+    showPage("voteOTP");
+
+}
+
+
+/* =========================
+   SUBMIT VOTE
+========================= */
+
+function submitVote(){
+
+    const otp =
+        document.getElementById("voteOtpInput").value;
+
+
+    const selected =
+        document.querySelector(
+            'input[name="candidate"]:checked'
+        );
+
+
+    if(!selected){
+
+        alert(
+            "Please select a candidate."
+        );
+
+        showPage("vote");
+
+        return;
+
+    }
+
+
+    if(otp.length !== 6){
+
+        alert(
+            "Please enter a valid 6-digit voting OTP."
+        );
+
+        return;
+
+    }
+
+
+    alert(
+        "Vote submitted successfully!\n\n" +
+
+        "Selected Candidate: " +
+        selected.value +
+
+        "\n\nYour vote has been recorded."
+    );
+
+
+    showPage("user");
+
+}
+
+
+/* =========================
+   CREATE CANDIDATE
+========================= */
+
+function createCandidate(event){
+
+    event.preventDefault();
+
+
+    const name =
+        event.target
+        .querySelector("input")
+        .value;
+
+
+    alert(
+        "Candidate created successfully!\n\n" +
+        "Candidate: " + name
+    );
+
+
+    event.target.reset();
+
+}
+
+
+/* =========================
+   DELETE CANDIDATE
+========================= */
+
+function deleteCandidate(button){
+
+    if(
+        confirm(
+            "Are you sure you want to delete this candidate?"
+        )
+    ){
+
+        const row =
+            button.closest("tr");
+
+        row.remove();
+
+        alert(
+            "Candidate deleted successfully."
+        );
+
+    }
+
+}
+
+
+/* =========================
+   ALLOCATE ELECTION
+========================= */
+
+function allocateElection(event){
+
+    event.preventDefault();
+
+    alert(
+        "Election data allocated successfully."
+    );
+
+    event.target.reset();
+
+}
+
+
+/* =========================
+   ALLOCATE WARD
+========================= */
+
+function allocateWard(event){
+
+    event.preventDefault();
+
+    alert(
+        "Voter successfully allocated to election ward."
+    );
+
+    event.target.reset();
+
+}
+
+
+/* =========================
+   SEARCH VOTERS
+========================= */
+
+function searchVoters(){
+
+    const search =
+        document.getElementById("voterSearch")
+        .value
+        .toLowerCase();
+
+
+    const rows =
+        document.querySelectorAll(
+            "#voterTable tr"
+        );
+
+
+    rows.forEach(function(row,index){
+
+        if(index === 0){
+
+            return;
+
+        }
+
+
+        const text =
+            row.innerText.toLowerCase();
+
+
+        if(text.includes(search)){
+
+            row.style.display="table-row";
+
+        }
+
+        else{
+
+            row.style.display="none";
+
+        }
+
+    });
+
+}
+
+
+/* =========================
+   EDIT VOTER
+========================= */
+
+function editVoter(){
+
+    const newWard =
+        prompt(
+            "Enter updated election ward:"
+        );
+
+
+    if(newWard){
+
+        alert(
+            "Voter information updated successfully.\n\n" +
+            "New Ward: " + newWard
+        );
+
+    }
+
+}
+
+
+/* =========================
+   IMPORT VOTER LIST
+========================= */
+
+function importVoters(event){
+
+    event.preventDefault();
+
+    alert(
+        "Voter list imported successfully.\n\n" +
+        "Voter records have been added to the system."
+    );
+
+    event.target.reset();
+
+}
+
+
+/* =========================
+   GENERATE RESULTS
+========================= */
+
+function getResults(){
+
+    alert(
+        "Election results generated successfully."
+    );
+
+    showPage("results");
+
+}
+
+</script>
+
+</body>
+</html>
+```
