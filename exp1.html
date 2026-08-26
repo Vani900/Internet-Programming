@@ -1,0 +1,4544 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Library Management System</title>
+
+<style>
+
+/* =========================
+   GLOBAL
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    background: #f4f7fb;
+    color: #1f2937;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.container {
+    width: 86%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.section {
+    padding: 55px 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.section-title h2 {
+    color: #173b6c;
+    font-size: 30px;
+}
+
+.section-title p {
+    color: #6b7280;
+    margin-top: 8px;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    background: #173b6c;
+    color: white;
+    padding: 16px 7%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #55c2ff;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    flex-wrap: wrap;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.nav-links a:hover {
+    color: #55c2ff;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    min-height: 500px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #173b6c,
+        #2563a6
+    );
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+}
+
+.hero-content {
+    width: 86%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.hero h1 {
+    font-size: 48px;
+    max-width: 700px;
+    margin-bottom: 18px;
+}
+
+.hero p {
+    font-size: 18px;
+    max-width: 650px;
+    line-height: 1.7;
+    color: #e5efff;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn {
+    display: inline-block;
+
+    border: none;
+
+    padding: 11px 20px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    margin-top: 10px;
+
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: #55c2ff;
+    color: #08294f;
+}
+
+.btn-dark {
+    background: #173b6c;
+    color: white;
+}
+
+.btn-success {
+    background: #198754;
+    color: white;
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-warning {
+    background: #f59e0b;
+    color: white;
+}
+
+.btn:hover {
+    opacity: .85;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.card-grid {
+
+    display: grid;
+
+    grid-template-columns:
+    repeat(
+        auto-fit,
+        minmax(230px,1fr)
+    );
+
+    gap: 22px;
+}
+
+.card {
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    box-shadow:
+    0 3px 15px rgba(0,0,0,.08);
+
+}
+
+.card h3 {
+
+    color: #173b6c;
+
+    margin-bottom: 10px;
+
+}
+
+.card p {
+
+    color: #6b7280;
+
+    line-height: 1.6;
+
+}
+
+.book-card {
+
+    border-top:
+    4px solid #55c2ff;
+
+}
+
+.book-icon {
+
+    height: 120px;
+
+    background: #eaf5ff;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 50px;
+
+    border-radius: 8px;
+
+    margin-bottom: 18px;
+
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+.stats,
+.dashboard-grid {
+
+    display: grid;
+
+    grid-template-columns:
+    repeat(
+        auto-fit,
+        minmax(200px,1fr)
+    );
+
+    gap: 20px;
+
+}
+
+.stat {
+
+    background: white;
+
+    padding: 25px;
+
+    text-align: center;
+
+    border-radius: 10px;
+
+    box-shadow:
+    0 3px 15px rgba(0,0,0,.07);
+
+}
+
+.stat h2 {
+
+    color: #173b6c;
+
+    font-size: 32px;
+
+}
+
+.stat p {
+
+    color: #6b7280;
+
+}
+
+
+/* =========================
+   FORMS
+========================= */
+
+.form-container {
+
+    max-width: 550px;
+
+    margin: 40px auto;
+
+    background: white;
+
+    padding: 35px;
+
+    border-radius: 12px;
+
+    box-shadow:
+    0 3px 20px rgba(0,0,0,.08);
+
+}
+
+.form-container h2 {
+
+    color: #173b6c;
+
+    text-align: center;
+
+    margin-bottom: 25px;
+
+}
+
+.form-group {
+
+    margin-bottom: 17px;
+
+}
+
+.form-group label {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-weight: 600;
+
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border:
+    1px solid #d1d5db;
+
+    border-radius: 6px;
+
+    font-size: 14px;
+
+}
+
+.form-group textarea {
+
+    min-height: 110px;
+
+    resize: vertical;
+
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-bottom: 30px;
+
+}
+
+.search-box input,
+.search-box select {
+
+    flex: 1;
+
+    padding: 14px;
+
+    border:
+    1px solid #d1d5db;
+
+    border-radius: 7px;
+
+    font-size: 15px;
+
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table-container {
+
+    overflow-x: auto;
+
+    background: white;
+
+    border-radius: 10px;
+
+    box-shadow:
+    0 3px 15px rgba(0,0,0,.07);
+
+}
+
+table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+}
+
+th,
+td {
+
+    padding: 13px;
+
+    text-align: left;
+
+    border-bottom:
+    1px solid #e5e7eb;
+
+}
+
+th {
+
+    background: #173b6c;
+
+    color: white;
+
+}
+
+tr:hover {
+
+    background: #f8fafc;
+
+}
+
+
+/* =========================
+   BADGES
+========================= */
+
+.badge {
+
+    padding: 6px 10px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+}
+
+.available {
+
+    background: #d1fae5;
+
+    color: #047857;
+
+}
+
+.issued {
+
+    background: #fee2e2;
+
+    color: #b91c1c;
+
+}
+
+.returned {
+
+    background: #dbeafe;
+
+    color: #1d4ed8;
+
+}
+
+.overdue {
+
+    background: #fef3c7;
+
+    color: #92400e;
+
+}
+
+
+/* =========================
+   DASHBOARD HEADER
+========================= */
+
+.dashboard-header {
+
+    background: #173b6c;
+
+    color: white;
+
+    padding: 35px 0;
+
+}
+
+.dashboard-header h1 {
+
+    margin-bottom: 8px;
+
+}
+
+
+/* =========================
+   ALERT
+========================= */
+
+.alert {
+
+    padding: 14px;
+
+    border-radius: 6px;
+
+    margin-bottom: 20px;
+
+    display: none;
+
+}
+
+.alert-success {
+
+    background: #d1fae5;
+
+    color: #065f46;
+
+}
+
+.alert-danger {
+
+    background: #fee2e2;
+
+    color: #991b1b;
+
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal {
+
+    display: none;
+
+    position: fixed;
+
+    z-index: 3000;
+
+    left: 0;
+
+    top: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    background:
+    rgba(0,0,0,.6);
+
+}
+
+.modal-content {
+
+    background: white;
+
+    width: 90%;
+
+    max-width: 550px;
+
+    margin: 8% auto;
+
+    padding: 30px;
+
+    border-radius: 12px;
+
+    position: relative;
+
+}
+
+.close {
+
+    position: absolute;
+
+    right: 20px;
+
+    top: 15px;
+
+    font-size: 25px;
+
+    cursor: pointer;
+
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+
+    background: #102d52;
+
+    color: white;
+
+    text-align: center;
+
+    padding: 30px;
+
+    margin-top: 50px;
+
+}
+
+footer p {
+
+    margin: 6px;
+
+    color: #cbd5e1;
+
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:800px) {
+
+    .navbar {
+
+        flex-direction: column;
+
+        gap: 15px;
+
+    }
+
+    .nav-links {
+
+        justify-content: center;
+
+    }
+
+    .hero h1 {
+
+        font-size: 35px;
+
+    }
+
+    .search-box {
+
+        flex-direction: column;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        📚 Library<span>Hub</span>
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+            <a onclick="showPage('home')">
+                Home
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('books')">
+                Books
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('materials')">
+                Materials
+            </a>
+        </li>
+
+        <li id="dashboardLink">
+            <a onclick="openDashboard()">
+                Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('login')">
+                Login
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('contact')">
+                Contact
+            </a>
+        </li>
+
+        <li id="logoutLink" style="display:none;">
+            <a onclick="logoutUser()">
+                Logout
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- =========================
+     HOME
+========================= -->
+
+<section id="home" class="page active">
+
+    <div class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+                Smart Library Management System
+            </h1>
+
+            <p>
+                A complete digital platform for students
+                and librarians to search books, manage
+                borrowing, track returns, calculate fines
+                and access academic materials.
+            </p>
+
+            <button
+                class="btn btn-primary"
+                onclick="showPage('books')">
+
+                Explore Books
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <h2>
+                    Library Overview
+                </h2>
+
+                <p>
+                    Complete library management solution
+                </p>
+
+            </div>
+
+
+            <div class="stats">
+
+                <div class="stat">
+
+                    <h2 id="totalBooks">
+                        0
+                    </h2>
+
+                    <p>
+                        Total Books
+                    </p>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <h2 id="totalStudents">
+                        0
+                    </h2>
+
+                    <p>
+                        Registered Students
+                    </p>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <h2 id="totalIssued">
+                        0
+                    </h2>
+
+                    <p>
+                        Books Issued
+                    </p>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <h2 id="totalAvailable">
+                        0
+                    </h2>
+
+                    <p>
+                        Books Available
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <h2>
+                    Key Features
+                </h2>
+
+            </div>
+
+
+            <div class="card-grid">
+
+                <div class="card">
+
+                    <h3>
+                        🔎 Search Books
+                    </h3>
+
+                    <p>
+                        Search books by title,
+                        author or category.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>
+                        📖 Borrow History
+                    </h3>
+
+                    <p>
+                        Track issue dates,
+                        expected dates and returns.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>
+                        💰 Fine Management
+                    </h3>
+
+                    <p>
+                        Automatically calculate
+                        overdue fines.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>
+                        📁 Study Materials
+                    </h3>
+
+                    <p>
+                        Search materials by year
+                        and semester.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     BOOKS
+========================= -->
+
+<section id="books" class="page section">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>
+                Library Book Catalog
+            </h2>
+
+            <p>
+                Search and view available books
+            </p>
+
+        </div>
+
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="bookSearch"
+                placeholder="Search by title, author or category..."
+                onkeyup="searchBooks()">
+
+            <button
+                class="btn btn-dark"
+                onclick="searchBooks()">
+
+                Search
+
+            </button>
+
+        </div>
+
+
+        <div
+            class="card-grid"
+            id="bookList">
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     LOGIN
+========================= -->
+
+<section id="login" class="page section">
+
+    <div class="form-container">
+
+        <h2>
+            🔐 User Login
+        </h2>
+
+
+        <div
+            id="loginAlert"
+            class="alert">
+        </div>
+
+
+        <form
+            onsubmit="loginUser(event)">
+
+
+            <div class="form-group">
+
+                <label>
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="Enter your email"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Enter your password"
+                    required>
+
+            </div>
+
+
+            <button
+                class="btn btn-dark">
+
+                Login
+
+            </button>
+
+        </form>
+
+
+        <p style="text-align:center;margin-top:20px;">
+
+            Don't have an account?
+
+            <a
+                href="#"
+                onclick="showPage('register')">
+
+                Register
+
+            </a>
+
+        </p>
+
+
+        <p
+            style="text-align:center;margin-top:15px;color:#6b7280;">
+
+            Admin Login:
+            admin@library.com / admin123
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     REGISTER
+========================= -->
+
+<section id="register" class="page section">
+
+    <div class="form-container">
+
+        <h2>
+            👤 Student Registration
+        </h2>
+
+
+        <form
+            onsubmit="registerUser(event)">
+
+
+            <div class="form-group">
+
+                <label>
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="regName"
+                    placeholder="Enter full name"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Student ID
+                </label>
+
+                <input
+                    type="text"
+                    id="regStudentId"
+                    placeholder="Enter student ID"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="regEmail"
+                    placeholder="Enter email"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="regPassword"
+                    placeholder="Create password"
+                    required>
+
+            </div>
+
+
+            <button
+                class="btn btn-dark">
+
+                Create Account
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     USER DASHBOARD
+========================= -->
+
+<section id="user" class="page">
+
+    <div class="dashboard-header">
+
+        <div class="container">
+
+            <h1>
+                👨‍🎓 Student Dashboard
+            </h1>
+
+            <p id="studentWelcome">
+                Welcome
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="container section">
+
+
+        <div class="dashboard-grid">
+
+
+            <div class="stat">
+
+                <h2 id="myBorrowed">
+                    0
+                </h2>
+
+                <p>
+                    Books Borrowed
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <h2 id="myFine">
+                    ₹0
+                </h2>
+
+                <p>
+                    Current Fine
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <h2 id="myReturned">
+                    0
+                </h2>
+
+                <p>
+                    Books Returned
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <h2
+            style="color:#173b6c;margin-bottom:20px;">
+
+            My Borrow History
+
+        </h2>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Book
+                        </th>
+
+                        <th>
+                            Issue Date
+                        </th>
+
+                        <th>
+                            Expected Date
+                        </th>
+
+                        <th>
+                            Return Date
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Fine
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="myHistory">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <div
+            class="card"
+            style="margin-top:30px;">
+
+            <h3>
+                💰 Fine Details
+            </h3>
+
+            <p>
+                Your current outstanding fine:
+                <strong id="fineText">
+                    ₹0
+                </strong>
+            </p>
+
+        </div>
+
+
+        <div
+            class="card"
+            style="margin-top:20px;">
+
+            <h3>
+                👤 My Profile
+            </h3>
+
+            <p>
+                <strong>Name:</strong>
+                <span id="profileName"></span>
+            </p>
+
+            <p>
+                <strong>Student ID:</strong>
+                <span id="profileStudentId"></span>
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+                <span id="profileEmail"></span>
+            </p>
+
+            <p>
+                <strong>Role:</strong>
+                Student
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ADMIN DASHBOARD
+========================= -->
+
+<section id="admin" class="page">
+
+    <div class="dashboard-header">
+
+        <div class="container">
+
+            <h1>
+                📚 Librarian Admin Dashboard
+            </h1>
+
+            <p>
+                Manage books, students, issues,
+                returns and fines
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="container section">
+
+
+        <div class="dashboard-grid">
+
+
+            <div class="stat">
+
+                <h2 id="adminBooks">
+                    0
+                </h2>
+
+                <p>
+                    Total Books
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <h2 id="adminIssued">
+                    0
+                </h2>
+
+                <p>
+                    Issued Books
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <h2 id="adminStudents">
+                    0
+                </h2>
+
+                <p>
+                    Students
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <h2 id="adminFine">
+                    ₹0
+                </h2>
+
+                <p>
+                    Total Fines
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ADD / UPDATE BOOK -->
+
+        <div class="form-container">
+
+            <h2 id="bookFormTitle">
+                ➕ Add New Book
+            </h2>
+
+
+            <form
+                onsubmit="saveBook(event)">
+
+                <input
+                    type="hidden"
+                    id="editBookId">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Book Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="adminBookTitle"
+                        placeholder="Book title"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Author
+                    </label>
+
+                    <input
+                        type="text"
+                        id="adminBookAuthor"
+                        placeholder="Author name"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Category
+                    </label>
+
+                    <select
+                        id="adminBookCategory">
+
+                        <option>
+                            Computer Science
+                        </option>
+
+                        <option>
+                            Database
+                        </option>
+
+                        <option>
+                            Networking
+                        </option>
+
+                        <option>
+                            Mathematics
+                        </option>
+
+                        <option>
+                            Electronics
+                        </option>
+
+                        <option>
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Publication Year
+                    </label>
+
+                    <input
+                        type="number"
+                        id="adminBookYear"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Quantity
+                    </label>
+
+                    <input
+                        type="number"
+                        id="adminBookQuantity"
+                        min="1"
+                        required>
+
+                </div>
+
+
+                <button
+                    class="btn btn-success"
+                    id="bookSubmitButton">
+
+                    Add Book
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="btn btn-danger"
+                    onclick="clearBookForm()">
+
+                    Clear
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- BOOK MANAGEMENT -->
+
+        <h2
+            style="color:#173b6c;margin:40px 0 20px;">
+
+            📚 Book Inventory
+
+        </h2>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            ID
+                        </th>
+
+                        <th>
+                            Title
+                        </th>
+
+                        <th>
+                            Author
+                        </th>
+
+                        <th>
+                            Category
+                        </th>
+
+                        <th>
+                            Year
+                        </th>
+
+                        <th>
+                            Quantity
+                        </th>
+
+                        <th>
+                            Available
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody
+                    id="adminBookTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- ISSUE BOOK -->
+
+        <div class="form-container">
+
+            <h2>
+                📖 Issue Book
+            </h2>
+
+
+            <form
+                onsubmit="issueBook(event)">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Student
+                    </label>
+
+                    <select
+                        id="issueStudent"
+                        required>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Book
+                    </label>
+
+                    <select
+                        id="issueBook"
+                        required>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Issue Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="issueDate"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Expected Return Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="expectedDate"
+                        required>
+
+                </div>
+
+
+                <button
+                    class="btn btn-success">
+
+                    Issue Book
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- ISSUE / RETURN TABLE -->
+
+        <h2
+            style="color:#173b6c;margin:40px 0 20px;">
+
+            🔄 Issue & Return Management
+
+        </h2>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Student
+                        </th>
+
+                        <th>
+                            Book
+                        </th>
+
+                        <th>
+                            Issue Date
+                        </th>
+
+                        <th>
+                            Expected Return
+                        </th>
+
+                        <th>
+                            Return Date
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Fine
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody
+                    id="issueTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- ADMIN MATERIAL -->
+
+        <div class="form-container">
+
+            <h2>
+                📁 Add Study Material
+            </h2>
+
+
+            <form
+                onsubmit="addMaterial(event)">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Material Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="materialTitle"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Year
+                    </label>
+
+                    <select
+                        id="materialYear"
+                        required>
+
+                        <option value="">
+                            Select Year
+                        </option>
+
+                        <option>
+                            1st Year
+                        </option>
+
+                        <option>
+                            2nd Year
+                        </option>
+
+                        <option>
+                            3rd Year
+                        </option>
+
+                        <option>
+                            4th Year
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Semester
+                    </label>
+
+                    <select
+                        id="materialSemester"
+                        required>
+
+                        <option value="">
+                            Select Semester
+                        </option>
+
+                        <option>
+                            Semester 1
+                        </option>
+
+                        <option>
+                            Semester 2
+                        </option>
+
+                        <option>
+                            Semester 3
+                        </option>
+
+                        <option>
+                            Semester 4
+                        </option>
+
+                        <option>
+                            Semester 5
+                        </option>
+
+                        <option>
+                            Semester 6
+                        </option>
+
+                        <option>
+                            Semester 7
+                        </option>
+
+                        <option>
+                            Semester 8
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Material Content
+                    </label>
+
+                    <textarea
+                        id="materialContent"
+                        placeholder="Enter notes/material content"
+                        required></textarea>
+
+                </div>
+
+
+                <button
+                    class="btn btn-success">
+
+                    Add Material
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     MATERIALS
+========================= -->
+
+<section
+    id="materials"
+    class="page section">
+
+    <div class="container">
+
+
+        <div class="section-title">
+
+            <h2>
+                📁 Study Materials
+            </h2>
+
+            <p>
+                Search materials by year and semester
+            </p>
+
+        </div>
+
+
+        <div class="search-box">
+
+
+            <select id="searchYear">
+
+                <option value="">
+                    All Years
+                </option>
+
+                <option>
+                    1st Year
+                </option>
+
+                <option>
+                    2nd Year
+                </option>
+
+                <option>
+                    3rd Year
+                </option>
+
+                <option>
+                    4th Year
+                </option>
+
+            </select>
+
+
+            <select id="searchSemester">
+
+                <option value="">
+                    All Semesters
+                </option>
+
+                <option>
+                    Semester 1
+                </option>
+
+                <option>
+                    Semester 2
+                </option>
+
+                <option>
+                    Semester 3
+                </option>
+
+                <option>
+                    Semester 4
+                </option>
+
+                <option>
+                    Semester 5
+                </option>
+
+                <option>
+                    Semester 6
+                </option>
+
+                <option>
+                    Semester 7
+                </option>
+
+                <option>
+                    Semester 8
+                </option>
+
+            </select>
+
+
+            <button
+                class="btn btn-dark"
+                onclick="searchMaterials()">
+
+                Search
+
+            </button>
+
+        </div>
+
+
+        <div
+            class="card-grid"
+            id="materialList">
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CONTACT
+========================= -->
+
+<section
+    id="contact"
+    class="page section">
+
+    <div class="form-container">
+
+        <h2>
+            📩 Contact Library
+        </h2>
+
+
+        <form
+            onsubmit="contactSubmit(event)">
+
+
+            <div class="form-group">
+
+                <label>
+                    Name
+                </label>
+
+                <input
+                    type="text"
+                    id="contactName"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="contactEmail"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Subject
+                </label>
+
+                <input
+                    type="text"
+                    id="contactSubject"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Message
+                </label>
+
+                <textarea
+                    id="contactMessage"
+                    required></textarea>
+
+            </div>
+
+
+            <button
+                class="btn btn-dark">
+
+                Send Message
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     BOOK DETAILS MODAL
+========================= -->
+
+<div
+    id="bookModal"
+    class="modal">
+
+    <div class="modal-content">
+
+        <span
+            class="close"
+            onclick="closeModal()">
+
+            &times;
+
+        </span>
+
+
+        <h2
+            id="modalBookTitle"
+            style="color:#173b6c;margin-bottom:20px;">
+        </h2>
+
+
+        <div id="modalBookDetails">
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <h3>
+        📚 Library Management System
+    </h3>
+
+    <p>
+        A digital solution for efficient
+        college library management.
+    </p>
+
+    <p>
+        © 2026 College Library.
+        All Rights Reserved.
+    </p>
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   DEFAULT DATA
+===================================================== */
+
+let books =
+JSON.parse(
+    localStorage.getItem("libraryBooks")
+) || [
+
+    {
+        id: 1,
+        title: "Data Structures",
+        author: "Mark Allen",
+        category: "Computer Science",
+        year: 2024,
+        quantity: 10,
+        available: 8
+    },
+
+    {
+        id: 2,
+        title: "Operating Systems",
+        author: "Abraham Silberschatz",
+        category: "Computer Science",
+        year: 2023,
+        quantity: 8,
+        available: 5
+    },
+
+    {
+        id: 3,
+        title: "Database Management",
+        author: "Korth",
+        category: "Database",
+        year: 2022,
+        quantity: 7,
+        available: 0
+    },
+
+    {
+        id: 4,
+        title: "Computer Networks",
+        author: "Andrew Tanenbaum",
+        category: "Networking",
+        year: 2024,
+        quantity: 9,
+        available: 6
+    }
+
+];
+
+
+let users =
+JSON.parse(
+    localStorage.getItem("libraryUsers")
+) || [
+
+    {
+        id: 1,
+        name: "Rahul Kumar",
+        studentId: "ST001",
+        email: "rahul@gmail.com",
+        password: "1234",
+        role: "student"
+    }
+
+];
+
+
+let issues =
+JSON.parse(
+    localStorage.getItem("libraryIssues")
+) || [];
+
+
+let materials =
+JSON.parse(
+    localStorage.getItem("libraryMaterials")
+) || [
+
+    {
+        id: 1,
+        title: "Data Structures Notes",
+        year: "3rd Year",
+        semester: "Semester 5",
+        content:
+        "Data Structures study notes."
+    },
+
+    {
+        id: 2,
+        title: "Database Management Notes",
+        year: "3rd Year",
+        semester: "Semester 5",
+        content:
+        "DBMS study notes."
+    },
+
+    {
+        id: 3,
+        title: "Computer Networks Notes",
+        year: "3rd Year",
+        semester: "Semester 6",
+        content:
+        "Computer Networks study notes."
+    }
+
+];
+
+
+let currentUser =
+JSON.parse(
+    localStorage.getItem("currentLibraryUser")
+) || null;
+
+
+/* =====================================================
+   SAVE DATA
+===================================================== */
+
+function saveData() {
+
+    localStorage.setItem(
+        "libraryBooks",
+        JSON.stringify(books)
+    );
+
+    localStorage.setItem(
+        "libraryUsers",
+        JSON.stringify(users)
+    );
+
+    localStorage.setItem(
+        "libraryIssues",
+        JSON.stringify(issues)
+    );
+
+    localStorage.setItem(
+        "libraryMaterials",
+        JSON.stringify(materials)
+    );
+
+}
+
+
+/* =====================================================
+   PAGE NAVIGATION
+===================================================== */
+
+function showPage(pageId) {
+
+    const pages =
+        document.querySelectorAll(".page");
+
+    pages.forEach(function(page) {
+
+        page.classList.remove("active");
+
+    });
+
+
+    const page =
+        document.getElementById(pageId);
+
+    if(page) {
+
+        page.classList.add("active");
+
+    }
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+
+    if(pageId === "books") {
+
+        renderBooks();
+
+    }
+
+
+    if(pageId === "materials") {
+
+        renderMaterials();
+
+    }
+
+
+    if(pageId === "user") {
+
+        if(!currentUser) {
+
+            alert("Please login first.");
+
+            showPage("login");
+
+            return;
+        }
+
+        updateStudentDashboard();
+
+    }
+
+
+    if(pageId === "admin") {
+
+        if(!currentUser ||
+           currentUser.role !== "admin") {
+
+            alert(
+                "Admin login required."
+            );
+
+            showPage("login");
+
+            return;
+        }
+
+        updateAdminDashboard();
+
+    }
+
+}
+
+
+/* =====================================================
+   OPEN DASHBOARD
+===================================================== */
+
+function openDashboard() {
+
+    if(!currentUser) {
+
+        showPage("login");
+
+        return;
+
+    }
+
+
+    if(currentUser.role === "admin") {
+
+        showPage("admin");
+
+    }
+    else {
+
+        showPage("user");
+
+    }
+
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+function loginUser(event) {
+
+    event.preventDefault();
+
+
+    const email =
+        document.getElementById(
+            "loginEmail"
+        ).value.trim();
+
+
+    const password =
+        document.getElementById(
+            "loginPassword"
+        ).value;
+
+
+    /* ADMIN LOGIN */
+
+    if(
+        email === "admin@library.com" &&
+        password === "admin123"
+    ) {
+
+        currentUser = {
+
+            id: 0,
+
+            name: "Library Admin",
+
+            email:
+                "admin@library.com",
+
+            role: "admin"
+
+        };
+
+
+        localStorage.setItem(
+            "currentLibraryUser",
+            JSON.stringify(currentUser)
+        );
+
+
+        updateNavigation();
+
+        alert(
+            "Admin login successful!"
+        );
+
+
+        showPage("admin");
+
+        return;
+
+    }
+
+
+    /* STUDENT LOGIN */
+
+    const user =
+        users.find(function(u) {
+
+            return (
+                u.email === email &&
+                u.password === password
+            );
+
+        });
+
+
+    if(!user) {
+
+        alert(
+            "Invalid email or password."
+        );
+
+        return;
+
+    }
+
+
+    currentUser = user;
+
+
+    localStorage.setItem(
+        "currentLibraryUser",
+        JSON.stringify(currentUser)
+    );
+
+
+    updateNavigation();
+
+
+    alert(
+        "Login successful!"
+    );
+
+
+    showPage("user");
+
+}
+
+
+/* =====================================================
+   REGISTER
+===================================================== */
+
+function registerUser(event) {
+
+    event.preventDefault();
+
+
+    const name =
+        document.getElementById(
+            "regName"
+        ).value.trim();
+
+
+    const studentId =
+        document.getElementById(
+            "regStudentId"
+        ).value.trim();
+
+
+    const email =
+        document.getElementById(
+            "regEmail"
+        ).value.trim();
+
+
+    const password =
+        document.getElementById(
+            "regPassword"
+        ).value;
+
+
+    const exists =
+        users.some(function(user) {
+
+            return (
+                user.email === email ||
+                user.studentId === studentId
+            );
+
+        });
+
+
+    if(exists) {
+
+        alert(
+            "Email or Student ID already exists."
+        );
+
+        return;
+
+    }
+
+
+    const newUser = {
+
+        id:
+            Date.now(),
+
+        name:
+            name,
+
+        studentId:
+            studentId,
+
+        email:
+            email,
+
+        password:
+            password,
+
+        role:
+            "student"
+
+    };
+
+
+    users.push(newUser);
+
+    saveData();
+
+
+    alert(
+        "Registration successful!"
+    );
+
+
+    event.target.reset();
+
+    showPage("login");
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logoutUser() {
+
+    currentUser = null;
+
+    localStorage.removeItem(
+        "currentLibraryUser"
+    );
+
+    updateNavigation();
+
+    alert(
+        "You have been logged out."
+    );
+
+    showPage("home");
+
+}
+
+
+/* =====================================================
+   NAVIGATION UPDATE
+===================================================== */
+
+function updateNavigation() {
+
+    const logout =
+        document.getElementById(
+            "logoutLink"
+        );
+
+
+    if(currentUser) {
+
+        logout.style.display =
+            "block";
+
+    }
+    else {
+
+        logout.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* =====================================================
+   RENDER BOOKS
+===================================================== */
+
+function renderBooks(
+    searchText = ""
+) {
+
+    const list =
+        document.getElementById(
+            "bookList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    const search =
+        searchText.toLowerCase();
+
+
+    const filtered =
+        books.filter(function(book) {
+
+            return (
+
+                book.title
+                    .toLowerCase()
+                    .includes(search)
+
+                ||
+
+                book.author
+                    .toLowerCase()
+                    .includes(search)
+
+                ||
+
+                book.category
+                    .toLowerCase()
+                    .includes(search)
+
+            );
+
+        });
+
+
+    if(filtered.length === 0) {
+
+        list.innerHTML =
+            `<div class="card">
+                <h3>No books found</h3>
+                <p>
+                    Try another search term.
+                </p>
+            </div>`;
+
+        return;
+
+    }
+
+
+    filtered.forEach(function(book) {
+
+        const status =
+            book.available > 0
+            ? `<span class="badge available">
+                Available
+               </span>`
+            : `<span class="badge issued">
+                Not Available
+               </span>`;
+
+
+        list.innerHTML += `
+
+            <div class="card book-card">
+
+                <div class="book-icon">
+                    📚
+                </div>
+
+                <h3>
+                    ${book.title}
+                </h3>
+
+                <p>
+                    <strong>Author:</strong>
+                    ${book.author}
+                </p>
+
+                <p>
+                    <strong>Category:</strong>
+                    ${book.category}
+                </p>
+
+                <p>
+                    <strong>Year:</strong>
+                    ${book.year}
+                </p>
+
+                <p>
+                    <strong>Available:</strong>
+                    ${book.available}
+                </p>
+
+                <p>
+                    ${status}
+                </p>
+
+                <button
+                    class="btn btn-dark"
+                    onclick="bookDetails(${book.id})">
+
+                    View Details
+
+                </button>
+
+            </div>
+
+        `;
+
+    });
+
+}
+
+
+/* =====================================================
+   SEARCH BOOKS
+===================================================== */
+
+function searchBooks() {
+
+    const text =
+        document.getElementById(
+            "bookSearch"
+        ).value;
+
+
+    renderBooks(text);
+
+}
+
+
+/* =====================================================
+   BOOK DETAILS
+===================================================== */
+
+function bookDetails(id) {
+
+    const book =
+        books.find(function(b) {
+
+            return b.id === id;
+
+        });
+
+
+    if(!book) return;
+
+
+    document.getElementById(
+        "modalBookTitle"
+    ).innerText =
+        book.title;
+
+
+    document.getElementById(
+        "modalBookDetails"
+    ).innerHTML = `
+
+        <p>
+            <strong>Author:</strong>
+            ${book.author}
+        </p>
+
+        <p>
+            <strong>Category:</strong>
+            ${book.category}
+        </p>
+
+        <p>
+            <strong>Publication Year:</strong>
+            ${book.year}
+        </p>
+
+        <p>
+            <strong>Total Copies:</strong>
+            ${book.quantity}
+        </p>
+
+        <p>
+            <strong>Available Copies:</strong>
+            ${book.available}
+        </p>
+
+        <br>
+
+        <p>
+            ${
+                book.available > 0
+                ? "This book is currently available."
+                : "This book is currently issued."
+            }
+        </p>
+
+    `;
+
+
+    document.getElementById(
+        "bookModal"
+    ).style.display =
+        "block";
+
+}
+
+
+/* =====================================================
+   CLOSE MODAL
+===================================================== */
+
+function closeModal() {
+
+    document.getElementById(
+        "bookModal"
+    ).style.display =
+        "none";
+
+}
+
+
+/* =====================================================
+   ADMIN SAVE BOOK
+===================================================== */
+
+function saveBook(event) {
+
+    event.preventDefault();
+
+
+    if(
+        !currentUser ||
+        currentUser.role !== "admin"
+    ) {
+
+        alert(
+            "Admin access required."
+        );
+
+        return;
+
+    }
+
+
+    const id =
+        document.getElementById(
+            "editBookId"
+        ).value;
+
+
+    const title =
+        document.getElementById(
+            "adminBookTitle"
+        ).value;
+
+
+    const author =
+        document.getElementById(
+            "adminBookAuthor"
+        ).value;
+
+
+    const category =
+        document.getElementById(
+            "adminBookCategory"
+        ).value;
+
+
+    const year =
+        document.getElementById(
+            "adminBookYear"
+        ).value;
+
+
+    const quantity =
+        parseInt(
+            document.getElementById(
+                "adminBookQuantity"
+            ).value
+        );
+
+
+    if(id) {
+
+        const book =
+            books.find(function(b) {
+
+                return b.id == id;
+
+            });
+
+
+        const difference =
+            quantity - book.quantity;
+
+
+        book.title =
+            title;
+
+        book.author =
+            author;
+
+        book.category =
+            category;
+
+        book.year =
+            year;
+
+        book.quantity =
+            quantity;
+
+        book.available =
+            Math.max(
+                0,
+                book.available + difference
+            );
+
+
+        alert(
+            "Book updated successfully."
+        );
+
+    }
+
+    else {
+
+        books.push({
+
+            id:
+                Date.now(),
+
+            title:
+                title,
+
+            author:
+                author,
+
+            category:
+                category,
+
+            year:
+                year,
+
+            quantity:
+                quantity,
+
+            available:
+                quantity
+
+        });
+
+
+        alert(
+            "Book added successfully."
+        );
+
+    }
+
+
+    saveData();
+
+    clearBookForm();
+
+    updateAdminDashboard();
+
+    renderBooks();
+
+}
+
+
+/* =====================================================
+   EDIT BOOK
+===================================================== */
+
+function editBook(id) {
+
+    const book =
+        books.find(function(b) {
+
+            return b.id === id;
+
+        });
+
+
+    if(!book) return;
+
+
+    document.getElementById(
+        "editBookId"
+    ).value =
+        book.id;
+
+
+    document.getElementById(
+        "adminBookTitle"
+    ).value =
+        book.title;
+
+
+    document.getElementById(
+        "adminBookAuthor"
+    ).value =
+        book.author;
+
+
+    document.getElementById(
+        "adminBookCategory"
+    ).value =
+        book.category;
+
+
+    document.getElementById(
+        "adminBookYear"
+    ).value =
+        book.year;
+
+
+    document.getElementById(
+        "adminBookQuantity"
+    ).value =
+        book.quantity;
+
+
+    document.getElementById(
+        "bookFormTitle"
+    ).innerText =
+        "✏️ Update Book";
+
+
+    document.getElementById(
+        "bookSubmitButton"
+    ).innerText =
+        "Update Book";
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =====================================================
+   DELETE BOOK
+===================================================== */
+
+function deleteBook(id) {
+
+    if(
+        !confirm(
+            "Are you sure you want to delete this book?"
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    const activeIssue =
+        issues.some(function(issue) {
+
+            return (
+                issue.bookId === id &&
+                issue.status === "Issued"
+            );
+
+        });
+
+
+    if(activeIssue) {
+
+        alert(
+            "Cannot delete a book that is currently issued."
+        );
+
+        return;
+
+    }
+
+
+    books =
+        books.filter(function(book) {
+
+            return book.id !== id;
+
+        });
+
+
+    saveData();
+
+    updateAdminDashboard();
+
+    renderBooks();
+
+
+    alert(
+        "Book deleted successfully."
+    );
+
+}
+
+
+/* =====================================================
+   CLEAR BOOK FORM
+===================================================== */
+
+function clearBookForm() {
+
+    document.getElementById(
+        "editBookId"
+    ).value = "";
+
+
+    document.getElementById(
+        "adminBookTitle"
+    ).value = "";
+
+
+    document.getElementById(
+        "adminBookAuthor"
+    ).value = "";
+
+
+    document.getElementById(
+        "adminBookYear"
+    ).value = "";
+
+
+    document.getElementById(
+        "adminBookQuantity"
+    ).value = "";
+
+
+    document.getElementById(
+        "bookFormTitle"
+    ).innerText =
+        "➕ Add New Book";
+
+
+    document.getElementById(
+        "bookSubmitButton"
+    ).innerText =
+        "Add Book";
+
+}
+
+
+/* =====================================================
+   UPDATE ADMIN DASHBOARD
+===================================================== */
+
+function updateAdminDashboard() {
+
+    const issued =
+        issues.filter(function(issue) {
+
+            return issue.status === "Issued";
+
+        }).length;
+
+
+    const students =
+        users.filter(function(user) {
+
+            return user.role === "student";
+
+        }).length;
+
+
+    const fine =
+        issues.reduce(
+            function(total, issue) {
+
+                return total +
+                    Number(issue.fine || 0);
+
+            },
+            0
+        );
+
+
+    document.getElementById(
+        "adminBooks"
+    ).innerText =
+        books.length;
+
+
+    document.getElementById(
+        "adminIssued"
+    ).innerText =
+        issued;
+
+
+    document.getElementById(
+        "adminStudents"
+    ).innerText =
+        students;
+
+
+    document.getElementById(
+        "adminFine"
+    ).innerText =
+        "₹" + fine;
+
+
+    renderAdminBooks();
+
+    renderIssueTable();
+
+    loadStudentDropdown();
+
+    loadBookDropdown();
+
+}
+
+
+/* =====================================================
+   ADMIN BOOK TABLE
+===================================================== */
+
+function renderAdminBooks() {
+
+    const table =
+        document.getElementById(
+            "adminBookTable"
+        );
+
+
+    table.innerHTML = "";
+
+
+    books.forEach(function(book) {
+
+        table.innerHTML += `
+
+            <tr>
+
+                <td>
+                    ${book.id}
+                </td>
+
+                <td>
+                    ${book.title}
+                </td>
+
+                <td>
+                    ${book.author}
+                </td>
+
+                <td>
+                    ${book.category}
+                </td>
+
+                <td>
+                    ${book.year}
+                </td>
+
+                <td>
+                    ${book.quantity}
+                </td>
+
+                <td>
+                    ${book.available}
+                </td>
+
+                <td>
+
+                    <button
+                        class="btn btn-warning"
+                        onclick="editBook(${book.id})">
+
+                        Edit
+
+                    </button>
+
+                    <button
+                        class="btn btn-danger"
+                        onclick="deleteBook(${book.id})">
+
+                        Delete
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+
+/* =====================================================
+   LOAD STUDENTS
+===================================================== */
+
+function loadStudentDropdown() {
+
+    const select =
+        document.getElementById(
+            "issueStudent"
+        );
+
+
+    select.innerHTML =
+        `<option value="">
+            Select Student
+        </option>`;
+
+
+    users
+        .filter(function(user) {
+
+            return user.role === "student";
+
+        })
+        .forEach(function(user) {
+
+            select.innerHTML += `
+
+                <option value="${user.id}">
+
+                    ${user.name}
+                    -
+                    ${user.studentId}
+
+                </option>
+
+            `;
+
+        });
+
+}
+
+
+/* =====================================================
+   LOAD BOOKS
+===================================================== */
+
+function loadBookDropdown() {
+
+    const select =
+        document.getElementById(
+            "issueBook"
+        );
+
+
+    select.innerHTML =
+        `<option value="">
+            Select Available Book
+        </option>`;
+
+
+    books
+        .filter(function(book) {
+
+            return book.available > 0;
+
+        })
+        .forEach(function(book) {
+
+            select.innerHTML += `
+
+                <option value="${book.id}">
+
+                    ${book.title}
+                    -
+                    Available: ${book.available}
+
+                </option>
+
+            `;
+
+        });
+
+}
+
+
+/* =====================================================
+   ISSUE BOOK
+===================================================== */
+
+function issueBook(event) {
+
+    event.preventDefault();
+
+
+    const studentId =
+        Number(
+            document.getElementById(
+                "issueStudent"
+            ).value
+        );
+
+
+    const bookId =
+        Number(
+            document.getElementById(
+                "issueBook"
+            ).value
+        );
+
+
+    const issueDate =
+        document.getElementById(
+            "issueDate"
+        ).value;
+
+
+    const expectedDate =
+        document.getElementById(
+            "expectedDate"
+        ).value;
+
+
+    if(
+        !studentId ||
+        !bookId ||
+        !issueDate ||
+        !expectedDate
+    ) {
+
+        alert(
+            "Please fill all fields."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        expectedDate <= issueDate
+    ) {
+
+        alert(
+            "Expected return date must be after issue date."
+        );
+
+        return;
+
+    }
+
+
+    const book =
+        books.find(function(b) {
+
+            return b.id === bookId;
+
+        });
+
+
+    if(
+        !book ||
+        book.available <= 0
+    ) {
+
+        alert(
+            "Book is not available."
+        );
+
+        return;
+
+    }
+
+
+    const issue = {
+
+        id:
+            Date.now(),
+
+        userId:
+            studentId,
+
+        bookId:
+            bookId,
+
+        issueDate:
+            issueDate,
+
+        expectedDate:
+            expectedDate,
+
+        returnDate:
+            "",
+
+        status:
+            "Issued",
+
+        fine:
+            0
+
+    };
+
+
+    issues.push(issue);
+
+
+    book.available--;
+
+
+    saveData();
+
+    updateAdminDashboard();
+
+
+    event.target.reset();
+
+
+    alert(
+        "Book issued successfully!"
+    );
+
+}
+
+
+/* =====================================================
+   RETURN BOOK
+===================================================== */
+
+function returnBook(issueId) {
+
+    const issue =
+        issues.find(function(i) {
+
+            return i.id === issueId;
+
+        });
+
+
+    if(!issue) return;
+
+
+    if(issue.status === "Returned") {
+
+        return;
+
+    }
+
+
+    const today =
+        new Date();
+
+
+    const expected =
+        new Date(
+            issue.expectedDate
+        );
+
+
+    let fine = 0;
+
+
+    if(today > expected) {
+
+        const difference =
+            today - expected;
+
+
+        const lateDays =
+            Math.ceil(
+                difference /
+                (1000 * 60 * 60 * 24)
+            );
+
+
+        /* ₹5 per late day */
+
+        fine =
+            lateDays * 5;
+
+    }
+
+
+    issue.status =
+        "Returned";
+
+
+    issue.returnDate =
+        formatDate(today);
+
+
+    issue.fine =
+        fine;
+
+
+    const book =
+        books.find(function(b) {
+
+            return b.id === issue.bookId;
+
+        });
+
+
+    if(book) {
+
+        book.available++;
+
+    }
+
+
+    saveData();
+
+    updateAdminDashboard();
+
+    updateStudentDashboard();
+
+
+    alert(
+        "Book returned successfully.\n" +
+        "Fine: ₹" + fine
+    );
+
+}
+
+
+/* =====================================================
+   ISSUE TABLE
+===================================================== */
+
+function renderIssueTable() {
+
+    const table =
+        document.getElementById(
+            "issueTable"
+        );
+
+
+    table.innerHTML = "";
+
+
+    issues.forEach(function(issue) {
+
+
+        const student =
+            users.find(function(user) {
+
+                return user.id === issue.userId;
+
+            });
+
+
+        const book =
+            books.find(function(book) {
+
+                return book.id === issue.bookId;
+
+            });
+
+
+        if(!student || !book) return;
+
+
+        let statusClass =
+            "issued";
+
+
+        if(issue.status === "Returned") {
+
+            statusClass =
+                "returned";
+
+        }
+
+
+        table.innerHTML += `
+
+            <tr>
+
+                <td>
+                    ${student.name}
+                </td>
+
+                <td>
+                    ${book.title}
+                </td>
+
+                <td>
+                    ${issue.issueDate}
+                </td>
+
+                <td>
+                    ${issue.expectedDate}
+                </td>
+
+                <td>
+                    ${
+                        issue.returnDate
+                        || "-"
+                    }
+                </td>
+
+                <td>
+
+                    <span
+                        class="badge ${statusClass}">
+
+                        ${issue.status}
+
+                    </span>
+
+                </td>
+
+                <td>
+                    ₹${issue.fine || 0}
+                </td>
+
+                <td>
+
+                    ${
+                        issue.status === "Issued"
+
+                        ?
+
+                        `<button
+                            class="btn btn-success"
+                            onclick="returnBook(${issue.id})">
+
+                            Return
+
+                         </button>`
+
+                        :
+
+                        "Completed"
+
+                    }
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+
+/* =====================================================
+   STUDENT DASHBOARD
+===================================================== */
+
+function updateStudentDashboard() {
+
+    if(!currentUser) return;
+
+
+    document.getElementById(
+        "studentWelcome"
+    ).innerText =
+        "Welcome back, " +
+        currentUser.name;
+
+
+    document.getElementById(
+        "profileName"
+    ).innerText =
+        currentUser.name;
+
+
+    document.getElementById(
+        "profileStudentId"
+    ).innerText =
+        currentUser.studentId || "-";
+
+
+    document.getElementById(
+        "profileEmail"
+    ).innerText =
+        currentUser.email;
+
+
+    const myIssues =
+        issues.filter(function(issue) {
+
+            return (
+                issue.userId === currentUser.id
+            );
+
+        });
+
+
+    const borrowed =
+        myIssues.filter(function(issue) {
+
+            return issue.status === "Issued";
+
+        }).length;
+
+
+    const returned =
+        myIssues.filter(function(issue) {
+
+            return issue.status === "Returned";
+
+        }).length;
+
+
+    const fine =
+        myIssues.reduce(
+            function(total, issue) {
+
+                return total +
+                    Number(issue.fine || 0);
+
+            },
+            0
+        );
+
+
+    document.getElementById(
+        "myBorrowed"
+    ).innerText =
+        borrowed;
+
+
+    document.getElementById(
+        "myReturned"
+    ).innerText =
+        returned;
+
+
+    document.getElementById(
+        "myFine"
+    ).innerText =
+        "₹" + fine;
+
+
+    document.getElementById(
+        "fineText"
+    ).innerText =
+        "₹" + fine;
+
+
+    const history =
+        document.getElementById(
+            "myHistory"
+        );
+
+
+    history.innerHTML = "";
+
+
+    myIssues.forEach(function(issue) {
+
+
+        const book =
+            books.find(function(b) {
+
+                return b.id === issue.bookId;
+
+            });
+
+
+        if(!book) return;
+
+
+        let status =
+            issue.status;
+
+
+        let className =
+            "issued";
+
+
+        if(status === "Returned") {
+
+            className =
+                "returned";
+
+        }
+        else {
+
+            const today =
+                new Date();
+
+            const expected =
+                new Date(
+                    issue.expectedDate
+                );
+
+
+            if(today > expected) {
+
+                status =
+                    "Overdue";
+
+                className =
+                    "overdue";
+
+            }
+
+        }
+
+
+        history.innerHTML += `
+
+            <tr>
+
+                <td>
+                    ${book.title}
+                </td>
+
+                <td>
+                    ${issue.issueDate}
+                </td>
+
+                <td>
+                    ${issue.expectedDate}
+                </td>
+
+                <td>
+                    ${issue.returnDate || "-"}
+                </td>
+
+                <td>
+
+                    <span
+                        class="badge ${className}">
+
+                        ${status}
+
+                    </span>
+
+                </td>
+
+                <td>
+                    ₹${issue.fine || 0}
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+
+/* =====================================================
+   ADD MATERIAL
+===================================================== */
+
+function addMaterial(event) {
+
+    event.preventDefault();
+
+
+    const title =
+        document.getElementById(
+            "materialTitle"
+        ).value;
+
+
+    const year =
+        document.getElementById(
+            "materialYear"
+        ).value;
+
+
+    const semester =
+        document.getElementById(
+            "materialSemester"
+        ).value;
+
+
+    const content =
+        document.getElementById(
+            "materialContent"
+        ).value;
+
+
+    materials.push({
+
+        id:
+            Date.now(),
+
+        title:
+            title,
+
+        year:
+            year,
+
+        semester:
+            semester,
+
+        content:
+            content
+
+    });
+
+
+    saveData();
+
+
+    event.target.reset();
+
+
+    renderMaterials();
+
+
+    alert(
+        "Study material added successfully."
+    );
+
+}
+
+
+/* =====================================================
+   RENDER MATERIALS
+===================================================== */
+
+function renderMaterials(
+    selectedYear = "",
+    selectedSemester = ""
+) {
+
+    const list =
+        document.getElementById(
+            "materialList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    const filtered =
+        materials.filter(function(material) {
+
+            const yearMatch =
+                selectedYear === "" ||
+                material.year === selectedYear;
+
+
+            const semesterMatch =
+                selectedSemester === "" ||
+                material.semester ===
+                selectedSemester;
+
+
+            return (
+                yearMatch &&
+                semesterMatch
+            );
+
+        });
+
+
+    if(filtered.length === 0) {
+
+        list.innerHTML = `
+
+            <div class="card">
+
+                <h3>
+                    No Materials Found
+                </h3>
+
+                <p>
+                    Try another year or semester.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    filtered.forEach(function(material) {
+
+        list.innerHTML += `
+
+            <div class="card">
+
+                <h3>
+                    📄 ${material.title}
+                </h3>
+
+                <p>
+                    <strong>Year:</strong>
+                    ${material.year}
+                </p>
+
+                <p>
+                    <strong>Semester:</strong>
+                    ${material.semester}
+                </p>
+
+                <button
+                    class="btn btn-primary"
+                    onclick="downloadMaterial(${material.id})">
+
+                    Download
+
+                </button>
+
+            </div>
+
+        `;
+
+    });
+
+}
+
+
+/* =====================================================
+   SEARCH MATERIALS
+===================================================== */
+
+function searchMaterials() {
+
+    const year =
+        document.getElementById(
+            "searchYear"
+        ).value;
+
+
+    const semester =
+        document.getElementById(
+            "searchSemester"
+        ).value;
+
+
+    renderMaterials(
+        year,
+        semester
+    );
+
+}
+
+
+/* =====================================================
+   DOWNLOAD MATERIAL
+===================================================== */
+
+function downloadMaterial(id) {
+
+    const material =
+        materials.find(function(m) {
+
+            return m.id === id;
+
+        });
+
+
+    if(!material) return;
+
+
+    const content =
+
+        "COLLEGE LIBRARY\n\n" +
+
+        "Material: " +
+        material.title +
+        "\n\n" +
+
+        "Year: " +
+        material.year +
+        "\n\n" +
+
+        "Semester: " +
+        material.semester +
+        "\n\n" +
+
+        "Notes:\n" +
+        material.content;
+
+
+    const blob =
+        new Blob(
+            [content],
+            {
+                type:
+                    "text/plain"
+            }
+        );
+
+
+    const url =
+        URL.createObjectURL(
+            blob
+        );
+
+
+    const a =
+        document.createElement(
+            "a"
+        );
+
+
+    a.href =
+        url;
+
+
+    a.download =
+        material.title
+        .replace(/\s+/g, "_")
+        + ".txt";
+
+
+    a.click();
+
+
+    URL.revokeObjectURL(
+        url
+    );
+
+}
+
+
+/* =====================================================
+   CONTACT
+===================================================== */
+
+function contactSubmit(event) {
+
+    event.preventDefault();
+
+
+    const name =
+        document.getElementById(
+            "contactName"
+        ).value;
+
+
+    alert(
+        "Thank you, " +
+        name +
+        "!\n\n" +
+        "Your message has been submitted successfully."
+    );
+
+
+    event.target.reset();
+
+}
+
+
+/* =====================================================
+   FORMAT DATE
+===================================================== */
+
+function formatDate(date) {
+
+    const year =
+        date.getFullYear();
+
+
+    const month =
+        String(
+            date.getMonth() + 1
+        ).padStart(2,"0");
+
+
+    const day =
+        String(
+            date.getDate()
+        ).padStart(2,"0");
+
+
+    return (
+        year +
+        "-" +
+        month +
+        "-" +
+        day
+    );
+
+}
+
+
+/* =====================================================
+   HOME STATISTICS
+===================================================== */
+
+function updateHomeStats() {
+
+    const totalBooks =
+        books.reduce(
+            function(total, book) {
+
+                return total +
+                    book.quantity;
+
+            },
+            0
+        );
+
+
+    const available =
+        books.reduce(
+            function(total, book) {
+
+                return total +
+                    book.available;
+
+            },
+            0
+        );
+
+
+    const issued =
+        totalBooks -
+        available;
+
+
+    const students =
+        users.filter(function(user) {
+
+            return user.role === "student";
+
+        }).length;
+
+
+    document.getElementById(
+        "totalBooks"
+    ).innerText =
+        totalBooks;
+
+
+    document.getElementById(
+        "totalAvailable"
+    ).innerText =
+        available;
+
+
+    document.getElementById(
+        "totalIssued"
+    ).innerText =
+        issued;
+
+
+    document.getElementById(
+        "totalStudents"
+    ).innerText =
+        students;
+
+}
+
+
+/* =====================================================
+   DEFAULT DATE
+===================================================== */
+
+function setDefaultDates() {
+
+    const today =
+        new Date();
+
+
+    const expected =
+        new Date();
+
+
+    expected.setDate(
+        expected.getDate() + 14
+    );
+
+
+    document.getElementById(
+        "issueDate"
+    ).value =
+        formatDate(today);
+
+
+    document.getElementById(
+        "expectedDate"
+    ).value =
+        formatDate(expected);
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+function initialize() {
+
+    saveData();
+
+    updateNavigation();
+
+    updateHomeStats();
+
+    renderBooks();
+
+    renderMaterials();
+
+    setDefaultDates();
+
+}
+
+
+initialize();
+
+</script>
+
+</body>
+
+</html>
