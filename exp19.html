@@ -1,0 +1,2825 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>VetCure - Online Animal Healthcare System</title>
+
+<style>
+
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f5f7fa;
+    color:#263238;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.container{
+    width:88%;
+    max-width:1200px;
+    margin:auto;
+}
+
+section{
+    min-height:500px;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+    background:#14532d;
+    color:white;
+    padding:17px 6%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 3px 15px rgba(0,0,0,.2);
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#86efac;
+}
+
+.nav-links{
+    list-style:none;
+    display:flex;
+    gap:20px;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.nav-links a:hover{
+    color:#86efac;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:560px;
+    display:flex;
+    align-items:center;
+
+    background:
+    linear-gradient(
+        120deg,
+        #14532d,
+        #166534,
+        #15803d
+    );
+
+    color:white;
+}
+
+.hero-content{
+    width:88%;
+    max-width:1200px;
+    margin:auto;
+}
+
+.hero h1{
+    font-size:52px;
+    max-width:700px;
+    margin-bottom:20px;
+}
+
+.hero h1 span{
+    color:#86efac;
+}
+
+.hero p{
+    max-width:680px;
+    line-height:1.8;
+    color:#dcfce7;
+    font-size:18px;
+}
+
+.hero-buttons{
+    margin-top:25px;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn{
+    border:none;
+    padding:12px 21px;
+    border-radius:7px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.btn-green{
+    background:#22c55e;
+    color:#052e16;
+}
+
+.btn-green:hover{
+    background:#16a34a;
+    color:white;
+}
+
+.btn-dark{
+    background:#14532d;
+    color:white;
+}
+
+.btn-blue{
+    background:#2563eb;
+    color:white;
+}
+
+.btn-red{
+    background:#dc2626;
+    color:white;
+}
+
+.btn-orange{
+    background:#f59e0b;
+    color:#111827;
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+    padding:60px 0;
+}
+
+.title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.title h2{
+    color:#14532d;
+    font-size:32px;
+}
+
+.title p{
+    margin-top:8px;
+    color:#6b7280;
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(200px,1fr));
+
+    gap:20px;
+}
+
+.stat{
+    background:white;
+    padding:28px;
+    text-align:center;
+    border-radius:12px;
+
+    box-shadow:
+    0 3px 15px rgba(0,0,0,.07);
+}
+
+.stat-icon{
+    font-size:35px;
+    margin-bottom:10px;
+}
+
+.stat h2{
+    color:#14532d;
+    font-size:30px;
+}
+
+.stat p{
+    color:#6b7280;
+    margin-top:5px;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.card-grid{
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(230px,1fr));
+
+    gap:22px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+
+    box-shadow:
+    0 3px 15px rgba(0,0,0,.07);
+}
+
+.card:hover{
+    transform:translateY(-3px);
+    transition:.2s;
+}
+
+.card h3{
+    color:#14532d;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#6b7280;
+    line-height:1.6;
+}
+
+.card-icon{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+
+/* =========================
+   FORMS
+========================= */
+
+.form-container{
+    max-width:550px;
+    margin:50px auto;
+
+    background:white;
+
+    padding:35px;
+
+    border-radius:13px;
+
+    box-shadow:
+    0 5px 20px rgba(0,0,0,.08);
+}
+
+.form-container h2{
+    text-align:center;
+    margin-bottom:25px;
+    color:#14532d;
+}
+
+.form-group{
+    margin-bottom:17px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+
+    width:100%;
+
+    padding:13px;
+
+    border:1px solid #d1d5db;
+
+    border-radius:7px;
+
+    outline:none;
+}
+
+.form-group textarea{
+    min-height:120px;
+    resize:vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+
+    border-color:#22c55e;
+}
+
+.form-container .btn{
+    width:100%;
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard-header{
+    background:#14532d;
+    color:white;
+    padding:38px 0;
+}
+
+.dashboard-header h1{
+    margin-bottom:7px;
+}
+
+.dashboard-header p{
+    color:#dcfce7;
+}
+
+.dashboard-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+    margin:35px 0;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table-box{
+
+    background:white;
+
+    border-radius:10px;
+
+    overflow-x:auto;
+
+    box-shadow:
+    0 3px 15px rgba(0,0,0,.07);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+
+    padding:14px;
+
+    text-align:left;
+
+    border-bottom:
+    1px solid #e5e7eb;
+}
+
+th{
+    background:#14532d;
+    color:white;
+}
+
+tr:hover{
+    background:#f9fafb;
+}
+
+
+/* =========================
+   BADGES
+========================= */
+
+.badge{
+
+    padding:6px 10px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:bold;
+}
+
+.active{
+    background:#dcfce7;
+    color:#15803d;
+}
+
+.pending{
+    background:#fef3c7;
+    color:#b45309;
+}
+
+.expired{
+    background:#fee2e2;
+    color:#b91c1c;
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile{
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:12px;
+
+    box-shadow:
+    0 3px 15px rgba(0,0,0,.07);
+
+    margin-bottom:25px;
+}
+
+.profile h2{
+    color:#14532d;
+    margin-bottom:15px;
+}
+
+.profile p{
+    margin:8px 0;
+    color:#6b7280;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-bottom:30px;
+}
+
+.search-box input{
+
+    flex:1;
+
+    padding:14px;
+
+    border:1px solid #d1d5db;
+
+    border-radius:7px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+
+    background:#14532d;
+
+    color:white;
+
+    text-align:center;
+
+    padding:30px;
+
+    margin-top:40px;
+}
+
+footer p{
+
+    color:#bbf7d0;
+
+    margin-top:8px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:800px){
+
+    .navbar{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .nav-links{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .hero h1{
+        font-size:37px;
+    }
+
+    .search-box{
+        flex-direction:column;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        🐾 Vet<span>Cure</span>
+
+    </div>
+
+
+    <ul class="nav-links">
+
+        <li>
+            <a onclick="showPage('home')">
+                Home
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('doctors')">
+                Doctors
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('news')">
+                News
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('user')">
+                My Account
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('doctor')">
+                Doctor
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('login')">
+                Login
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section id="home" class="page active">
+
+    <div class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+
+                Smart Animal Healthcare with
+
+                <span>VetCure</span>
+
+            </h1>
+
+
+            <p>
+
+                Connect farmers with veterinary doctors,
+                submit animal symptoms through text, images,
+                audio or video, receive medical solutions,
+                and manage animal healthcare online.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <button class="btn btn-green"
+                        onclick="showPage('complaint')">
+
+                    🐄 Consult Doctor
+
+                </button>
+
+
+                <button class="btn btn-dark"
+                        onclick="showPage('doctors')">
+
+                    👨‍⚕️ Find Doctor
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="container">
+
+            <div class="title">
+
+                <h2>
+                    VetCure at a Glance
+                </h2>
+
+                <p>
+                    Online veterinary consultation and
+                    animal healthcare management
+                </p>
+
+            </div>
+
+
+            <div class="stats">
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">
+                        👨‍⚕️
+                    </div>
+
+                    <h2>
+                        125
+                    </h2>
+
+                    <p>
+                        Registered Doctors
+                    </p>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">
+                        🐄
+                    </div>
+
+                    <h2>
+                        2,540
+                    </h2>
+
+                    <p>
+                        Farmers
+                    </p>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">
+                        📋
+                    </div>
+
+                    <h2>
+                        4,820
+                    </h2>
+
+                    <p>
+                        Consultations
+                    </p>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">
+                        💊
+                    </div>
+
+                    <h2>
+                        350
+                    </h2>
+
+                    <p>
+                        Available Cures
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="container">
+
+            <div class="title">
+
+                <h2>
+                    Our Services
+                </h2>
+
+                <p>
+                    Complete digital animal healthcare support
+                </p>
+
+            </div>
+
+
+            <div class="card-grid">
+
+
+                <div class="card">
+
+                    <div class="card-icon">
+                        🐄
+                    </div>
+
+                    <h3>
+                        Animal Consultation
+                    </h3>
+
+                    <p>
+                        Send animal signs and symptoms
+                        to veterinary doctors.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon">
+                        📷
+                    </div>
+
+                    <h3>
+                        Media Upload
+                    </h3>
+
+                    <p>
+                        Submit symptoms using images,
+                        video, audio or text.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon">
+                        💊
+                    </div>
+
+                    <h3>
+                        Digital Cure
+                    </h3>
+
+                    <p>
+                        View diseases, symptoms and
+                        recommended prescriptions.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon">
+                        📊
+                    </div>
+
+                    <h3>
+                        Area Disease Report
+                    </h3>
+
+                    <p>
+                        Analyze commonly reported animal
+                        diseases in different areas.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     LOGIN
+===================================================== -->
+
+<section id="login" class="page section">
+
+    <div class="form-container">
+
+        <h2>
+            🔐 VetCure Login
+        </h2>
+
+
+        <form onsubmit="loginUser(event)">
+
+
+            <div class="form-group">
+
+                <label>
+                    Email / User ID
+                </label>
+
+                <input type="text"
+                       placeholder="Enter email or user ID"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input type="password"
+                       placeholder="Enter password"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Login As
+                </label>
+
+                <select id="loginType">
+
+                    <option>
+                        Farmer
+                    </option>
+
+                    <option>
+                        Doctor
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button class="btn btn-green">
+
+                Login
+
+            </button>
+
+        </form>
+
+
+        <p style="text-align:center;margin-top:20px;">
+
+            New Farmer?
+
+            <a href="#"
+               onclick="showPage('register')">
+
+                Create Account
+
+            </a>
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     REGISTER
+===================================================== -->
+
+<section id="register" class="page section">
+
+    <div class="form-container">
+
+        <h2>
+            👨‍🌾 Farmer Registration
+        </h2>
+
+
+        <form onsubmit="registerUser(event)">
+
+
+            <div class="form-group">
+
+                <label>
+                    Full Name
+                </label>
+
+                <input type="text"
+                       placeholder="Enter farmer name"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Email
+                </label>
+
+                <input type="email"
+                       placeholder="Enter email"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Mobile Number
+                </label>
+
+                <input type="tel"
+                       placeholder="Enter mobile number"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Location
+                </label>
+
+                <input type="text"
+                       placeholder="Enter your location"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input type="password"
+                       placeholder="Create password"
+                       required>
+
+            </div>
+
+
+            <button class="btn btn-green">
+
+                Register
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     COMPLAINT / CONSULTATION
+===================================================== -->
+
+<section id="complaint" class="page section">
+
+    <div class="container">
+
+        <div class="title">
+
+            <h2>
+                🐄 Post Animal Complaint
+            </h2>
+
+            <p>
+                Send animal signs and symptoms to a doctor
+            </p>
+
+        </div>
+
+
+        <div class="form-container">
+
+            <form onsubmit="postComplaint(event)">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Animal Type
+                    </label>
+
+                    <select required>
+
+                        <option>
+                            Cow
+                        </option>
+
+                        <option>
+                            Buffalo
+                        </option>
+
+                        <option>
+                            Goat
+                        </option>
+
+                        <option>
+                            Sheep
+                        </option>
+
+                        <option>
+                            Dog
+                        </option>
+
+                        <option>
+                            Cat
+                        </option>
+
+                        <option>
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Symptoms
+                    </label>
+
+                    <textarea
+                        placeholder="Describe signs and symptoms..."
+                        required>
+                    </textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Upload Image / Video / Audio
+                    </label>
+
+                    <input type="file"
+                           accept="image/*,video/*,audio/*">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Location
+                    </label>
+
+                    <input type="text"
+                           placeholder="Enter animal location"
+                           required>
+
+                </div>
+
+
+                <button class="btn btn-green">
+
+                    Submit Complaint
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     DOCTORS
+===================================================== -->
+
+<section id="doctors" class="page section">
+
+    <div class="container">
+
+        <div class="title">
+
+            <h2>
+                👨‍⚕️ Veterinary Doctors
+            </h2>
+
+            <p>
+                Find available veterinary doctors
+            </p>
+
+        </div>
+
+
+        <div class="search-box">
+
+            <input type="text"
+                   id="doctorSearch"
+                   placeholder="Search doctor or specialization..."
+                   onkeyup="searchDoctors()">
+
+            <button class="btn btn-dark"
+                    onclick="searchDoctors()">
+
+                Search
+
+            </button>
+
+        </div>
+
+
+        <div class="card-grid"
+             id="doctorList">
+
+
+            <div class="card doctor-card">
+
+                <div class="card-icon">
+                    👨‍⚕️
+                </div>
+
+                <h3>
+                    Dr. Arun Kumar
+                </h3>
+
+                <p>
+                    Specialization: Veterinary Medicine
+                </p>
+
+                <p>
+                    Location: Chennai
+                </p>
+
+                <p>
+                    Consultation: Government CVH
+                </p>
+
+                <span class="badge active">
+                    Available
+                </span>
+
+                <br>
+
+                <button class="btn btn-green"
+                        onclick="showPage('complaint')">
+
+                    Consult
+
+                </button>
+
+            </div>
+
+
+            <div class="card doctor-card">
+
+                <div class="card-icon">
+                    👩‍⚕️
+                </div>
+
+                <h3>
+                    Dr. Priya Sharma
+                </h3>
+
+                <p>
+                    Specialization: Animal Surgery
+                </p>
+
+                <p>
+                    Location: Madurai
+                </p>
+
+                <p>
+                    Consultation: Private Clinic
+                </p>
+
+                <span class="badge active">
+                    Available
+                </span>
+
+                <br>
+
+                <button class="btn btn-green"
+                        onclick="showPage('payment')">
+
+                    Consult
+
+                </button>
+
+            </div>
+
+
+            <div class="card doctor-card">
+
+                <div class="card-icon">
+                    👨‍⚕️
+                </div>
+
+                <h3>
+                    Dr. Ravi Kumar
+                </h3>
+
+                <p>
+                    Specialization: Livestock Diseases
+                </p>
+
+                <p>
+                    Location: Coimbatore
+                </p>
+
+                <p>
+                    Consultation: Government CVH
+                </p>
+
+                <span class="badge active">
+                    Available
+                </span>
+
+                <br>
+
+                <button class="btn btn-green"
+                        onclick="showPage('complaint')">
+
+                    Consult
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     USER DASHBOARD
+===================================================== -->
+
+<section id="user" class="page">
+
+    <div class="dashboard-header">
+
+        <div class="container">
+
+            <h1>
+                👨‍🌾 Farmer Dashboard
+            </h1>
+
+            <p>
+                Manage your animal consultations and reports
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="container section">
+
+
+        <div class="dashboard-grid">
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    📋
+                </div>
+
+                <h2>
+                    5
+                </h2>
+
+                <p>
+                    My Complaints
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    ✅
+                </div>
+
+                <h2>
+                    3
+                </h2>
+
+                <p>
+                    Resolved
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    ⏳
+                </div>
+
+                <h2>
+                    2
+                </h2>
+
+                <p>
+                    Pending
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    💰
+                </div>
+
+                <h2>
+                    ₹500
+                </h2>
+
+                <p>
+                    Wallet Balance
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="profile">
+
+            <h2>
+                👤 My Profile
+            </h2>
+
+            <p>
+                <strong>Name:</strong>
+                Rahul Kumar
+            </p>
+
+            <p>
+                <strong>Email:</strong>
+                rahul@email.com
+            </p>
+
+            <p>
+                <strong>Mobile:</strong>
+                9876543210
+            </p>
+
+            <p>
+                <strong>Location:</strong>
+                Chennai
+            </p>
+
+            <button class="btn btn-blue"
+                    onclick="editProfile()">
+
+                Edit Profile
+
+            </button>
+
+        </div>
+
+
+        <h2 style="margin:35px 0 20px;">
+
+            My Complaint Status
+
+        </h2>
+
+
+        <div class="table-box">
+
+            <table>
+
+                <tr>
+
+                    <th>
+                        Complaint ID
+                    </th>
+
+                    <th>
+                        Animal
+                    </th>
+
+                    <th>
+                        Symptoms
+                    </th>
+
+                    <th>
+                        Doctor
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        VC1001
+                    </td>
+
+                    <td>
+                        Cow
+                    </td>
+
+                    <td>
+                        Fever and weakness
+                    </td>
+
+                    <td>
+                        Dr. Arun Kumar
+                    </td>
+
+                    <td>
+
+                        <span class="badge active">
+                            Resolved
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        VC1002
+                    </td>
+
+                    <td>
+                        Goat
+                    </td>
+
+                    <td>
+                        Loss of appetite
+                    </td>
+
+                    <td>
+                        Dr. Priya Sharma
+                    </td>
+
+                    <td>
+
+                        <span class="badge pending">
+                            Pending
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        VC1003
+                    </td>
+
+                    <td>
+                        Dog
+                    </td>
+
+                    <td>
+                        Skin problem
+                    </td>
+
+                    <td>
+                        Dr. Ravi Kumar
+                    </td>
+
+                    <td>
+
+                        <span class="badge active">
+                            Resolved
+                        </span>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <div style="text-align:center;margin-top:30px;">
+
+            <button class="btn btn-green"
+                    onclick="showPage('complaint')">
+
+                + Post New Complaint
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     NEWS
+===================================================== -->
+
+<section id="news" class="page section">
+
+    <div class="container">
+
+        <div class="title">
+
+            <h2>
+                📰 Veterinary News
+            </h2>
+
+            <p>
+                Latest animal healthcare information
+            </p>
+
+        </div>
+
+
+        <div class="card-grid">
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🐄
+                </div>
+
+                <h3>
+                    Common Cattle Diseases
+                </h3>
+
+                <p>
+                    Learn about common cattle diseases,
+                    symptoms and prevention methods.
+                </p>
+
+                <button class="btn btn-green"
+                        onclick="readNews('Cattle Diseases')">
+
+                    Read More
+
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🐐
+                </div>
+
+                <h3>
+                    Goat Health Tips
+                </h3>
+
+                <p>
+                    Important healthcare tips for maintaining
+                    healthy goats.
+                </p>
+
+                <button class="btn btn-green"
+                        onclick="readNews('Goat Health Tips')">
+
+                    Read More
+
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    💉
+                </div>
+
+                <h3>
+                    Animal Vaccination
+                </h3>
+
+                <p>
+                    Understand the importance of regular
+                    veterinary vaccination.
+                </p>
+
+                <button class="btn btn-green"
+                        onclick="readNews('Animal Vaccination')">
+
+                    Read More
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CURE
+===================================================== -->
+
+<section id="cure" class="page section">
+
+    <div class="container">
+
+        <div class="title">
+
+            <h2>
+                💊 Animal Diseases & Cures
+            </h2>
+
+            <p>
+                Basic information about common animal diseases
+            </p>
+
+        </div>
+
+
+        <div class="card-grid">
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🐄
+                </div>
+
+                <h3>
+                    Cattle Fever
+                </h3>
+
+                <p>
+                    Symptoms: Fever, weakness and reduced appetite.
+                </p>
+
+                <p>
+                    Treatment should be provided by a qualified
+                    veterinary professional.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🐐
+                </div>
+
+                <h3>
+                    Goat Infection
+                </h3>
+
+                <p>
+                    Symptoms may include reduced appetite,
+                    weakness and unusual behavior.
+                </p>
+
+                <p>
+                    Consult a veterinarian for proper diagnosis.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🐕
+                </div>
+
+                <h3>
+                    Skin Problems
+                </h3>
+
+                <p>
+                    Skin irritation and hair loss can have
+                    several causes.
+                </p>
+
+                <p>
+                    A veterinarian should determine the cause
+                    and treatment.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PAYMENT
+===================================================== -->
+
+<section id="payment" class="page section">
+
+    <div class="form-container">
+
+        <h2>
+            💳 Doctor Consultation Payment
+        </h2>
+
+
+        <form onsubmit="makePayment(event)">
+
+
+            <div class="form-group">
+
+                <label>
+                    Doctor
+                </label>
+
+                <select>
+
+                    <option>
+                        Dr. Priya Sharma - Private Clinic
+                    </option>
+
+                    <option>
+                        Dr. Arun Kumar - Government CVH
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Consultation Fee
+                </label>
+
+                <input type="number"
+                       value="500"
+                       readonly>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Payment Method
+                </label>
+
+                <select>
+
+                    <option>
+                        Bank Transfer
+                    </option>
+
+                    <option>
+                        Easy Paisa
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button class="btn btn-green">
+
+                Make Payment
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     DOCTOR DASHBOARD
+===================================================== -->
+
+<section id="doctor" class="page">
+
+    <div class="dashboard-header">
+
+        <div class="container">
+
+            <h1>
+                👨‍⚕️ Doctor Dashboard
+            </h1>
+
+            <p>
+                Manage farmer complaints, cures, news and payments
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="container section">
+
+
+        <div class="dashboard-grid">
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    📋
+                </div>
+
+                <h2>
+                    18
+                </h2>
+
+                <p>
+                    Complaints
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    ⏳
+                </div>
+
+                <h2>
+                    6
+                </h2>
+
+                <p>
+                    Pending Requests
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    💊
+                </div>
+
+                <h2>
+                    25
+                </h2>
+
+                <p>
+                    Cures
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    💰
+                </div>
+
+                <h2>
+                    ₹12,500
+                </h2>
+
+                <p>
+                    Payments
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <h2 style="margin:35px 0 20px;">
+
+            Farmer Complaints
+
+        </h2>
+
+
+        <div class="table-box">
+
+            <table>
+
+                <tr>
+
+                    <th>
+                        Complaint ID
+                    </th>
+
+                    <th>
+                        Farmer
+                    </th>
+
+                    <th>
+                        Animal
+                    </th>
+
+                    <th>
+                        Symptoms
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        VC1001
+                    </td>
+
+                    <td>
+                        Rahul Kumar
+                    </td>
+
+                    <td>
+                        Cow
+                    </td>
+
+                    <td>
+                        Fever and weakness
+                    </td>
+
+                    <td>
+
+                        <span class="badge pending">
+                            Pending
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-green"
+                                onclick="postSolution(this)">
+
+                            Post Solution
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        VC1002
+                    </td>
+
+                    <td>
+                        Ananya
+                    </td>
+
+                    <td>
+                        Goat
+                    </td>
+
+                    <td>
+                        Loss of appetite
+                    </td>
+
+                    <td>
+
+                        <span class="badge active">
+                            Resolved
+                        </span>
+
+                    </td>
+
+                    <td>
+                        Completed
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        VC1003
+                    </td>
+
+                    <td>
+                        Kumar
+                    </td>
+
+                    <td>
+                        Dog
+                    </td>
+
+                    <td>
+                        Skin problem
+                    </td>
+
+                    <td>
+
+                        <span class="badge pending">
+                            Pending
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-green"
+                                onclick="postSolution(this)">
+
+                            Post Solution
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <div class="card-grid"
+             style="margin-top:40px;">
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    💊
+                </div>
+
+                <h3>
+                    Manage Cure
+                </h3>
+
+                <p>
+                    Add or update animal diseases,
+                    symptoms and treatment information.
+                </p>
+
+                <button class="btn btn-green"
+                        onclick="manageCure()">
+
+                    Manage Cure
+
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    📰
+                </div>
+
+                <h3>
+                    Manage News
+                </h3>
+
+                <p>
+                    Publish important veterinary news
+                    and healthcare information.
+                </p>
+
+                <button class="btn btn-blue"
+                        onclick="manageNews()">
+
+                    Manage News
+
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    👤
+                </div>
+
+                <h3>
+                    User Details
+                </h3>
+
+                <p>
+                    View farmer information associated
+                    with consultation requests.
+                </p>
+
+                <button class="btn btn-dark"
+                        onclick="viewUsers()">
+
+                    View Users
+
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    💳
+                </div>
+
+                <h3>
+                    Payment Details
+                </h3>
+
+                <p>
+                    View consultation payment records
+                    and transaction information.
+                </p>
+
+                <button class="btn btn-orange"
+                        onclick="viewPayments()">
+
+                    View Payments
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     REPORT
+===================================================== -->
+
+<section id="report" class="page section">
+
+    <div class="container">
+
+        <div class="title">
+
+            <h2>
+                📊 Animal Disease Report
+            </h2>
+
+            <p>
+                Disease occurrence based on recorded consultations
+            </p>
+
+        </div>
+
+
+        <div class="stats">
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    🦠
+                </div>
+
+                <h2>
+                    35%
+                </h2>
+
+                <p>
+                    Skin Diseases
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    🌡️
+                </div>
+
+                <h2>
+                    28%
+                </h2>
+
+                <p>
+                    Fever Related
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    🫁
+                </div>
+
+                <h2>
+                    20%
+                </h2>
+
+                <p>
+                    Respiratory
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    🐄
+                </div>
+
+                <h2>
+                    17%
+                </h2>
+
+                <p>
+                    Other Diseases
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="card"
+             style="margin-top:30px;">
+
+            <h3>
+                Area-wise Disease Analysis
+            </h3>
+
+            <p>
+                Chennai: Skin-related complaints are frequently
+                recorded.
+            </p>
+
+            <p>
+                Madurai: Fever-related complaints are commonly
+                reported.
+            </p>
+
+            <p>
+                Coimbatore: Livestock-related diseases are
+                frequently recorded.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <h3>
+        🐾 VetCure
+    </h3>
+
+    <p>
+        Smart Online Animal Healthcare & Veterinary
+        Consultation System
+    </p>
+
+    <p>
+        © 2026 VetCure. All Rights Reserved.
+    </p>
+
+</footer>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
+function showPage(pageId){
+
+    const pages =
+        document.querySelectorAll(".page");
+
+
+    pages.forEach(function(page){
+
+        page.classList.remove("active");
+
+    });
+
+
+    const selected =
+        document.getElementById(pageId);
+
+
+    if(selected){
+
+        selected.classList.add("active");
+
+    }
+
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function loginUser(event){
+
+    event.preventDefault();
+
+
+    const type =
+        document.getElementById("loginType").value;
+
+
+    alert(
+
+        "Login successful!\n\n" +
+
+        "Logged in as: " + type
+
+    );
+
+
+    if(type === "Doctor"){
+
+        showPage("doctor");
+
+    }
+
+    else{
+
+        showPage("user");
+
+    }
+
+}
+
+
+/* =========================
+   REGISTER
+========================= */
+
+function registerUser(event){
+
+    event.preventDefault();
+
+
+    alert(
+
+        "Registration successful!\n\n" +
+
+        "Your VetCure farmer account has been created."
+
+    );
+
+
+    event.target.reset();
+
+
+    showPage("login");
+
+}
+
+
+/* =========================
+   POST COMPLAINT
+========================= */
+
+function postComplaint(event){
+
+    event.preventDefault();
+
+
+    const complaintID =
+
+        "VC" +
+
+        Math.floor(
+            1000 + Math.random()*9000
+        );
+
+
+    alert(
+
+        "Animal complaint submitted successfully!\n\n" +
+
+        "Complaint ID: " +
+        complaintID +
+
+        "\nStatus: Pending\n\n" +
+
+        "Doctor will review your request."
+
+    );
+
+
+    event.target.reset();
+
+
+    showPage("user");
+
+}
+
+
+/* =========================
+   SEARCH DOCTORS
+========================= */
+
+function searchDoctors(){
+
+    const search =
+
+        document
+        .getElementById("doctorSearch")
+        .value
+        .toLowerCase();
+
+
+    const doctors =
+
+        document
+        .querySelectorAll(".doctor-card");
+
+
+    doctors.forEach(function(doctor){
+
+        const text =
+            doctor.innerText.toLowerCase();
+
+
+        if(text.includes(search)){
+
+            doctor.style.display="block";
+
+        }
+
+        else{
+
+            doctor.style.display="none";
+
+        }
+
+    });
+
+}
+
+
+/* =========================
+   PAYMENT
+========================= */
+
+function makePayment(event){
+
+    event.preventDefault();
+
+
+    const transaction =
+
+        "PAY" +
+
+        Math.floor(
+            100000 + Math.random()*900000
+        );
+
+
+    alert(
+
+        "Payment successful!\n\n" +
+
+        "Transaction ID: " +
+        transaction +
+
+        "\nAmount: ₹500\n" +
+
+        "Status: PAID"
+
+    );
+
+
+    event.target.reset();
+
+
+    showPage("user");
+
+}
+
+
+/* =========================
+   DOCTOR SOLUTION
+========================= */
+
+function postSolution(button){
+
+    const solution =
+
+        prompt(
+            "Enter solution / doctor's response:"
+        );
+
+
+    if(solution){
+
+        const row =
+            button.closest("tr");
+
+
+        row.cells[4].innerHTML =
+
+            '<span class="badge active">' +
+            'Resolved' +
+            '</span>';
+
+
+        alert(
+
+            "Solution posted successfully.\n\n" +
+
+            "Farmer has been notified."
+
+        );
+
+    }
+
+}
+
+
+/* =========================
+   EDIT PROFILE
+========================= */
+
+function editProfile(){
+
+    alert(
+
+        "Profile editing option opened.\n\n" +
+
+        "You can update your name, mobile number " +
+        "and location."
+
+    );
+
+}
+
+
+/* =========================
+   NEWS
+========================= */
+
+function readNews(title){
+
+    alert(
+
+        "Opening News:\n\n" +
+
+        title +
+
+        "\n\nVeterinary healthcare information " +
+        "will be displayed here."
+
+    );
+
+}
+
+
+/* =========================
+   MANAGE CURE
+========================= */
+
+function manageCure(){
+
+    alert(
+
+        "Manage Cure\n\n" +
+
+        "Doctor can add, edit or delete disease " +
+        "and treatment information."
+
+    );
+
+}
+
+
+/* =========================
+   MANAGE NEWS
+========================= */
+
+function manageNews(){
+
+    alert(
+
+        "Manage News\n\n" +
+
+        "Doctor can publish and update veterinary news."
+
+    );
+
+}
+
+
+/* =========================
+   VIEW USERS
+========================= */
+
+function viewUsers(){
+
+    alert(
+
+        "User Details\n\n" +
+
+        "Farmer Name: Rahul Kumar\n" +
+
+        "Animal: Cow\n" +
+
+        "Location: Chennai"
+
+    );
+
+}
+
+
+/* =========================
+   VIEW PAYMENTS
+========================= */
+
+function viewPayments(){
+
+    alert(
+
+        "Payment Details\n\n" +
+
+        "Transaction: PAY458721\n" +
+
+        "Amount: ₹500\n" +
+
+        "Status: PAID"
+
+    );
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout(){
+
+    alert(
+        "You have been logged out successfully."
+    );
+
+    showPage("home");
+
+}
+
+</script>
+
+
+</body>
+
+</html>
