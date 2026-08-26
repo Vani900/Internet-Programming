@@ -1,0 +1,2940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Wanderlust Travels - Online Travel Management System</title>
+
+<style>
+
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f5f7fa;
+    color:#263238;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.container{
+    width:88%;
+    max-width:1200px;
+    margin:auto;
+}
+
+section{
+    min-height:500px;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+    background:#0f3d56;
+    color:white;
+    padding:17px 6%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 3px 15px rgba(0,0,0,.2);
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#fbbf24;
+}
+
+.nav-links{
+    list-style:none;
+    display:flex;
+    gap:20px;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.nav-links a:hover{
+    color:#fbbf24;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:560px;
+    display:flex;
+    align-items:center;
+
+    background:
+    linear-gradient(
+        120deg,
+        #0f3d56,
+        #155e75,
+        #0284c7
+    );
+
+    color:white;
+}
+
+.hero-content{
+    width:88%;
+    max-width:1200px;
+    margin:auto;
+}
+
+.hero h1{
+    font-size:52px;
+    max-width:750px;
+    margin-bottom:20px;
+}
+
+.hero h1 span{
+    color:#fbbf24;
+}
+
+.hero p{
+    max-width:680px;
+    line-height:1.8;
+    color:#e0f2fe;
+    font-size:18px;
+}
+
+.hero-buttons{
+    margin-top:25px;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn{
+    border:none;
+    padding:12px 21px;
+    border-radius:7px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.btn-blue{
+    background:#0284c7;
+    color:white;
+}
+
+.btn-blue:hover{
+    background:#0369a1;
+}
+
+.btn-dark{
+    background:#0f3d56;
+    color:white;
+}
+
+.btn-green{
+    background:#16a34a;
+    color:white;
+}
+
+.btn-red{
+    background:#dc2626;
+    color:white;
+}
+
+.btn-yellow{
+    background:#fbbf24;
+    color:#0f3d56;
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+    padding:60px 0;
+}
+
+.title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.title h2{
+    color:#0f3d56;
+    font-size:32px;
+}
+
+.title p{
+    margin-top:8px;
+    color:#6b7280;
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+
+.stat{
+    background:white;
+    padding:28px;
+    text-align:center;
+    border-radius:12px;
+    box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+.stat-icon{
+    font-size:35px;
+    margin-bottom:10px;
+}
+
+.stat h2{
+    color:#0f3d56;
+    font-size:30px;
+}
+
+.stat p{
+    color:#6b7280;
+    margin-top:5px;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.card-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(230px,1fr));
+    gap:22px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+.card:hover{
+    transform:translateY(-3px);
+    transition:.2s;
+}
+
+.card h3{
+    color:#0f3d56;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#6b7280;
+    line-height:1.6;
+}
+
+.card-icon{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+
+/* =========================
+   DESTINATION IMAGE
+========================= */
+
+.destination-img{
+    width:100%;
+    height:160px;
+    border-radius:10px;
+    background:#e0f2fe;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:65px;
+    margin-bottom:15px;
+}
+
+
+/* =========================
+   FORMS
+========================= */
+
+.form-container{
+    max-width:600px;
+    margin:50px auto;
+    background:white;
+    padding:35px;
+    border-radius:13px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.form-container h2{
+    text-align:center;
+    margin-bottom:25px;
+    color:#0f3d56;
+}
+
+.form-group{
+    margin-bottom:17px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    padding:13px;
+    border:1px solid #d1d5db;
+    border-radius:7px;
+    outline:none;
+}
+
+.form-group textarea{
+    min-height:110px;
+    resize:vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+    border-color:#0284c7;
+}
+
+.form-container .btn{
+    width:100%;
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard-header{
+    background:#0f3d56;
+    color:white;
+    padding:38px 0;
+}
+
+.dashboard-header h1{
+    margin-bottom:7px;
+}
+
+.dashboard-header p{
+    color:#e0f2fe;
+}
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin:35px 0;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table-box{
+    background:white;
+    border-radius:10px;
+    overflow-x:auto;
+    box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:14px;
+    text-align:left;
+    border-bottom:1px solid #e5e7eb;
+}
+
+th{
+    background:#0f3d56;
+    color:white;
+}
+
+tr:hover{
+    background:#f0f9ff;
+}
+
+
+/* =========================
+   BADGES
+========================= */
+
+.badge{
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.active{
+    background:#dcfce7;
+    color:#15803d;
+}
+
+.pending{
+    background:#fef3c7;
+    color:#b45309;
+}
+
+.cancelled{
+    background:#fee2e2;
+    color:#b91c1c;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box{
+    display:flex;
+    gap:10px;
+    margin-bottom:30px;
+}
+
+.search-box input,
+.search-box select{
+    flex:1;
+    padding:14px;
+    border:1px solid #d1d5db;
+    border-radius:7px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    background:#0f3d56;
+    color:white;
+    text-align:center;
+    padding:30px;
+    margin-top:40px;
+}
+
+footer p{
+    color:#bae6fd;
+    margin-top:8px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:800px){
+
+    .navbar{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .nav-links{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .hero h1{
+        font-size:37px;
+    }
+
+    .search-box{
+        flex-direction:column;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        ✈️ Wander<span>lust</span>
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+            <a onclick="showPage('home')">
+                Home
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('tourism')">
+                Destinations
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('food')">
+                Food
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('hotels')">
+                Hotels
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('routes')">
+                Routes
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('user')">
+                My Account
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('admin')">
+                Admin
+            </a>
+        </li>
+
+        <li>
+            <a onclick="showPage('login')">
+                Login
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section id="home" class="page active">
+
+    <div class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+                Explore the World with
+                <span>Wanderlust Travels</span>
+            </h1>
+
+            <p>
+                Discover beautiful destinations, delicious local
+                food, comfortable hotels and convenient travel
+                routes. Plan your trip and book accommodation
+                easily through one online platform.
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="btn btn-yellow"
+                        onclick="showPage('tourism')">
+
+                    🌍 Explore Destinations
+
+                </button>
+
+                <button class="btn btn-dark"
+                        onclick="showPage('hotels')">
+
+                    🏨 Find Accommodation
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="container">
+
+            <div class="title">
+
+                <h2>
+                    Wanderlust at a Glance
+                </h2>
+
+                <p>
+                    Everything needed for a memorable journey
+                </p>
+
+            </div>
+
+
+            <div class="stats">
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">
+                        🌍
+                    </div>
+
+                    <h2>
+                        120+
+                    </h2>
+
+                    <p>
+                        Destinations
+                    </p>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">
+                        🏨
+                    </div>
+
+                    <h2>
+                        350+
+                    </h2>
+
+                    <p>
+                        Hotels
+                    </p>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">
+                        🍛
+                    </div>
+
+                    <h2>
+                        500+
+                    </h2>
+
+                    <p>
+                        Food Places
+                    </p>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">
+                        👥
+                    </div>
+
+                    <h2>
+                        8,500+
+                    </h2>
+
+                    <p>
+                        Travellers
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="container">
+
+            <div class="title">
+
+                <h2>
+                    Travel Services
+                </h2>
+
+                <p>
+                    Plan every part of your trip
+                </p>
+
+            </div>
+
+
+            <div class="card-grid">
+
+
+                <div class="card">
+
+                    <div class="card-icon">
+                        🌍
+                    </div>
+
+                    <h3>
+                        Tourism Details
+                    </h3>
+
+                    <p>
+                        Discover popular destinations,
+                        attractions and travel information.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon">
+                        🍴
+                    </div>
+
+                    <h3>
+                        Food Details
+                    </h3>
+
+                    <p>
+                        Explore famous local dishes and
+                        recommended food places.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon">
+                        🏨
+                    </div>
+
+                    <h3>
+                        Hotel Details
+                    </h3>
+
+                    <p>
+                        Find accommodation and view
+                        available hotel information.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon">
+                        🛣️
+                    </div>
+
+                    <h3>
+                        Route Details
+                    </h3>
+
+                    <p>
+                        View travel routes and plan your
+                        journey between destinations.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     LOGIN
+===================================================== -->
+
+<section id="login" class="page section">
+
+    <div class="form-container">
+
+        <h2>
+            🔐 Wanderlust Login
+        </h2>
+
+        <form onsubmit="loginUser(event)">
+
+            <div class="form-group">
+
+                <label>
+                    Email / Username
+                </label>
+
+                <input type="text"
+                       placeholder="Enter username"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input type="password"
+                       placeholder="Enter password"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Login As
+                </label>
+
+                <select id="loginType">
+
+                    <option>
+                        User
+                    </option>
+
+                    <option>
+                        Administrator
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button class="btn btn-blue">
+
+                Login
+
+            </button>
+
+        </form>
+
+
+        <p style="text-align:center;margin-top:20px;">
+
+            New traveller?
+
+            <a href="#"
+               onclick="showPage('register')">
+
+                Create Account
+
+            </a>
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     REGISTER
+===================================================== -->
+
+<section id="register" class="page section">
+
+    <div class="form-container">
+
+        <h2>
+            👤 Traveller Registration
+        </h2>
+
+
+        <form onsubmit="registerUser(event)">
+
+
+            <div class="form-group">
+
+                <label>
+                    Full Name
+                </label>
+
+                <input type="text"
+                       placeholder="Enter full name"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Email
+                </label>
+
+                <input type="email"
+                       placeholder="Enter email"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Mobile Number
+                </label>
+
+                <input type="tel"
+                       placeholder="Enter mobile number"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Password
+                </label>
+
+                <input type="password"
+                       placeholder="Create password"
+                       required>
+
+            </div>
+
+
+            <button class="btn btn-blue">
+
+                Register
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TOURISM DETAILS
+===================================================== -->
+
+<section id="tourism" class="page section">
+
+    <div class="container">
+
+        <div class="title">
+
+            <h2>
+                🌍 Tourism Destinations
+            </h2>
+
+            <p>
+                Explore popular travel destinations
+            </p>
+
+        </div>
+
+
+        <div class="search-box">
+
+            <input type="text"
+                   id="destinationSearch"
+                   placeholder="Search destination..."
+                   onkeyup="searchDestinations()">
+
+            <button class="btn btn-dark"
+                    onclick="searchDestinations()">
+
+                Search
+
+            </button>
+
+        </div>
+
+
+        <div class="card-grid"
+             id="destinationList">
+
+
+            <div class="card destination-card">
+
+                <div class="destination-img">
+                    🏖️
+                </div>
+
+                <h3>
+                    Goa
+                </h3>
+
+                <p>
+                    Beaches, nightlife and beautiful coastal views.
+                </p>
+
+                <p>
+                    Best Time: November - February
+                </p>
+
+                <button class="btn btn-blue"
+                        onclick="viewTourism('Goa')">
+
+                    View Details
+
+                </button>
+
+            </div>
+
+
+            <div class="card destination-card">
+
+                <div class="destination-img">
+                    🏔️
+                </div>
+
+                <h3>
+                    Manali
+                </h3>
+
+                <p>
+                    Mountains, valleys and scenic landscapes.
+                </p>
+
+                <p>
+                    Best Time: March - June
+                </p>
+
+                <button class="btn btn-blue"
+                        onclick="viewTourism('Manali')">
+
+                    View Details
+
+                </button>
+
+            </div>
+
+
+            <div class="card destination-card">
+
+                <div class="destination-img">
+                    🏰
+                </div>
+
+                <h3>
+                    Jaipur
+                </h3>
+
+                <p>
+                    Forts, palaces and rich cultural heritage.
+                </p>
+
+                <p>
+                    Best Time: October - March
+                </p>
+
+                <button class="btn btn-blue"
+                        onclick="viewTourism('Jaipur')">
+
+                    View Details
+
+                </button>
+
+            </div>
+
+
+            <div class="card destination-card">
+
+                <div class="destination-img">
+                    🌴
+                </div>
+
+                <h3>
+                    Kerala
+                </h3>
+
+                <p>
+                    Backwaters, greenery and beautiful beaches.
+                </p>
+
+                <p>
+                    Best Time: September - March
+                </p>
+
+                <button class="btn btn-blue"
+                        onclick="viewTourism('Kerala')">
+
+                    View Details
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOD DETAILS
+===================================================== -->
+
+<section id="food" class="page section">
+
+    <div class="container">
+
+        <div class="title">
+
+            <h2>
+                🍛 Food Details
+            </h2>
+
+            <p>
+                Explore famous local food and cuisine
+            </p>
+
+        </div>
+
+
+        <div class="card-grid">
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🍛
+                </div>
+
+                <h3>
+                    Goa - Fish Curry
+                </h3>
+
+                <p>
+                    Traditional Goan curry prepared
+                    with local spices and coconut.
+                </p>
+
+                <span class="badge active">
+                    Popular
+                </span>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🥘
+                </div>
+
+                <h3>
+                    Rajasthan - Dal Baati
+                </h3>
+
+                <p>
+                    Traditional Rajasthani dish served
+                    with dal and ghee.
+                </p>
+
+                <span class="badge active">
+                    Popular
+                </span>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🍲
+                </div>
+
+                <h3>
+                    Kerala - Appam
+                </h3>
+
+                <p>
+                    Soft rice pancakes commonly served
+                    with vegetable or meat curry.
+                </p>
+
+                <span class="badge active">
+                    Popular
+                </span>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🍜
+                </div>
+
+                <h3>
+                    Manali - Tibetan Food
+                </h3>
+
+                <p>
+                    Popular Tibetan dishes such as momos
+                    and thukpa.
+                </p>
+
+                <span class="badge active">
+                    Popular
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     HOTEL DETAILS
+===================================================== -->
+
+<section id="hotels" class="page section">
+
+    <div class="container">
+
+        <div class="title">
+
+            <h2>
+                🏨 Hotel Details
+            </h2>
+
+            <p>
+                Find comfortable accommodation
+            </p>
+
+        </div>
+
+
+        <div class="card-grid">
+
+
+            <div class="card">
+
+                <div class="destination-img">
+                    🏨
+                </div>
+
+                <h3>
+                    Sea View Resort
+                </h3>
+
+                <p>
+                    Location: Goa
+                </p>
+
+                <p>
+                    Room: Deluxe
+                </p>
+
+                <p>
+                    Price: ₹3,500 / Night
+                </p>
+
+                <span class="badge active">
+                    Available
+                </span>
+
+                <br>
+
+                <button class="btn btn-blue"
+                        onclick="bookHotel('Sea View Resort')">
+
+                    Book Accommodation
+
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="destination-img">
+                    🏨
+                </div>
+
+                <h3>
+                    Mountain View Hotel
+                </h3>
+
+                <p>
+                    Location: Manali
+                </p>
+
+                <p>
+                    Room: Premium
+                </p>
+
+                <p>
+                    Price: ₹4,200 / Night
+                </p>
+
+                <span class="badge active">
+                    Available
+                </span>
+
+                <br>
+
+                <button class="btn btn-blue"
+                        onclick="bookHotel('Mountain View Hotel')">
+
+                    Book Accommodation
+
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="destination-img">
+                    🏨
+                </div>
+
+                <h3>
+                    Royal Palace Hotel
+                </h3>
+
+                <p>
+                    Location: Jaipur
+                </p>
+
+                <p>
+                    Room: Executive
+                </p>
+
+                <p>
+                    Price: ₹3,800 / Night
+                </p>
+
+                <span class="badge active">
+                    Available
+                </span>
+
+                <br>
+
+                <button class="btn btn-blue"
+                        onclick="bookHotel('Royal Palace Hotel')">
+
+                    Book Accommodation
+
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="destination-img">
+                    🏨
+                </div>
+
+                <h3>
+                    Backwater Resort
+                </h3>
+
+                <p>
+                    Location: Kerala
+                </p>
+
+                <p>
+                    Room: Deluxe
+                </p>
+
+                <p>
+                    Price: ₹4,500 / Night
+                </p>
+
+                <span class="badge active">
+                    Available
+                </span>
+
+                <br>
+
+                <button class="btn btn-blue"
+                        onclick="bookHotel('Backwater Resort')">
+
+                    Book Accommodation
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ROUTE DETAILS
+===================================================== -->
+
+<section id="routes" class="page section">
+
+    <div class="container">
+
+        <div class="title">
+
+            <h2>
+                🛣️ Route Details
+            </h2>
+
+            <p>
+                Plan your travel route
+            </p>
+
+        </div>
+
+
+        <div class="card-grid">
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🛣️
+                </div>
+
+                <h3>
+                    Chennai → Goa
+                </h3>
+
+                <p>
+                    Distance: Approximately 900 km
+                </p>
+
+                <p>
+                    Recommended: Road / Flight
+                </p>
+
+                <button class="btn btn-blue"
+                        onclick="viewRoute('Chennai to Goa')">
+
+                    View Route
+
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🛣️
+                </div>
+
+                <h3>
+                    Delhi → Jaipur
+                </h3>
+
+                <p>
+                    Distance: Approximately 280 km
+                </p>
+
+                <p>
+                    Recommended: Road / Train
+                </p>
+
+                <button class="btn btn-blue"
+                        onclick="viewRoute('Delhi to Jaipur')">
+
+                    View Route
+
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🛣️
+                </div>
+
+                <h3>
+                    Bangalore → Kerala
+                </h3>
+
+                <p>
+                    Distance: Approximately 460 km
+                </p>
+
+                <p>
+                    Recommended: Road / Train
+                </p>
+
+                <button class="btn btn-blue"
+                        onclick="viewRoute('Bangalore to Kerala')">
+
+                    View Route
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     USER DASHBOARD
+===================================================== -->
+
+<section id="user" class="page">
+
+    <div class="dashboard-header">
+
+        <div class="container">
+
+            <h1>
+                👤 Traveller Dashboard
+            </h1>
+
+            <p>
+                Manage your accommodation bookings and travel plans
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="container section">
+
+
+        <div class="dashboard-grid">
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    🏨
+                </div>
+
+                <h2>
+                    2
+                </h2>
+
+                <p>
+                    Bookings
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    🌍
+                </div>
+
+                <h2>
+                    4
+                </h2>
+
+                <p>
+                    Destinations Viewed
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    📅
+                </div>
+
+                <h2>
+                    1
+                </h2>
+
+                <p>
+                    Upcoming Trip
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <h2 style="margin:35px 0 20px;">
+            My Book Accommodation
+        </h2>
+
+
+        <div class="table-box">
+
+            <table>
+
+                <tr>
+
+                    <th>
+                        Booking ID
+                    </th>
+
+                    <th>
+                        Hotel
+                    </th>
+
+                    <th>
+                        Destination
+                    </th>
+
+                    <th>
+                        Check-in
+                    </th>
+
+                    <th>
+                        Check-out
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        WB1001
+                    </td>
+
+                    <td>
+                        Sea View Resort
+                    </td>
+
+                    <td>
+                        Goa
+                    </td>
+
+                    <td>
+                        10-Sep-2026
+                    </td>
+
+                    <td>
+                        13-Sep-2026
+                    </td>
+
+                    <td>
+
+                        <span class="badge active">
+                            Confirmed
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        WB1002
+                    </td>
+
+                    <td>
+                        Mountain View Hotel
+                    </td>
+
+                    <td>
+                        Manali
+                    </td>
+
+                    <td>
+                        20-Oct-2026
+                    </td>
+
+                    <td>
+                        23-Oct-2026
+                    </td>
+
+                    <td>
+
+                        <span class="badge pending">
+                            Pending
+                        </span>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <div class="card"
+             style="margin-top:40px;">
+
+            <h3>
+                👤 My Profile
+            </h3>
+
+            <p>
+                Name: Rahul Kumar
+            </p>
+
+            <p>
+                Email: rahul@email.com
+            </p>
+
+            <p>
+                Mobile: 9876543210
+            </p>
+
+            <button class="btn btn-blue"
+                    onclick="editProfile()">
+
+                Edit Profile
+
+            </button>
+
+            <button class="btn btn-dark"
+                    onclick="logout()">
+
+                Logout
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ADMIN DASHBOARD
+===================================================== -->
+
+<section id="admin" class="page">
+
+    <div class="dashboard-header">
+
+        <div class="container">
+
+            <h1>
+                ⚙ Administrator Dashboard
+            </h1>
+
+            <p>
+                Manage tourism, food, hotels, routes and bookings
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="container section">
+
+
+        <div class="dashboard-grid">
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    🌍
+                </div>
+
+                <h2>
+                    120
+                </h2>
+
+                <p>
+                    Tourism Places
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    🍛
+                </div>
+
+                <h2>
+                    500
+                </h2>
+
+                <p>
+                    Food Places
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    🏨
+                </div>
+
+                <h2>
+                    350
+                </h2>
+
+                <p>
+                    Hotels
+                </p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    📅
+                </div>
+
+                <h2>
+                    2,850
+                </h2>
+
+                <p>
+                    Bookings
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- POST TOURISM DETAILS -->
+
+        <div class="form-container">
+
+            <h2>
+                ➕ Post Tourism Details
+            </h2>
+
+            <form onsubmit="postTourism(event)">
+
+                <div class="form-group">
+
+                    <label>
+                        Destination Name
+                    </label>
+
+                    <input type="text"
+                           id="destinationName"
+                           placeholder="Enter destination"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Description
+                    </label>
+
+                    <textarea
+                        placeholder="Enter tourism description"
+                        required>
+                    </textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Best Time to Visit
+                    </label>
+
+                    <input type="text"
+                           placeholder="Example: October - March"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Tourism Image
+                    </label>
+
+                    <input type="file"
+                           accept="image/*">
+
+                </div>
+
+
+                <button class="btn btn-blue">
+
+                    Post Tourism Details
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- MANAGE FOOD -->
+
+        <h2 style="margin:40px 0 20px;">
+            🍛 Manage Food Details
+        </h2>
+
+
+        <div class="table-box">
+
+            <table>
+
+                <tr>
+
+                    <th>
+                        Food ID
+                    </th>
+
+                    <th>
+                        Food Name
+                    </th>
+
+                    <th>
+                        Location
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        F001
+                    </td>
+
+                    <td>
+                        Goan Fish Curry
+                    </td>
+
+                    <td>
+                        Goa
+                    </td>
+
+                    <td>
+
+                        <span class="badge active">
+                            Active
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-blue"
+                                onclick="editFood(this)">
+
+                            Edit
+
+                        </button>
+
+                        <button class="btn btn-red"
+                                onclick="deleteFood(this)">
+
+                            Delete
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        F002
+                    </td>
+
+                    <td>
+                        Dal Baati
+                    </td>
+
+                    <td>
+                        Jaipur
+                    </td>
+
+                    <td>
+
+                        <span class="badge active">
+                            Active
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-blue"
+                                onclick="editFood(this)">
+
+                            Edit
+
+                        </button>
+
+                        <button class="btn btn-red"
+                                onclick="deleteFood(this)">
+
+                            Delete
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <!-- MANAGE HOTELS -->
+
+        <h2 style="margin:40px 0 20px;">
+            🏨 Manage Hotel Details
+        </h2>
+
+
+        <div class="table-box">
+
+            <table>
+
+                <tr>
+
+                    <th>
+                        Hotel ID
+                    </th>
+
+                    <th>
+                        Hotel Name
+                    </th>
+
+                    <th>
+                        Location
+                    </th>
+
+                    <th>
+                        Price / Night
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        H001
+                    </td>
+
+                    <td>
+                        Sea View Resort
+                    </td>
+
+                    <td>
+                        Goa
+                    </td>
+
+                    <td>
+                        ₹3,500
+                    </td>
+
+                    <td>
+
+                        <span class="badge active">
+                            Available
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-blue"
+                                onclick="editHotel(this)">
+
+                            Edit
+
+                        </button>
+
+                        <button class="btn btn-red"
+                                onclick="deleteHotel(this)">
+
+                            Delete
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        H002
+                    </td>
+
+                    <td>
+                        Mountain View Hotel
+                    </td>
+
+                    <td>
+                        Manali
+                    </td>
+
+                    <td>
+                        ₹4,200
+                    </td>
+
+                    <td>
+
+                        <span class="badge active">
+                            Available
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-blue"
+                                onclick="editHotel(this)">
+
+                            Edit
+
+                        </button>
+
+                        <button class="btn btn-red"
+                                onclick="deleteHotel(this)">
+
+                            Delete
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <!-- MANAGE ROUTES -->
+
+        <h2 style="margin:40px 0 20px;">
+            🛣️ Manage Route Details
+        </h2>
+
+
+        <div class="table-box">
+
+            <table>
+
+                <tr>
+
+                    <th>
+                        Route ID
+                    </th>
+
+                    <th>
+                        From
+                    </th>
+
+                    <th>
+                        To
+                    </th>
+
+                    <th>
+                        Distance
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        R001
+                    </td>
+
+                    <td>
+                        Chennai
+                    </td>
+
+                    <td>
+                        Goa
+                    </td>
+
+                    <td>
+                        900 km
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-blue"
+                                onclick="editRoute(this)">
+
+                            Edit
+
+                        </button>
+
+                        <button class="btn btn-red"
+                                onclick="deleteRoute(this)">
+
+                            Delete
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        R002
+                    </td>
+
+                    <td>
+                        Delhi
+                    </td>
+
+                    <td>
+                        Jaipur
+                    </td>
+
+                    <td>
+                        280 km
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-blue"
+                                onclick="editRoute(this)">
+
+                            Edit
+
+                        </button>
+
+                        <button class="btn btn-red"
+                                onclick="deleteRoute(this)">
+
+                            Delete
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <!-- VIEW BOOKINGS -->
+
+        <h2 style="margin:40px 0 20px;">
+            📅 View Booking Details
+        </h2>
+
+
+        <div class="table-box">
+
+            <table>
+
+                <tr>
+
+                    <th>
+                        Booking ID
+                    </th>
+
+                    <th>
+                        User
+                    </th>
+
+                    <th>
+                        Hotel
+                    </th>
+
+                    <th>
+                        Destination
+                    </th>
+
+                    <th>
+                        Check-in
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        WB1001
+                    </td>
+
+                    <td>
+                        Rahul Kumar
+                    </td>
+
+                    <td>
+                        Sea View Resort
+                    </td>
+
+                    <td>
+                        Goa
+                    </td>
+
+                    <td>
+                        10-Sep-2026
+                    </td>
+
+                    <td>
+
+                        <span class="badge pending">
+                            Pending
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-green"
+                                onclick="approveBooking(this)">
+
+                            Approve
+
+                        </button>
+
+                        <button class="btn btn-red"
+                                onclick="rejectBooking(this)">
+
+                            Reject
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>
+                        WB1002
+                    </td>
+
+                    <td>
+                        Ananya Sharma
+                    </td>
+
+                    <td>
+                        Mountain View Hotel
+                    </td>
+
+                    <td>
+                        Manali
+                    </td>
+
+                    <td>
+                        20-Oct-2026
+                    </td>
+
+                    <td>
+
+                        <span class="badge pending">
+                            Pending
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-green"
+                                onclick="approveBooking(this)">
+
+                            Approve
+
+                        </button>
+
+                        <button class="btn btn-red"
+                                onclick="rejectBooking(this)">
+
+                            Reject
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <h3>
+        ✈️ Wanderlust Travels
+    </h3>
+
+    <p>
+        Online Tourism and Accommodation Management System
+    </p>
+
+    <p>
+        © 2026 Wanderlust Travels. All Rights Reserved.
+    </p>
+
+</footer>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
+function showPage(pageId){
+
+    const pages =
+        document.querySelectorAll(".page");
+
+    pages.forEach(function(page){
+
+        page.classList.remove("active");
+
+    });
+
+
+    const selected =
+        document.getElementById(pageId);
+
+    if(selected){
+
+        selected.classList.add("active");
+
+    }
+
+
+    window.scrollTo({
+
+        top:0,
+        behavior:"smooth"
+
+    });
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function loginUser(event){
+
+    event.preventDefault();
+
+
+    const type =
+        document.getElementById("loginType").value;
+
+
+    alert(
+        "Login successful!\n\n" +
+        "Logged in as: " + type
+    );
+
+
+    if(type === "Administrator"){
+
+        showPage("admin");
+
+    }
+
+    else{
+
+        showPage("user");
+
+    }
+
+}
+
+
+/* =========================
+   REGISTER
+========================= */
+
+function registerUser(event){
+
+    event.preventDefault();
+
+
+    alert(
+        "Registration successful!\n\n" +
+        "Your Wanderlust Travels account has been created."
+    );
+
+
+    event.target.reset();
+
+
+    showPage("login");
+
+}
+
+
+/* =========================
+   SEARCH DESTINATIONS
+========================= */
+
+function searchDestinations(){
+
+    const search =
+        document.getElementById("destinationSearch")
+        .value
+        .toLowerCase();
+
+
+    const destinations =
+        document.querySelectorAll(".destination-card");
+
+
+    destinations.forEach(function(destination){
+
+        const text =
+            destination.innerText.toLowerCase();
+
+
+        if(text.includes(search)){
+
+            destination.style.display="block";
+
+        }
+
+        else{
+
+            destination.style.display="none";
+
+        }
+
+    });
+
+}
+
+
+/* =========================
+   VIEW TOURISM
+========================= */
+
+function viewTourism(place){
+
+    alert(
+        "Tourism Details\n\n" +
+        "Destination: " + place +
+        "\n\nAttractions, travel recommendations " +
+        "and itinerary information can be viewed here."
+    );
+
+}
+
+
+/* =========================
+   BOOK HOTEL
+========================= */
+
+function bookHotel(hotel){
+
+    const confirmBooking =
+        confirm(
+            "Do you want to book:\n\n" +
+            hotel + "?"
+        );
+
+
+    if(confirmBooking){
+
+        const bookingId =
+            "WB" +
+            Math.floor(
+                1000 + Math.random()*9000
+            );
+
+
+        alert(
+            "Accommodation booking submitted successfully!\n\n" +
+            "Booking ID: " + bookingId +
+            "\nHotel: " + hotel +
+            "\nStatus: Pending Approval"
+        );
+
+
+        showPage("user");
+
+    }
+
+}
+
+
+/* =========================
+   VIEW ROUTE
+========================= */
+
+function viewRoute(route){
+
+    alert(
+        "Route Details\n\n" +
+        route +
+        "\n\nTravel route information displayed successfully."
+    );
+
+}
+
+
+/* =========================
+   POST TOURISM
+========================= */
+
+function postTourism(event){
+
+    event.preventDefault();
+
+
+    const name =
+        document.getElementById("destinationName")
+        .value;
+
+
+    alert(
+        "Tourism details posted successfully!\n\n" +
+        "Destination: " + name
+    );
+
+
+    event.target.reset();
+
+}
+
+
+/* =========================
+   EDIT FOOD
+========================= */
+
+function editFood(button){
+
+    alert(
+        "Food details can now be updated."
+    );
+
+}
+
+
+/* =========================
+   DELETE FOOD
+========================= */
+
+function deleteFood(button){
+
+    const row =
+        button.closest("tr");
+
+
+    if(confirm(
+        "Are you sure you want to delete this food entry?"
+    )){
+
+        row.remove();
+
+
+        alert(
+            "Food details deleted successfully."
+        );
+
+    }
+
+}
+
+
+/* =========================
+   EDIT HOTEL
+========================= */
+
+function editHotel(button){
+
+    alert(
+        "Hotel details can now be updated."
+    );
+
+}
+
+
+/* =========================
+   DELETE HOTEL
+========================= */
+
+function deleteHotel(button){
+
+    const row =
+        button.closest("tr");
+
+
+    if(confirm(
+        "Are you sure you want to delete this hotel?"
+    )){
+
+        row.remove();
+
+
+        alert(
+            "Hotel deleted successfully."
+        );
+
+    }
+
+}
+
+
+/* =========================
+   EDIT ROUTE
+========================= */
+
+function editRoute(button){
+
+    alert(
+        "Route details can now be updated."
+    );
+
+}
+
+
+/* =========================
+   DELETE ROUTE
+========================= */
+
+function deleteRoute(button){
+
+    const row =
+        button.closest("tr");
+
+
+    if(confirm(
+        "Are you sure you want to delete this route?"
+    )){
+
+        row.remove();
+
+
+        alert(
+            "Route deleted successfully."
+        );
+
+    }
+
+}
+
+
+/* =========================
+   APPROVE BOOKING
+========================= */
+
+function approveBooking(button){
+
+    const row =
+        button.closest("tr");
+
+
+    row.cells[5].innerHTML =
+        '<span class="badge active">Approved</span>';
+
+
+    alert(
+        "Accommodation booking approved successfully."
+    );
+
+}
+
+
+/* =========================
+   REJECT BOOKING
+========================= */
+
+function rejectBooking(button){
+
+    const row =
+        button.closest("tr");
+
+
+    row.cells[5].innerHTML =
+        '<span class="badge cancelled">Rejected</span>';
+
+
+    alert(
+        "Accommodation booking rejected."
+    );
+
+}
+
+
+/* =========================
+   EDIT PROFILE
+========================= */
+
+function editProfile(){
+
+    alert(
+        "Profile editing option opened.\n\n" +
+        "You can update your personal details."
+    );
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout(){
+
+    alert(
+        "You have been logged out successfully."
+    );
+
+
+    showPage("home");
+
+}
+
+</script>
+
+</body>
+</html>
