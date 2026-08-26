@@ -1,0 +1,2084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EasyToll - Online Toll Payment System</title>
+
+<style>
+
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#f5f7fa;
+    color:#263238;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.container{
+    width:88%;
+    max-width:1200px;
+    margin:auto;
+}
+
+section{
+    min-height:500px;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+    background:#111827;
+    color:white;
+    padding:17px 6%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 3px 15px rgba(0,0,0,.2);
+}
+
+.logo{
+    font-size:25px;
+    font-weight:bold;
+}
+
+.logo span{
+    color:#f59e0b;
+}
+
+.nav-links{
+    list-style:none;
+    display:flex;
+    gap:20px;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.nav-links a:hover{
+    color:#f59e0b;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:560px;
+    display:flex;
+    align-items:center;
+    background:
+    linear-gradient(
+        120deg,
+        #111827,
+        #1f2937,
+        #374151
+    );
+    color:white;
+}
+
+.hero-content{
+    width:88%;
+    max-width:1200px;
+    margin:auto;
+}
+
+.hero h1{
+    font-size:52px;
+    max-width:700px;
+    margin-bottom:20px;
+}
+
+.hero h1 span{
+    color:#f59e0b;
+}
+
+.hero p{
+    max-width:650px;
+    line-height:1.8;
+    color:#d1d5db;
+    font-size:18px;
+}
+
+.hero-buttons{
+    margin-top:25px;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn{
+    border:none;
+    padding:12px 21px;
+    border-radius:7px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+.btn-orange{
+    background:#f59e0b;
+    color:#111827;
+}
+
+.btn-orange:hover{
+    background:#d97706;
+    color:white;
+}
+
+.btn-dark{
+    background:#111827;
+    color:white;
+}
+
+.btn-green{
+    background:#16a34a;
+    color:white;
+}
+
+.btn-red{
+    background:#dc2626;
+    color:white;
+}
+
+.btn-blue{
+    background:#2563eb;
+    color:white;
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+    padding:60px 0;
+}
+
+.title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.title h2{
+    color:#111827;
+    font-size:32px;
+}
+
+.title p{
+    margin-top:8px;
+    color:#6b7280;
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+
+.stat{
+    background:white;
+    padding:28px;
+    text-align:center;
+    border-radius:12px;
+    box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+.stat-icon{
+    font-size:35px;
+    margin-bottom:10px;
+}
+
+.stat h2{
+    color:#111827;
+    font-size:30px;
+}
+
+.stat p{
+    color:#6b7280;
+    margin-top:5px;
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
+.card-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(230px,1fr));
+    gap:22px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+.card:hover{
+    transform:translateY(-3px);
+    transition:.2s;
+}
+
+.card h3{
+    color:#111827;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#6b7280;
+    line-height:1.6;
+}
+
+.card-icon{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+
+/* =========================
+   FORMS
+========================= */
+
+.form-container{
+    max-width:550px;
+    margin:50px auto;
+    background:white;
+    padding:35px;
+    border-radius:13px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.form-container h2{
+    text-align:center;
+    margin-bottom:25px;
+    color:#111827;
+}
+
+.form-group{
+    margin-bottom:17px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.form-group input,
+.form-group select{
+    width:100%;
+    padding:13px;
+    border:1px solid #d1d5db;
+    border-radius:7px;
+    outline:none;
+}
+
+.form-group input:focus,
+.form-group select:focus{
+    border-color:#f59e0b;
+}
+
+.form-container .btn{
+    width:100%;
+}
+
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard-header{
+    background:#111827;
+    color:white;
+    padding:38px 0;
+}
+
+.dashboard-header h1{
+    margin-bottom:7px;
+}
+
+.dashboard-header p{
+    color:#d1d5db;
+}
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin:35px 0;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table-box{
+    background:white;
+    border-radius:10px;
+    overflow-x:auto;
+    box-shadow:0 3px 15px rgba(0,0,0,.07);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:14px;
+    text-align:left;
+    border-bottom:1px solid #e5e7eb;
+}
+
+th{
+    background:#111827;
+    color:white;
+}
+
+tr:hover{
+    background:#f9fafb;
+}
+
+
+/* =========================
+   BADGES
+========================= */
+
+.badge{
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.active{
+    background:#dcfce7;
+    color:#15803d;
+}
+
+.pending{
+    background:#fef3c7;
+    color:#b45309;
+}
+
+.expired{
+    background:#fee2e2;
+    color:#b91c1c;
+}
+
+
+/* =========================
+   WALLET
+========================= */
+
+.wallet{
+    background:#111827;
+    color:white;
+    padding:30px;
+    border-radius:15px;
+    margin-bottom:25px;
+}
+
+.wallet h2{
+    color:#f59e0b;
+    font-size:35px;
+    margin-top:8px;
+}
+
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-box{
+    display:flex;
+    gap:10px;
+    margin-bottom:30px;
+}
+
+.search-box input{
+    flex:1;
+    padding:14px;
+    border:1px solid #d1d5db;
+    border-radius:7px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    background:#111827;
+    color:white;
+    text-align:center;
+    padding:30px;
+    margin-top:40px;
+}
+
+footer p{
+    color:#9ca3af;
+    margin-top:8px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:800px){
+
+    .navbar{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    .nav-links{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .hero h1{
+        font-size:37px;
+    }
+
+    .search-box{
+        flex-direction:column;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        🚗 Easy<span>Toll</span>
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+            <a onclick="showPage('home')">Home</a>
+        </li>
+
+        <li>
+            <a onclick="showPage('tolls')">Toll Gates</a>
+        </li>
+
+        <li>
+            <a onclick="showPage('wallet')">eWallet</a>
+        </li>
+
+        <li>
+            <a onclick="showPage('user')">My Account</a>
+        </li>
+
+        <li>
+            <a onclick="showPage('admin')">Admin</a>
+        </li>
+
+        <li>
+            <a onclick="showPage('gate')">Toll Gate</a>
+        </li>
+
+        <li>
+            <a onclick="showPage('login')">Login</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section id="home" class="page active">
+
+    <div class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+                Travel Faster with
+                <span>EasyToll</span>
+            </h1>
+
+            <p>
+                Pay your toll charges online, manage toll passes,
+                purchase eTickets and use QR-based verification
+                without waiting in long queues at toll gates.
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="btn btn-orange"
+                        onclick="showPage('wallet')">
+                    💳 Pay Toll
+                </button>
+
+                <button class="btn btn-dark"
+                        onclick="showPage('tolls')">
+                    🔎 Find Toll Gate
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="container">
+
+            <div class="title">
+
+                <h2>EasyToll at a Glance</h2>
+
+                <p>
+                    Simple and convenient toll management
+                </p>
+
+            </div>
+
+
+            <div class="stats">
+
+                <div class="stat">
+
+                    <div class="stat-icon">🚧</div>
+
+                    <h2>48</h2>
+
+                    <p>Toll Gates</p>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">👥</div>
+
+                    <h2>12,540</h2>
+
+                    <p>Registered Users</p>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">🎫</div>
+
+                    <h2>8,420</h2>
+
+                    <p>Active Toll Passes</p>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-icon">💰</div>
+
+                    <h2>25K+</h2>
+
+                    <p>Successful Payments</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="container">
+
+            <div class="title">
+
+                <h2>Our Services</h2>
+
+                <p>Everything you need for electronic toll payments</p>
+
+            </div>
+
+
+            <div class="card-grid">
+
+                <div class="card">
+
+                    <div class="card-icon">💳</div>
+
+                    <h3>eWallet</h3>
+
+                    <p>
+                        Add money to your wallet and use it
+                        to pay toll charges quickly.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon">🎫</div>
+
+                    <h3>Toll eTicket</h3>
+
+                    <p>
+                        Purchase digital toll tickets before
+                        starting your journey.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon">📱</div>
+
+                    <h3>QR Toll Pass</h3>
+
+                    <p>
+                        Generate and use QR codes for
+                        quick toll verification.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-icon">🔄</div>
+
+                    <h3>Toll Pass Renewal</h3>
+
+                    <p>
+                        Apply for a new pass or renew
+                        your existing toll pass online.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     LOGIN
+===================================================== -->
+
+<section id="login" class="page section">
+
+    <div class="form-container">
+
+        <h2>🔐 EasyToll Login</h2>
+
+        <form onsubmit="loginUser(event)">
+
+            <div class="form-group">
+
+                <label>Email / Username</label>
+
+                <input type="text"
+                       placeholder="Enter username"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Password</label>
+
+                <input type="password"
+                       placeholder="Enter password"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Login As</label>
+
+                <select id="loginType">
+
+                    <option>User</option>
+                    <option>Administrator</option>
+                    <option>Toll Gate User</option>
+
+                </select>
+
+            </div>
+
+
+            <button class="btn btn-orange">
+
+                Login
+
+            </button>
+
+        </form>
+
+
+        <p style="text-align:center;margin-top:20px;">
+
+            New user?
+
+            <a href="#"
+               onclick="showPage('register')">
+
+               Create Account
+
+            </a>
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     REGISTER
+===================================================== -->
+
+<section id="register" class="page section">
+
+    <div class="form-container">
+
+        <h2>👤 User Registration</h2>
+
+        <form onsubmit="registerUser(event)">
+
+            <div class="form-group">
+
+                <label>Full Name</label>
+
+                <input type="text"
+                       placeholder="Enter full name"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Email</label>
+
+                <input type="email"
+                       placeholder="Enter email"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Mobile Number</label>
+
+                <input type="tel"
+                       placeholder="Enter mobile number"
+                       required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Password</label>
+
+                <input type="password"
+                       placeholder="Create password"
+                       required>
+
+            </div>
+
+
+            <button class="btn btn-orange">
+
+                Register
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TOLL GATES
+===================================================== -->
+
+<section id="tolls" class="page section">
+
+    <div class="container">
+
+        <div class="title">
+
+            <h2>🚧 Toll Gate Directory</h2>
+
+            <p>
+                Search toll gates and view toll information
+            </p>
+
+        </div>
+
+
+        <div class="search-box">
+
+            <input type="text"
+                   id="tollSearch"
+                   placeholder="Search toll gate or location..."
+                   onkeyup="searchTolls()">
+
+            <button class="btn btn-dark"
+                    onclick="searchTolls()">
+
+                Search
+
+            </button>
+
+        </div>
+
+
+        <div class="card-grid"
+             id="tollList">
+
+
+            <div class="card toll-card">
+
+                <div class="card-icon">🚧</div>
+
+                <h3>Chennai Toll Gate</h3>
+
+                <p>
+                    Location: Chennai - Bangalore Highway
+                </p>
+
+                <p>
+                    Toll Fee: ₹120
+                </p>
+
+                <span class="badge active">
+                    Open
+                </span>
+
+            </div>
+
+
+            <div class="card toll-card">
+
+                <div class="card-icon">🚧</div>
+
+                <h3>Madurai Toll Gate</h3>
+
+                <p>
+                    Location: Madurai - Trichy Highway
+                </p>
+
+                <p>
+                    Toll Fee: ₹100
+                </p>
+
+                <span class="badge active">
+                    Open
+                </span>
+
+            </div>
+
+
+            <div class="card toll-card">
+
+                <div class="card-icon">🚧</div>
+
+                <h3>Salem Toll Gate</h3>
+
+                <p>
+                    Location: Salem Highway
+                </p>
+
+                <p>
+                    Toll Fee: ₹90
+                </p>
+
+                <span class="badge active">
+                    Open
+                </span>
+
+            </div>
+
+
+            <div class="card toll-card">
+
+                <div class="card-icon">🚧</div>
+
+                <h3>Coimbatore Toll Gate</h3>
+
+                <p>
+                    Location: Coimbatore Bypass
+                </p>
+
+                <p>
+                    Toll Fee: ₹110
+                </p>
+
+                <span class="badge active">
+                    Open
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     USER DASHBOARD
+===================================================== -->
+
+<section id="user" class="page">
+
+    <div class="dashboard-header">
+
+        <div class="container">
+
+            <h1>👤 User Dashboard</h1>
+
+            <p>
+                Manage your toll passes, tickets and wallet
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="container section">
+
+
+        <div class="wallet">
+
+            <p>Available eWallet Balance</p>
+
+            <h2 id="balance">
+                ₹1,250
+            </h2>
+
+            <button class="btn btn-orange"
+                    onclick="addMoney()">
+
+                + Add Money
+
+            </button>
+
+        </div>
+
+
+        <div class="dashboard-grid">
+
+
+            <div class="stat">
+
+                <div class="stat-icon">🎫</div>
+
+                <h2>2</h2>
+
+                <p>Active Toll Passes</p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">🚗</div>
+
+                <h2>1</h2>
+
+                <p>Registered Vehicles</p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">💰</div>
+
+                <h2>₹2,450</h2>
+
+                <p>Total Payments</p>
+
+            </div>
+
+        </div>
+
+
+        <h2 style="margin:35px 0 20px;">
+            My Toll Passes
+        </h2>
+
+
+        <div class="table-box">
+
+            <table>
+
+                <tr>
+
+                    <th>Pass ID</th>
+                    <th>Vehicle</th>
+                    <th>Valid From</th>
+                    <th>Valid Until</th>
+                    <th>Status</th>
+                    <th>QR</th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>TP10045</td>
+                    <td>TN 01 AB 1234</td>
+                    <td>01-Aug-2026</td>
+                    <td>31-Aug-2026</td>
+
+                    <td>
+                        <span class="badge active">
+                            Active
+                        </span>
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-orange"
+                                onclick="generateQR()">
+
+                            QR
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>TP10012</td>
+                    <td>TN 05 XY 4589</td>
+                    <td>01-Aug-2026</td>
+                    <td>31-Aug-2026</td>
+
+                    <td>
+                        <span class="badge pending">
+                            Pending
+                        </span>
+                    </td>
+
+                    <td>--</td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <h2 style="margin:40px 0 20px;">
+            Recent Transactions
+        </h2>
+
+
+        <div class="table-box">
+
+            <table>
+
+                <tr>
+
+                    <th>Date</th>
+                    <th>Toll Gate</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>25-Aug-2026</td>
+                    <td>Chennai Toll Gate</td>
+                    <td>₹120</td>
+
+                    <td>
+                        <span class="badge active">
+                            Paid
+                        </span>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>22-Aug-2026</td>
+                    <td>Salem Toll Gate</td>
+                    <td>₹90</td>
+
+                    <td>
+                        <span class="badge active">
+                            Paid
+                        </span>
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     EWALLET
+===================================================== -->
+
+<section id="wallet" class="page section">
+
+    <div class="container">
+
+        <div class="title">
+
+            <h2>💳 eWallet & Toll Payment</h2>
+
+            <p>
+                Add money and purchase toll tickets
+            </p>
+
+        </div>
+
+
+        <div class="form-container">
+
+            <h2>Add Money</h2>
+
+            <form onsubmit="walletPayment(event)">
+
+                <div class="form-group">
+
+                    <label>Amount</label>
+
+                    <input type="number"
+                           id="money"
+                           placeholder="Enter amount"
+                           min="10"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Payment Method</label>
+
+                    <select>
+
+                        <option>UPI</option>
+                        <option>Debit Card</option>
+                        <option>Credit Card</option>
+                        <option>Net Banking</option>
+
+                    </select>
+
+                </div>
+
+
+                <button class="btn btn-orange">
+
+                    Add Money
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <div class="form-container">
+
+            <h2>🎫 Buy Toll eTicket</h2>
+
+            <form onsubmit="buyTicket(event)">
+
+                <div class="form-group">
+
+                    <label>Toll Gate</label>
+
+                    <select>
+
+                        <option>Chennai Toll Gate - ₹120</option>
+                        <option>Madurai Toll Gate - ₹100</option>
+                        <option>Salem Toll Gate - ₹90</option>
+                        <option>Coimbatore Toll Gate - ₹110</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Vehicle Number</label>
+
+                    <input type="text"
+                           placeholder="TN 01 AB 1234"
+                           required>
+
+                </div>
+
+
+                <button class="btn btn-green">
+
+                    Purchase Ticket
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ADMIN DASHBOARD
+===================================================== -->
+
+<section id="admin" class="page">
+
+    <div class="dashboard-header">
+
+        <div class="container">
+
+            <h1>⚙ Administrator Dashboard</h1>
+
+            <p>
+                Manage users, toll passes, gates and payments
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="container section">
+
+
+        <div class="dashboard-grid">
+
+            <div class="stat">
+
+                <h2>12,540</h2>
+
+                <p>Users</p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <h2>48</h2>
+
+                <p>Toll Gates</p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <h2>8,420</h2>
+
+                <p>Active Passes</p>
+
+            </div>
+
+
+            <div class="stat">
+
+                <h2>₹8.5L</h2>
+
+                <p>Total Collection</p>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-container">
+
+            <h2>➕ Create Toll Details</h2>
+
+            <form onsubmit="createToll(event)">
+
+                <div class="form-group">
+
+                    <label>Toll Gate Name</label>
+
+                    <input type="text"
+                           placeholder="Enter toll gate name"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Location</label>
+
+                    <input type="text"
+                           placeholder="Enter location"
+                           required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Toll Fee</label>
+
+                    <input type="number"
+                           placeholder="Enter fee"
+                           required>
+
+                </div>
+
+
+                <button class="btn btn-orange">
+
+                    Create Toll
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <h2 style="margin:40px 0 20px;">
+            Toll Pass Approvals
+        </h2>
+
+
+        <div class="table-box">
+
+            <table>
+
+                <tr>
+
+                    <th>User</th>
+                    <th>Vehicle</th>
+                    <th>Pass Type</th>
+                    <th>Status</th>
+                    <th>Action</th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>Rahul Kumar</td>
+                    <td>TN 01 AB 1234</td>
+                    <td>Monthly</td>
+
+                    <td>
+                        <span class="badge pending">
+                            Pending
+                        </span>
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-green"
+                                onclick="approvePass(this)">
+
+                            Approve
+
+                        </button>
+
+                        <button class="btn btn-red"
+                                onclick="rejectPass(this)">
+
+                            Reject
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>Ananya Sharma</td>
+                    <td>TN 05 XY 4589</td>
+                    <td>Monthly</td>
+
+                    <td>
+                        <span class="badge pending">
+                            Pending
+                        </span>
+                    </td>
+
+                    <td>
+
+                        <button class="btn btn-green"
+                                onclick="approvePass(this)">
+
+                            Approve
+
+                        </button>
+
+                        <button class="btn btn-red"
+                                onclick="rejectPass(this)">
+
+                            Reject
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <h2 style="margin:40px 0 20px;">
+            Registered Users
+        </h2>
+
+
+        <div class="table-box">
+
+            <table>
+
+                <tr>
+
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Vehicle</th>
+                    <th>Status</th>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>U001</td>
+                    <td>Rahul Kumar</td>
+                    <td>rahul@email.com</td>
+                    <td>TN 01 AB 1234</td>
+
+                    <td>
+                        <span class="badge active">
+                            Active
+                        </span>
+                    </td>
+
+                </tr>
+
+
+                <tr>
+
+                    <td>U002</td>
+                    <td>Ananya Sharma</td>
+                    <td>ananya@email.com</td>
+                    <td>TN 05 XY 4589</td>
+
+                    <td>
+                        <span class="badge active">
+                            Active
+                        </span>
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TOLL GATE USER
+===================================================== -->
+
+<section id="gate" class="page">
+
+    <div class="dashboard-header">
+
+        <div class="container">
+
+            <h1>🚧 Toll Gate Control</h1>
+
+            <p>
+                Verify toll passes and tickets
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="container section">
+
+
+        <div class="form-container">
+
+            <h2>📱 Scan / Verify QR</h2>
+
+            <form onsubmit="verifyQR(event)">
+
+                <div class="form-group">
+
+                    <label>QR / Pass ID</label>
+
+                    <input type="text"
+                           id="qrInput"
+                           placeholder="Enter Pass ID or QR value"
+                           required>
+
+                </div>
+
+
+                <button class="btn btn-orange">
+
+                    Verify Pass
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <div class="card-grid">
+
+            <div class="card">
+
+                <div class="card-icon">🔐</div>
+
+                <h3>Verify Toll Pass</h3>
+
+                <p>
+                    Verify whether the customer's toll pass
+                    is valid and active.
+                </p>
+
+                <button class="btn btn-dark"
+                        onclick="verifyPass()">
+
+                    Verify
+
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">🎫</div>
+
+                <h3>Verify Toll Ticket</h3>
+
+                <p>
+                    Check digital ticket information
+                    before allowing vehicle entry.
+                </p>
+
+                <button class="btn btn-dark"
+                        onclick="verifyTicket()">
+
+                    Check Ticket
+
+                </button>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">📍</div>
+
+                <h3>Update Location</h3>
+
+                <p>
+                    Update the current toll gate
+                    location in the system.
+                </p>
+
+                <button class="btn btn-blue"
+                        onclick="updateLocation()">
+
+                    Update
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <h3>
+        🚗 EasyToll
+    </h3>
+
+    <p>
+        Smart Online Toll Payment & Pass Management System
+    </p>
+
+    <p>
+        © 2026 EasyToll. All Rights Reserved.
+    </p>
+
+</footer>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
+function showPage(pageId){
+
+    const pages =
+        document.querySelectorAll(".page");
+
+    pages.forEach(function(page){
+
+        page.classList.remove("active");
+
+    });
+
+    const selected =
+        document.getElementById(pageId);
+
+    if(selected){
+
+        selected.classList.add("active");
+
+    }
+
+    window.scrollTo({
+
+        top:0,
+        behavior:"smooth"
+
+    });
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+function loginUser(event){
+
+    event.preventDefault();
+
+    const type =
+        document.getElementById("loginType").value;
+
+    alert(
+        "Login successful!\n\n" +
+        "Logged in as: " + type
+    );
+
+    if(type === "Administrator"){
+
+        showPage("admin");
+
+    }
+
+    else if(type === "Toll Gate User"){
+
+        showPage("gate");
+
+    }
+
+    else{
+
+        showPage("user");
+
+    }
+
+}
+
+
+/* =========================
+   REGISTER
+========================= */
+
+function registerUser(event){
+
+    event.preventDefault();
+
+    alert(
+        "Registration successful!\n\n" +
+        "Your EasyToll account has been created."
+    );
+
+    event.target.reset();
+
+    showPage("login");
+
+}
+
+
+/* =========================
+   TOLL SEARCH
+========================= */
+
+function searchTolls(){
+
+    const search =
+        document.getElementById("tollSearch")
+        .value
+        .toLowerCase();
+
+    const tolls =
+        document.querySelectorAll(".toll-card");
+
+    tolls.forEach(function(toll){
+
+        const text =
+            toll.innerText.toLowerCase();
+
+        if(text.includes(search)){
+
+            toll.style.display="block";
+
+        }
+
+        else{
+
+            toll.style.display="none";
+
+        }
+
+    });
+
+}
+
+
+/* =========================
+   ADD MONEY
+========================= */
+
+function addMoney(){
+
+    const amount =
+        prompt("Enter amount to add:");
+
+    if(amount && Number(amount) > 0){
+
+        alert(
+            "₹" + amount +
+            " added successfully to your eWallet."
+        );
+
+    }
+
+}
+
+
+/* =========================
+   WALLET PAYMENT
+========================= */
+
+function walletPayment(event){
+
+    event.preventDefault();
+
+    const amount =
+        document.getElementById("money").value;
+
+    alert(
+        "Payment successful!\n\n" +
+        "₹" + amount +
+        " added to your eWallet."
+    );
+
+    event.target.reset();
+
+}
+
+
+/* =========================
+   BUY TICKET
+========================= */
+
+function buyTicket(event){
+
+    event.preventDefault();
+
+    const ticket =
+        "ET" +
+        Math.floor(
+            100000 + Math.random()*900000
+        );
+
+    alert(
+        "Toll eTicket purchased successfully!\n\n" +
+        "Ticket ID: " + ticket +
+        "\nStatus: Confirmed"
+    );
+
+    event.target.reset();
+
+}
+
+
+/* =========================
+   GENERATE QR
+========================= */
+
+function generateQR(){
+
+    alert(
+        "QR Code Generated Successfully!\n\n" +
+        "Pass ID: TP10045\n" +
+        "Status: Active"
+    );
+
+}
+
+
+/* =========================
+   ADMIN CREATE TOLL
+========================= */
+
+function createToll(event){
+
+    event.preventDefault();
+
+    alert(
+        "Toll gate details created successfully."
+    );
+
+    event.target.reset();
+
+}
+
+
+/* =========================
+   APPROVE PASS
+========================= */
+
+function approvePass(button){
+
+    const row =
+        button.closest("tr");
+
+    row.cells[3].innerHTML =
+        '<span class="badge active">Approved</span>';
+
+    alert(
+        "Toll pass approved successfully."
+    );
+
+}
+
+
+/* =========================
+   REJECT PASS
+========================= */
+
+function rejectPass(button){
+
+    const row =
+        button.closest("tr");
+
+    row.cells[3].innerHTML =
+        '<span class="badge expired">Rejected</span>';
+
+    alert(
+        "Toll pass rejected."
+    );
+
+}
+
+
+/* =========================
+   VERIFY QR
+========================= */
+
+function verifyQR(event){
+
+    event.preventDefault();
+
+    const value =
+        document.getElementById("qrInput").value;
+
+    alert(
+        "QR Verification Successful!\n\n" +
+        "ID: " + value +
+        "\nStatus: VALID\n" +
+        "Vehicle: TN 01 AB 1234"
+    );
+
+    event.target.reset();
+
+}
+
+
+/* =========================
+   VERIFY PASS
+========================= */
+
+function verifyPass(){
+
+    alert(
+        "Toll Pass Verification\n\n" +
+        "Pass ID: TP10045\n" +
+        "Status: ACTIVE\n" +
+        "Vehicle: TN 01 AB 1234"
+    );
+
+}
+
+
+/* =========================
+   VERIFY TICKET
+========================= */
+
+function verifyTicket(){
+
+    alert(
+        "Toll Ticket Verification\n\n" +
+        "Ticket Status: VALID\n" +
+        "Payment Status: PAID"
+    );
+
+}
+
+
+/* =========================
+   UPDATE LOCATION
+========================= */
+
+function updateLocation(){
+
+    const location =
+        prompt("Enter current toll gate location:");
+
+    if(location){
+
+        alert(
+            "Toll location updated successfully.\n\n" +
+            "Location: " + location
+        );
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
